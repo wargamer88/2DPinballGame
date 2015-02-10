@@ -10,15 +10,11 @@ public class MyGame : Game
 		new MyGame().Start();
 	}
 
-
-
-	private List<NLineSegment> _lines;
 	private OuterCircle _outerCircle;
     private Ball _ball;
+    private Collisions _collisions = new Collisions();
 
     private Vec2 _gravity = new Vec2(0,1);
-
-    private List<Ball> _linecaps;
 
 	private Vec2 _previousPosition;
 	private Canvas _canvas;
@@ -55,27 +51,10 @@ public class MyGame : Game
         if (_ball.velocity.x < -maxSpeed) _ball.velocity.x = -maxSpeed;
         if (_ball.velocity.y < -maxSpeed) _ball.velocity.y = -maxSpeed;
 
-        OuterCircleCollisionTest(_outerCircle);
+        _ball = _collisions.OuterCircleCollisionTest(_outerCircle, _ball);
 
 		_previousPosition = _ball.position.Clone ();
 	}
-
-    void OuterCircleCollisionTest(OuterCircle OC)
-    {
-        Vec2 Difference = OC.position.Clone().Sub(_ball.position.Clone());
-        float distance = Difference.Length();
-
-        if (distance > (_ball.radius + OC.radius))
-        {
-            float separation = _ball.radius + OC.radius - distance;
-            Vec2 normal = Difference.Normalize();
-            Vec2 impulse = normal.Clone().Scale(separation);
-
-            _ball.position.Sub(impulse);
-            _ball.velocity.Reflect(normal);
-
-        }
-    }
 
     void ChangeGravity()
     {
