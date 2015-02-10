@@ -41,7 +41,7 @@ public class MyGame : Game
 	}
 
 	void Update () {
-		targetFps = Input.GetMouseButton (0) ? 1 : 60;
+		targetFps = Input.GetMouseButton (0) ? 160 : 60;
         ChangeGravity();
 
 		_ball.Step ();
