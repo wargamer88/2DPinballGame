@@ -33,7 +33,7 @@ namespace GXPEngine
             Vec2 Difference = Orb.position.Clone().Sub(ball.position.Clone());
             float distance = Difference.Length();
 
-            if (distance > (ball.radius + Orb.radius))
+            if (distance < (ball.radius + Orb.radius))
             {
                 float separation = ball.radius + Orb.radius - distance;
                 Vec2 normal = Difference.Normalize();
