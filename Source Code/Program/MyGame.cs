@@ -18,7 +18,7 @@ public class MyGame : Game
 	private Vec2 _previousPosition;
 	private Canvas _canvas;
 
-	public MyGame () : base(1366, 786, false, false)
+	public MyGame () : base(1366, 768, false, false)
 	{
 		_canvas = new Canvas (width, height);
 		AddChild (_canvas);
@@ -34,7 +34,7 @@ public class MyGame : Game
 
         //_linecaps = new List<Ball>();
 
-        _outerCircle = new Ball(393, new Vec2(width/2, height/2), null, Color.Yellow);
+        _outerCircle = new Ball(384, new Vec2(width/2, height/2), null, Color.Yellow);
         //_linecaps.Add(_outerCircle);
         AddChild(_outerCircle);
 
