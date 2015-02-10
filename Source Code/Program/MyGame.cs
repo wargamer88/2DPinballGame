@@ -58,6 +58,11 @@ public class MyGame : Game
 
         _ball = _collisions.OuterCircleCollisionTest(_outerCircle, _ball);
 
+        foreach (Ball orb in _orbs._orbList)
+        {
+            _ball = _collisions.OrbBallCollision(orb, _ball);
+        }
+
 		_previousPosition = _ball.position.Clone ();
 	}
 
