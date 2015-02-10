@@ -10,6 +10,8 @@ public class MyGame : Game
 		new MyGame().Start();
 	}
 
+    private Orbs _orbs;
+
 	private OuterCircle _outerCircle;
     private Ball _ball;
     private Collisions _collisions = new Collisions();
@@ -30,8 +32,9 @@ public class MyGame : Game
         _ball = new Ball(30, new Vec2(width / 2, height / 2), null, _gravity, Color.Green);
 		AddChild (_ball);
 
-        Orbs _orb = new Orbs(this);
-        AddChild(_orb);
+        _orbs = new Orbs(this);
+        AddChild(_orbs);
+        
 
 
 
@@ -43,6 +46,8 @@ public class MyGame : Game
 	void Update () {
 		targetFps = Input.GetMouseButton (0) ? 160 : 60;
         ChangeGravity();
+        _orbs.StepOrbs();
+
 
 		_ball.Step ();
         _ball.acceleration = _gravity;
