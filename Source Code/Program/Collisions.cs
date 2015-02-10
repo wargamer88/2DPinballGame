@@ -27,5 +27,22 @@ namespace GXPEngine
             }
             return ball;
         }
+
+        public Ball OrbBallCollision(Ball Orb, Ball ball)
+        {
+            Vec2 Difference = Orb.position.Clone().Sub(ball.position.Clone());
+            float distance = Difference.Length();
+
+            if (distance > (ball.radius + Orb.radius))
+            {
+                float separation = ball.radius + Orb.radius - distance;
+                Vec2 normal = Difference.Normalize();
+                Vec2 impulse = normal.Clone().Scale(separation);
+
+                ball.position.Sub(impulse);
+                ball.velocity.Reflect(normal);
+            }
+            return ball;
+        }
     }
 }

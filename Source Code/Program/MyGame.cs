@@ -34,9 +34,6 @@ public class MyGame : Game
 
         _orbs = new Orbs(this);
         AddChild(_orbs);
-        
-
-
 
 		_ball.velocity = new Vec2 (1, 1);
 		//_ball.velocity = new Vec2 (37.3f, 103.7f);
