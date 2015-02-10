@@ -63,19 +63,66 @@ public class MyGame : Game
     {
         if (Input.GetKeyDown(Key.UP))
         {
-            _gravity = new Vec2(0, -1);
+            _gravity = new Vec2(0, 0);
+            Game.main.OnAfterStep += GravityUP;
         }
-        if (Input.GetKeyDown(Key.DOWN))
+        else if (Input.GetKeyDown(Key.DOWN))
+        {
+            _gravity = new Vec2(0, 0);
+            Game.main.OnAfterStep += GravityDOWN;
+        }
+        else if (Input.GetKeyDown(Key.LEFT))
+        {
+            _gravity = new Vec2(0, 0);
+            Game.main.OnAfterStep += GravityLEFT;
+        }
+        else if (Input.GetKeyDown(Key.RIGHT))
+        {
+            _gravity = new Vec2(0, 0);
+            Game.main.OnAfterStep += GravityRIGHT;
+        }
+    }
+    private void GravityUP()
+    {
+        _gravity.Add(new Vec2(0, -0.2f));
+
+        if (_gravity.y <= -1)
+        {
+            _gravity = new Vec2(0, -1);
+            Game.main.OnAfterStep -= GravityUP;
+        }
+    }
+
+    private void GravityDOWN()
+    {
+        _gravity.Add(new Vec2(0, 0.2f));
+
+        if (_gravity.y >= 1)
         {
             _gravity = new Vec2(0, 1);
+            Game.main.OnAfterStep -= GravityDOWN;
         }
-        if (Input.GetKeyDown(Key.LEFT))
+    }
+
+    private void GravityLEFT()
+    {
+        _gravity.Add(new Vec2(-0.2f, 0));
+
+        if (_gravity.x <= -1)
         {
             _gravity = new Vec2(-1, 0);
+            Game.main.OnAfterStep -= GravityLEFT;
         }
-        if (Input.GetKeyDown(Key.RIGHT))
+    }
+
+    private void GravityRIGHT()
+    {
+        _gravity.Add(new Vec2(0.2f, 0));
+
+        if (_gravity.x >= 1)
         {
             _gravity = new Vec2(1, 0);
+            Game.main.OnAfterStep -= GravityRIGHT;
         }
     }
 
