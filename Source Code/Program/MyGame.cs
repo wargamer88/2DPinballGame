@@ -10,6 +10,8 @@ public class MyGame : Game
 		new MyGame().Start();
 	}
 
+
+
 	private List<NLineSegment> _lines;
 	private OuterCircle _outerCircle;
     private Ball _ball;
