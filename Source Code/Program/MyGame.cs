@@ -11,34 +11,32 @@ public class MyGame : Game
 	}
 
 	private List<NLineSegment> _lines;
-	private Ball _ball;
+	private Ball _outerCircle;
+    private Ball _ball;
     private List<Ball> _linecaps;
 
 	private Vec2 _previousPosition;
 	private Canvas _canvas;
 
-	public MyGame () : base(800, 600, false, false)
+	public MyGame () : base(1366, 786, false, false)
 	{
 		_canvas = new Canvas (width, height);
 		AddChild (_canvas);
 
-		_lines = new List<NLineSegment> ();
+        //_lines = new List<NLineSegment> ();
 
-		AddLine (new Vec2 (0, 0), new Vec2 (width, 0));	
-		AddLine (new Vec2 (width, 0), new Vec2 (width, height));	
-		AddLine (new Vec2 (width, height), new Vec2 (0, height));	
-		AddLine (new Vec2 (0, height), new Vec2 (0,0));
+        //AddLine (new Vec2 (0, 0), new Vec2 (width, 0));	
+        //AddLine (new Vec2 (width, 0), new Vec2 (width, height));	
+        //AddLine (new Vec2 (width, height), new Vec2 (0, height));	
+        //AddLine (new Vec2 (0, height), new Vec2 (0,0));
 
-        AddLine(new Vec2(200, 200), new Vec2(width - 200, height - 200));
+        //AddLine(new Vec2(200, 200), new Vec2(width - 200, height - 200));
 
-        _linecaps = new List<Ball>();
+        //_linecaps = new List<Ball>();
 
-        _ball = new Ball(1, new Vec2(200, 200), null, Color.Yellow);
-        _linecaps.Add(_ball);
-        AddChild(_ball);
-        _ball = new Ball(1, new Vec2(width - 200, height - 200), null, Color.Yellow);
-        _linecaps.Add(_ball);
-        AddChild(_ball);
+        _outerCircle = new Ball(393, new Vec2(width/2, height/2), null, Color.Yellow);
+        //_linecaps.Add(_outerCircle);
+        AddChild(_outerCircle);
 
 		_ball = new Ball (30, new Vec2 (width / 2, 3 * height / 4), null, Color.Green);
 		AddChild (_ball);
@@ -48,31 +46,33 @@ public class MyGame : Game
 		_previousPosition = _ball.position.Clone ();
 	}
 
-	private void AddLine (Vec2 start, Vec2 end) {
-		NLineSegment line = new NLineSegment (start, end, 0xff00ff00, 4);
-		AddChild (line);
-		_lines.Add (line);
-	}
+    //private void AddLine (Vec2 start, Vec2 end) {
+    //    NLineSegment line = new NLineSegment (start, end, 0xff00ff00, 4);
+    //    AddChild (line);
+    //    _lines.Add (line);
+    //}
 
 	void Update () {
 		targetFps = Input.GetMouseButton (0) ? 1000 : 60;
 
 		_ball.Step ();
 
-		for (int i = 0; i < _lines.Count; i++) {
-			lineCollisionTest (_lines [i]);
-		}
+        OuterCircleCollisionTest(_outerCircle);
+
+        //for (int i = 0; i < _lines.Count; i++) {
+        //    lineCollisionTest (_lines [i]);
+        //}
 
 
 		//draw line
-		_canvas.graphics.DrawLine (
-			Pens.White, _previousPosition.x, _previousPosition.y, _ball.position.x, _ball.position.y
-		);
+        //_canvas.graphics.DrawLine (
+        //    Pens.White, _previousPosition.x, _previousPosition.y, _ball.position.x, _ball.position.y
+        //);
 
 		_previousPosition = _ball.position.Clone ();
 	}
 
-    void lineCollisionTest(NLineSegment line)
+    /*void lineCollisionTest(NLineSegment line)
     {
         Vec2 ball2line = _ball.position.Clone().Sub(line.start.Clone()); // distance ballcenter to line START
 
@@ -100,22 +100,22 @@ public class MyGame : Game
         {
             for (int i = 0; i < _linecaps.Count; i++)
             {
-                lineCapCollisionTest(_linecaps[i]);
+                
             }
         }
 
         _ball.x = _ball.position.x;
         _ball.y = _ball.position.y;
-	}
+	}*/
 
-    void lineCapCollisionTest(Ball lineCap)
+    void OuterCircleCollisionTest(Ball ball)
     {
-        Vec2 Difference = lineCap.position.Clone().Sub(_ball.position.Clone());
+        Vec2 Difference = ball.position.Clone().Sub(_ball.position.Clone());
         float distance = Difference.Length();
 
-        if (distance < (_ball.radius + lineCap.radius))
+        if (distance < (_ball.radius + ball.radius))
         {
-            float separation = _ball.radius + lineCap.radius - distance;
+            float separation = _ball.radius + ball.radius - distance;
             Vec2 normal = Difference.Normalize();
             Vec2 impulse = normal.Clone().Scale(separation);
 
