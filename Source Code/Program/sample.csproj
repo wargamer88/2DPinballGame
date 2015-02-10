@@ -108,6 +108,7 @@
     <Compile Include="..\..\GXPEngine\sources\gxpengine\Utils\Utils.cs">
       <Link>gxpengine\Utils\Utils.cs</Link>
     </Compile>
+    <Compile Include="Orbs.cs" />
     <Compile Include="OuterCircle.cs" />
     <Compile Include="Vec2.cs" />
     <Compile Include="..\..\Components\LineSegment.cs">
