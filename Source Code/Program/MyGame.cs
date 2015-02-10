@@ -30,6 +30,9 @@ public class MyGame : Game
         _ball = new Ball(30, new Vec2(width / 2, height / 2), null, _gravity, Color.Green);
 		AddChild (_ball);
 
+        Orbs _orb = new Orbs(this);
+        AddChild(_orb);
+
 
 
 		_ball.velocity = new Vec2 (1, 1);
