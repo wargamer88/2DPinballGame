@@ -20,6 +20,7 @@ public class MyGame : Game
 
 	private Vec2 _previousPosition;
 	private Canvas _canvas;
+    private int _timer = 0; //DEBUG
 
 	public MyGame () : base(1366, 768, false, false)
 	{
@@ -29,7 +30,7 @@ public class MyGame : Game
         _outerCircle = new OuterCircle(384, new Vec2(width/2, height/2), Color.Yellow);
         AddChild(_outerCircle);
 
-        _ball = new Ball(10, new Vec2(width / 2, height / 2), null, _gravity, Color.Green);
+        _ball = new Ball(30, new Vec2(width / 2, height / 2), null, _gravity, Color.Green);
 		AddChild (_ball);
 
         _orbs = new Orbs(this);
@@ -41,9 +42,16 @@ public class MyGame : Game
 	}
 
 	void Update () {
-		targetFps = Input.GetMouseButton (0) ? 1600 : 60;
+		targetFps = Input.GetMouseButton (0) ? 160 : 60;
         ChangeGravity();
         _orbs.StepOrbs();
+
+        _timer++;
+        if (_timer == 66)
+        {
+            _orbs.CreateOrb(Spawn.RandomColor(), Spawn.RandomPosition(), 30);
+            _timer = 0;
+        }
 
 		_ball.Step ();
         _ball.acceleration = _gravity;
