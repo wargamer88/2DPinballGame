@@ -21,7 +21,7 @@ public class MyGame : Game
 	private Vec2 _previousPosition;
 	private Canvas _canvas;
 
-	public MyGame () : base(1366, 768, true, false)
+	public MyGame () : base(1366, 768, false, false)
 	{
 		_canvas = new Canvas (width, height);
 		AddChild (_canvas);
