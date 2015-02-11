@@ -68,68 +68,41 @@ public class MyGame : Game
 
     void ChangeGravity()
     {
-        if (Input.GetKeyDown(Key.UP))
+        if (Input.GetKeyDown(Key.DOWN))
         {
-            _gravity = new Vec2(0, 0);
-            Game.main.OnAfterStep += GravityUP;
+            _gravity.x = 0;
+            if (_gravity.y <= 0)
+            {
+                _gravity.y = 0;
+            }
+            _gravity.y = _gravity.y + 0.2f;
         }
-        else if (Input.GetKeyDown(Key.DOWN))
+        else if (Input.GetKeyDown(Key.UP))
         {
-            _gravity = new Vec2(0, 0);
-            Game.main.OnAfterStep += GravityDOWN;
+            _gravity.x = 0;
+            if (_gravity.y >= 0)
+            {
+                _gravity.y = 0;
+            }
+            _gravity.y = _gravity.y - 0.2f;
         }
         else if (Input.GetKeyDown(Key.LEFT))
         {
-            _gravity = new Vec2(0, 0);
-            Game.main.OnAfterStep += GravityLEFT;
+            _gravity.y = 0;
+            if (_gravity.x >= 0)
+            {
+                _gravity.x = 0;
+            }
+            _gravity.x = _gravity.x - 0.2f;
         }
         else if (Input.GetKeyDown(Key.RIGHT))
         {
-            _gravity = new Vec2(0, 0);
-            Game.main.OnAfterStep += GravityRIGHT;
-        }
-    }
-    private void GravityUP()
-    {
-        _gravity.Add(new Vec2(0, -0.2f));
-
-        if (_gravity.y <= -1)
-        {
-            _gravity = new Vec2(0, -1);
-            Game.main.OnAfterStep -= GravityUP;
-        }
-    }
-
-    private void GravityDOWN()
-    {
-        _gravity.Add(new Vec2(0, 0.2f));
-
-        if (_gravity.y >= 1)
-        {
-            _gravity = new Vec2(0, 1);
-            Game.main.OnAfterStep -= GravityDOWN;
-        }
-    }
-
-    private void GravityLEFT()
-    {
-        _gravity.Add(new Vec2(-0.2f, 0));
-
-        if (_gravity.x <= -1)
-        {
-            _gravity = new Vec2(-1, 0);
-            Game.main.OnAfterStep -= GravityLEFT;
-        }
-    }
-
-    private void GravityRIGHT()
-    {
-        _gravity.Add(new Vec2(0.2f, 0));
-
-        if (_gravity.x >= 1)
-        {
-            _gravity = new Vec2(1, 0);
-            Game.main.OnAfterStep -= GravityRIGHT;
+            _gravity.y = 0;
+            if (_gravity.x <= 0)
+            {
+                _gravity.x = 0;
+            }
+            _gravity.x = _gravity.x + 0.2f;
         }
     }
 
