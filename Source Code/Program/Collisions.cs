@@ -27,6 +27,19 @@ namespace GXPEngine
             return ball;
         }
 
+        public bool OuterCircleCollisionTestBool(OuterCircle OC, Ball orb)
+        {
+            Vec2 Difference = OC.position.Clone().Sub(orb.position.Clone());
+
+            float distance = Difference.Length();
+
+            if (distance > (orb.radius + (OC.radius+10)))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public Ball OrbBallCollision(Ball Orb, Ball ball)
         {
             Vec2 Difference = Orb.position.Clone().Sub(ball.position.Clone());

@@ -42,17 +42,19 @@ public class MyGame : Game
 	}
 
 	void Update () {
-		targetFps = Input.GetMouseButton (0) ? 160 : 60;
+		targetFps = Input.GetMouseButton (0) ? 1600 : 60;
         ChangeGravity();
         _orbs.StepOrbs();
 
         _timer++;
-        if (_timer == 66)
+        if (_timer ==66)
         {
+            if(_orbs._orbList.Count < 7)
             _orbs.CreateOrb(Spawn.RandomColor(), Spawn.RandomPosition(), 30);
             _timer = 0;
         }
-
+        
+        
 		_ball.Step ();
         _ball.acceleration = _gravity;
 
@@ -65,9 +67,21 @@ public class MyGame : Game
 
         _ball = _collisions.OuterCircleCollisionTest(_outerCircle, _ball);
 
+        int removeBallIndex = -1;
         foreach (Ball orb in _orbs._orbList)
         {
+            bool destroy = _collisions.OuterCircleCollisionTestBool(_outerCircle, orb);
+            if (_collisions.OuterCircleCollisionTestBool(_outerCircle, orb))
+            {
+                removeBallIndex = orb.Index;
+            }
             _ball = _collisions.OrbBallCollision(orb, _ball);
+
+        }
+        if (removeBallIndex != -1)
+        {
+            _orbs._orbList[removeBallIndex].Destroy();
+            _orbs._orbList.RemoveAt(removeBallIndex);
         }
 
 		_previousPosition = _ball.position.Clone ();

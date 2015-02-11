@@ -92,13 +92,14 @@ namespace GXPEngine
             accelerationBottomRightToTopLeft    = new Vec2(-orbAcceleration, -orbAcceleration).Normalize().Scale(orbAcceleration);
             #endregion
 
-            createOrbs();
+            //createOrbs();
 
         }
 
         public void StepOrbs(){
             foreach (Ball orb in _orbList)
             {
+
                 orb.Step();
             }
         }
@@ -173,7 +174,7 @@ namespace GXPEngine
                     AddChild(_orb);
                     break;
                 case enumBallPositions.BottomRight:
-                    _orb = new Ball(30, positionBottomRight.Clone(), velocityBottomRightToTopLeft.Clone(), accelerationBottomRightToTopLeft.Clone(), Color.Gray);
+                    _orb = new Ball(radius, positionBottomRight.Clone(), velocityBottomRightToTopLeft.Clone(), accelerationBottomRightToTopLeft.Clone(), color);
                     _orbList.Add(_orb);
                     AddChild(_orb);
                     break;
