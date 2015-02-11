@@ -110,6 +110,7 @@
     </Compile>
     <Compile Include="Orbs.cs" />
     <Compile Include="OuterCircle.cs" />
+    <Compile Include="Spawn.cs" />
     <Compile Include="Vec2.cs" />
     <Compile Include="..\..\Components\LineSegment.cs">
       <Link>Components\LineSegment.cs</Link>
