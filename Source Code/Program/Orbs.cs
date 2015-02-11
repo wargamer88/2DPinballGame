@@ -136,42 +136,44 @@ namespace GXPEngine
             switch (position)
             {
                 case enumBallPositions.Top:
-                    _orb = new Ball(radius, positionTop, velocityTopToBottom, accelerationTopToBottom, color);
+                    _orb = new Ball(radius, positionTop.Clone(), velocityTopToBottom.Clone(), accelerationTopToBottom.Clone(), color);
                     _orbList.Add(_orb);
                     AddChild(_orb);
+                    _orb = null;
                     break;
                 case enumBallPositions.Bottom:
-                    _orb = new Ball(radius, positionBottom, velocityBottomToTop, accelerationBottomToTop, color);
+                    _orb = new Ball(radius, positionBottom.Clone(), velocityBottomToTop.Clone(), accelerationBottomToTop.Clone(), color);
                     _orbList.Add(_orb);
                     AddChild(_orb);
+                    _orb = null;
                     break;
                 case enumBallPositions.Left:
-                    _orb = new Ball(radius, positionLeft, velocityLeftToRight, accelerationLeftToRight, color);
+                    _orb = new Ball(radius, positionLeft.Clone(), velocityLeftToRight.Clone(), accelerationLeftToRight.Clone(), color);
                     _orbList.Add(_orb);
                     AddChild(_orb);
                     break;
                 case enumBallPositions.Right:
-                    _orb = new Ball(radius, positionRight, velocityRightToLeft, accelerationRightToLeft, color);
+                    _orb = new Ball(radius, positionRight.Clone(), velocityRightToLeft.Clone(), accelerationRightToLeft.Clone(), color);
                     _orbList.Add(_orb);
                     AddChild(_orb);
                     break;
                 case enumBallPositions.TopLeft:
-                    _orb = new Ball(radius, positionTopLeft, velocityTopLeftToBottomRight, accelerationTopLeftToBottomRight, color);
+                    _orb = new Ball(radius, positionTopLeft.Clone(), velocityTopLeftToBottomRight.Clone(), accelerationTopLeftToBottomRight.Clone(), color);
                     _orbList.Add(_orb);
                     AddChild(_orb);
                     break;
                 case enumBallPositions.TopRight:
-                    _orb = new Ball(radius, positionTopRight, velocityTopRightToBottomLeft, accelerationTopRightToBottomLeft, color);
+                    _orb = new Ball(radius, positionTopRight.Clone(), velocityTopRightToBottomLeft.Clone(), accelerationTopRightToBottomLeft.Clone(), color);
                     _orbList.Add(_orb);
                     AddChild(_orb);
                     break;
                 case enumBallPositions.BottomLeft:
-                    _orb = new Ball(radius, positionBottomLeft, velocityBottomLeftToTopRight, accelerationBottomLeftToTopRight, color);
+                    _orb = new Ball(radius, positionBottomLeft.Clone(), velocityBottomLeftToTopRight.Clone(), accelerationBottomLeftToTopRight.Clone(), color);
                     _orbList.Add(_orb);
                     AddChild(_orb);
                     break;
                 case enumBallPositions.BottomRight:
-                    _orb = new Ball(30, positionBottomRight, velocityBottomRightToTopLeft, accelerationBottomRightToTopLeft, Color.Gray);
+                    _orb = new Ball(30, positionBottomRight.Clone(), velocityBottomRightToTopLeft.Clone(), accelerationBottomRightToTopLeft.Clone(), Color.Gray);
                     _orbList.Add(_orb);
                     AddChild(_orb);
                     break;
