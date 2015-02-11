@@ -21,7 +21,7 @@ public class MyGame : Game
 	private Vec2 _previousPosition;
 	private Canvas _canvas;
 
-	public MyGame () : base(1366, 768, false, false)
+	public MyGame () : base(1366, 768, true, false)
 	{
 		_canvas = new Canvas (width, height);
 		AddChild (_canvas);
@@ -29,7 +29,7 @@ public class MyGame : Game
         _outerCircle = new OuterCircle(384, new Vec2(width/2, height/2), Color.Yellow);
         AddChild(_outerCircle);
 
-        _ball = new Ball(30, new Vec2(width / 2, height / 2), null, _gravity, Color.Green);
+        _ball = new Ball(10, new Vec2(width / 2, height / 2), null, _gravity, Color.Green);
 		AddChild (_ball);
 
         _orbs = new Orbs(this);
@@ -41,10 +41,9 @@ public class MyGame : Game
 	}
 
 	void Update () {
-		targetFps = Input.GetMouseButton (0) ? 160 : 60;
+		targetFps = Input.GetMouseButton (0) ? 1600 : 60;
         ChangeGravity();
         _orbs.StepOrbs();
-
 
 		_ball.Step ();
         _ball.acceleration = _gravity;
@@ -77,7 +76,7 @@ public class MyGame : Game
             }
             _gravity.y = _gravity.y + 0.2f;
         }
-        else if (Input.GetKeyDown(Key.UP))
+        if (Input.GetKeyDown(Key.UP))
         {
             _gravity.x = 0;
             if (_gravity.y >= 0)
@@ -86,7 +85,7 @@ public class MyGame : Game
             }
             _gravity.y = _gravity.y - 0.2f;
         }
-        else if (Input.GetKeyDown(Key.LEFT))
+        if (Input.GetKeyDown(Key.LEFT))
         {
             _gravity.y = 0;
             if (_gravity.x >= 0)
@@ -95,7 +94,7 @@ public class MyGame : Game
             }
             _gravity.x = _gravity.x - 0.2f;
         }
-        else if (Input.GetKeyDown(Key.RIGHT))
+        if (Input.GetKeyDown(Key.RIGHT))
         {
             _gravity.y = 0;
             if (_gravity.x <= 0)
