@@ -76,6 +76,7 @@ namespace GXPEngine
             _orb = new Ball(30, positionTop, velocityTopToBottom, accelerationTopToBottom, Color.Red);
             _orbList.Add(_orb);
             AddChild(_orb);
+            //huh
 
             //gray - wind orb
             _orb = new Ball(30, positionBottom, velocityBottomToTop, accelerationBottomToTop, Color.Gray);
