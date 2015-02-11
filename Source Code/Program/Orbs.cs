@@ -6,6 +6,18 @@ using System.Drawing;
 
 namespace GXPEngine
 {
+    public enum enumBallPositions
+    {
+        Top,
+        Bottom,
+        Right,
+        Left,
+        TopLeft,
+        TopRight,
+        BottomLeft,
+        BottomRight,
+    }
+
     class Orbs : Canvas
     {
         public List<Ball> _orbList;
@@ -47,70 +59,125 @@ namespace GXPEngine
         {
             _orbList = new List<Ball>();
 
-            positionTop = new Vec2(1366 / 2, -30);
-            positionBottom = new Vec2(1366 / 2, 768 + 30);
-            positionRight = new Vec2((1366 / 2) + (768 / 2) + 30, 768 / 2);
-            positionLeft = new Vec2((1366 / 2) - (768 / 2) - 30, 768 / 2);
-            positionTopLeft = new Vec2(1366 / 8 * 3, 768 / 8);
-            //positionTopRight                = new Vec2
-            //positionBottomLeft              = new Vec2
-            //positionBottomRight             = new Vec2
+            #region set positions
+            positionTop                         = new Vec2(1366 / 2, -30);
+            positionBottom                      = new Vec2(1366 / 2, 768 + 30);
+            positionRight                       = new Vec2((1366 / 2) + (768 / 2) + 30, 768 / 2);
+            positionLeft                        = new Vec2((1366 / 2) - (768 / 2) - 30, 768 / 2);
+            positionTopLeft                     = new Vec2((1366 / 32 * 9) + 10, (768 / 32 * 3.75f) + 1);
+            positionTopRight                    = new Vec2((1366 / 32 * 23) + 10, (768 / 32 * 3.75f) + 1);
+            positionBottomLeft                  = new Vec2((1366 / 32 * 9) + 10, (768 / 32 * 28.25f) + 1);
+            positionBottomRight                 = new Vec2((1366 / 32 * 23) + 10, (768 / 32 * 28.25f) + 1);
+            #endregion
 
-            velocityTopToBottom = new Vec2(0, orbMovingSpeed);
-            velocityBottomToTop = new Vec2(0, -orbMovingSpeed);
-            velocityRightToLeft = new Vec2(-orbMovingSpeed, 0);
-            velocityLeftToRight = new Vec2(orbMovingSpeed, 0);
-            velocityTopLeftToBottomRight = new Vec2(new Vec2(orbMovingSpeed, orbMovingSpeed).Length(), new Vec2(orbMovingSpeed, orbMovingSpeed).Length());
-            //velocityTopRightToBottomLeft    = new Vec2
-            //velocityBottomLeftToTopRight    = new Vec2
-            //velocityBottomRightToTopLeft    = new Vec2
+            #region set velocities
+            velocityTopToBottom                 = new Vec2(0, orbMovingSpeed);
+            velocityBottomToTop                 = new Vec2(0, -orbMovingSpeed);
+            velocityRightToLeft                 = new Vec2(-orbMovingSpeed, 0);
+            velocityLeftToRight                 = new Vec2(orbMovingSpeed, 0);
+            velocityTopLeftToBottomRight        = new Vec2(orbMovingSpeed, orbMovingSpeed).Normalize().Scale(orbMovingSpeed);
+            velocityTopRightToBottomLeft        = new Vec2(-orbMovingSpeed, orbMovingSpeed).Normalize().Scale(orbMovingSpeed);
+            velocityBottomLeftToTopRight        = new Vec2(orbMovingSpeed, -orbMovingSpeed).Normalize().Scale(orbMovingSpeed);
+            velocityBottomRightToTopLeft        = new Vec2(-orbMovingSpeed, -orbMovingSpeed).Normalize().Scale(orbMovingSpeed);
+            #endregion
 
-            accelerationTopToBottom = new Vec2(0, orbAcceleration);
-            accelerationBottomToTop = new Vec2(0, -orbAcceleration);
-            accelerationRightToLeft = new Vec2(-orbAcceleration, 0);
-            accelerationLeftToRight = new Vec2(orbAcceleration, 0);
-            accelerationTopLeftToBottomRight = new Vec2(new Vec2(orbAcceleration, orbAcceleration).Length(), new Vec2(orbAcceleration, orbAcceleration).Length());
-            //accelerationTopRightToBottomLeft= new Vec2
-            //accelerationBottomLeftToTopRight= new Vec2
-            //accelerationBottomRightToTopLeft= new Vec2
-            positionTop = new Vec2(1366 / 2, -30);
-            positionBottom = new Vec2(1366 / 2, 768 + 30);
-            positionRight = new Vec2((1366 / 2) + (768 / 2) + 30, 768 / 2);
-            positionLeft = new Vec2((1366 / 2) - (768 / 2) - 30, 768 / 2);
+            #region set accelerations
+            accelerationTopToBottom             = new Vec2(0, orbAcceleration);
+            accelerationBottomToTop             = new Vec2(0, -orbAcceleration);
+            accelerationRightToLeft             = new Vec2(-orbAcceleration, 0);
+            accelerationLeftToRight             = new Vec2(orbAcceleration, 0);
+            accelerationTopLeftToBottomRight    = new Vec2(orbAcceleration, orbAcceleration).Normalize().Scale(orbAcceleration);
+            accelerationTopRightToBottomLeft    = new Vec2(-orbAcceleration, orbAcceleration).Normalize().Scale(orbAcceleration);
+            accelerationBottomLeftToTopRight    = new Vec2(orbAcceleration, -orbAcceleration).Normalize().Scale(orbAcceleration);
+            accelerationBottomRightToTopLeft    = new Vec2(-orbAcceleration, -orbAcceleration).Normalize().Scale(orbAcceleration);
+            #endregion
 
-            //red - fire orb
-            _orb = new Ball(30, positionTop, velocityTopToBottom, accelerationTopToBottom, Color.Red);
-            _orb = new Ball(30, positionLeft, new Vec2(0, orbMovingSpeed), new Vec2(0, orbAcceleration), Color.Red);
-            _orbList.Add(_orb);
-            AddChild(_orb);
+            createOrbs();
 
-            //gray - wind orb
-            _orb = new Ball(30, positionBottom, velocityBottomToTop, accelerationBottomToTop, Color.Gray);
-            _orb = new Ball(30, new Vec2(game.width / 2, 0), new Vec2(0, orbMovingSpeed), new Vec2(0, orbAcceleration), Color.Gray);
-            _orbList.Add(_orb);
-            AddChild(_orb);
-
-            //cyan - lightning orb
-            _orb = new Ball(30, positionRight, velocityRightToLeft, accelerationRightToLeft, Color.Cyan);
-            _orbList.Add(_orb);
-            AddChild(_orb);
-
-            //brown - earth orb
-            _orb = new Ball(30, positionLeft, velocityLeftToRight, accelerationLeftToRight, Color.Brown);
-            _orbList.Add(_orb);
-            AddChild(_orb);
-
-            //blue - water orb
-            _orb = new Ball(30, positionTopLeft, velocityTopLeftToBottomRight, accelerationTopLeftToBottomRight, Color.Blue);
-            _orb = new Ball(30, new Vec2(game.width, game.height / 2), new Vec2(-orbMovingSpeed, 0), new Vec2(-orbAcceleration, 0), Color.Blue);
-            _orbList.Add(_orb);
-            AddChild(_orb);
         }
 
         public void StepOrbs(){
             foreach (Ball orb in _orbList)
             {
                 orb.Step();
+            }
+        }
+
+        private void createOrbs(){
+            //red - fire orb
+            CreateOrb(Color.Red, enumBallPositions.Top);
+
+            //gray - wind orb
+            CreateOrb(Color.LightSlateGray, enumBallPositions.Bottom);
+
+            //cyan - lightning orb
+            CreateOrb(Color.Cyan, enumBallPositions.Right);
+
+            //brown - earth orb
+            CreateOrb(Color.Brown, enumBallPositions.Left);
+
+            //blue - water orb
+            CreateOrb(Color.Blue, enumBallPositions.TopLeft);
+
+            //orangeRed - explosion orb
+            CreateOrb(Color.OrangeRed, enumBallPositions.TopRight);
+
+            //orange - lava orb
+            CreateOrb(Color.Orange, enumBallPositions.BottomLeft);
+
+            //gray - steam orb
+            CreateOrb(Color.Gray, enumBallPositions.BottomRight);
+        }
+
+
+
+        public void CreateOrb(Color color,enumBallPositions position, int radius = 30)
+        {
+            switch (position)
+            {
+                case enumBallPositions.Top:
+                    _orb = new Ball(radius, positionTop, velocityTopToBottom, accelerationTopToBottom, color);
+                    _orbList.Add(_orb);
+                    AddChild(_orb);
+                    break;
+                case enumBallPositions.Bottom:
+                    _orb = new Ball(radius, positionBottom, velocityBottomToTop, accelerationBottomToTop, color);
+                    _orbList.Add(_orb);
+                    AddChild(_orb);
+                    break;
+                case enumBallPositions.Left:
+                    _orb = new Ball(radius, positionLeft, velocityLeftToRight, accelerationLeftToRight, color);
+                    _orbList.Add(_orb);
+                    AddChild(_orb);
+                    break;
+                case enumBallPositions.Right:
+                    _orb = new Ball(radius, positionRight, velocityRightToLeft, accelerationRightToLeft, color);
+                    _orbList.Add(_orb);
+                    AddChild(_orb);
+                    break;
+                case enumBallPositions.TopLeft:
+                    _orb = new Ball(radius, positionTopLeft, velocityTopLeftToBottomRight, accelerationTopLeftToBottomRight, color);
+                    _orbList.Add(_orb);
+                    AddChild(_orb);
+                    break;
+                case enumBallPositions.TopRight:
+                    _orb = new Ball(radius, positionTopRight, velocityTopRightToBottomLeft, accelerationTopRightToBottomLeft, color);
+                    _orbList.Add(_orb);
+                    AddChild(_orb);
+                    break;
+                case enumBallPositions.BottomLeft:
+                    _orb = new Ball(radius, positionBottomLeft, velocityBottomLeftToTopRight, accelerationBottomLeftToTopRight, color);
+                    _orbList.Add(_orb);
+                    AddChild(_orb);
+                    break;
+                case enumBallPositions.BottomRight:
+                    _orb = new Ball(30, positionBottomRight, velocityBottomRightToTopLeft, accelerationBottomRightToTopLeft, Color.Gray);
+                    _orbList.Add(_orb);
+                    AddChild(_orb);
+                    break;
+                default:
+                    Console.WriteLine("---------Not added the ball: " + position.ToString() + " -----------");
+                    break;
             }
         }
 
