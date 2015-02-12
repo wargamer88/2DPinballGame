@@ -35,21 +35,49 @@ namespace GXPEngine
             return false;
         }
 
-        public Ball OrbBallCollision(Orb Orb, Ball ball)
+        public bool OrbBallCollisionTest(Orb Orb, Ball ball)
         {
             Vec2 Difference = Orb.position.Clone().Sub(ball.position.Clone());
             float distance = Difference.Length();
 
             if (distance < (ball.radius + Orb.radius))
             {
-                float separation = ball.radius + Orb.radius - distance;
-                Vec2 normal = Difference.Normalize();
-                Vec2 impulse = normal.Clone().Scale(separation);
+                return true;
+            }
+            return false;
+        }
 
-                ball.position.Sub(impulse);
-                ball.velocity.Reflect(normal);
+        public Ball OrbBallCollision(Orb Orb, Ball ball)
+        {
+            Vec2 Difference = ball.position.Clone().Sub(Orb.position.Clone());
+            float distance = Difference.Length();
+
+            if (distance < (ball.radius + Orb.radius))
+            {
+                Vec2 normal = Difference.Clone().Normalize();
+                Vec2 separation = normal.Clone().Scale((distance - (ball.radius + Orb.radius)));
+                ball.position.Sub(separation);
+                //Orb.position.Add(separation);
+                
+                Vec2 relativeVelocity = ball.velocity.Clone().Sub(Orb.velocity);
+                float scalar = relativeVelocity.Clone().Dot(normal);
+                Vec2 impulse = normal.Clone().Scale(scalar);
+                //Factor1 = the Mass of Ball1 (Bounciness), Factor2 = The mass of Orb (bounciness)
+                float factor1 = 2.0f;
+                float factor2 = 0.0f;
+                ball.velocity = ball.velocity.Sub(impulse.Clone().Scale(factor1));
+                Orb.velocity = Orb.velocity.Add(impulse.Clone().Scale(factor2));
             }
             return ball;
         }
     }
 }
+
+/*
+float separation = ball.radius + Orb.radius - distance;
+                Vec2 normal = Difference.Normalize();
+                Vec2 impulse = normal.Clone().Scale(separation);
+
+                ball.position.Sub(impulse);
+                ball.velocity.Reflect(normal);
+*/
