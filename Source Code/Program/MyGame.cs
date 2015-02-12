@@ -36,7 +36,7 @@ public class MyGame : Game
         _orbs = new Orbs(this);
         AddChild(_orbs);
 
-		_ball.velocity = new Vec2 (1, 1);
+		_ball.velocity = new Vec2 (0.001f, 1);
 		//_ball.velocity = new Vec2 (37.3f, 103.7f);
 		_previousPosition = _ball.position.Clone ();
 	}
@@ -96,7 +96,7 @@ public class MyGame : Game
         if (hitEdge == true)
         {
             _ball.Destroy();
-            _ball = new Ball(30, new Vec2(width / 2, height / 2), null, _gravity, Color.Green);
+            _ball = new Ball(30, new Vec2(width / 2, height / 2), new Vec2(0.001f, 1), _gravity, Color.Green);
             Console.WriteLine("You Died!");
             AddChild(_ball);
         }
