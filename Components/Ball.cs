@@ -39,7 +39,7 @@ namespace GXPEngine
 			if (_position == null || _velocity == null)
 				return;
 
-            _velocity = _acceleration;
+            _velocity.Add(_acceleration);
 			if (!skipVelocity) _position.Add (_velocity);
             
             
