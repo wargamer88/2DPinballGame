@@ -51,10 +51,32 @@ public class MyGame : Game
         {
             if (_orbs._orbList.Count < 7)
             {
+                bool correctPosition = false;
                 enumBallPositions newPosition = Spawn.RandomPosition();
-                //TODO: add position check
+                if (_orbs._orbList.Count > 3)
+                {
+                    do
+                    {
+                        newPosition = Spawn.RandomPosition();
+                        //TODO: add position check
+                        for (int i = 0; i < _orbs._orbList.Count; i++)
+                        {
+                            if (i >= _orbs._orbList.Count - 3)
+                            {
+                                if (_orbs._orbList[i].positionEnum == newPosition)
+                                {
+                                    correctPosition = false;
+                                }
+                                else
+                                {
+                                    correctPosition = true;
+                                }
+                            }
+                        }
+                    } while (correctPosition == false); 
+                }
 
-                _orbs.CreateOrb(Spawn.RandomColor(), Spawn.RandomPosition(), 30);
+                _orbs.CreateOrb(Spawn.RandomColor(), newPosition, 30);
             }
             _timer = 0;
         }
@@ -70,7 +92,14 @@ public class MyGame : Game
         if (_ball.velocity.x < -maxSpeed) _ball.velocity.x = -maxSpeed;
         if (_ball.velocity.y < -maxSpeed) _ball.velocity.y = -maxSpeed;
 
-        _ball = _collisions.OuterCircleCollisionTest(_outerCircle, _ball);
+        bool hitEdge = _collisions.OuterCircleCollisionTest(_outerCircle, _ball);
+        if (hitEdge == true)
+        {
+            _ball.Destroy();
+            _ball = new Ball(30, new Vec2(width / 2, height / 2), null, _gravity, Color.Green);
+            Console.WriteLine("You Died!");
+            AddChild(_ball);
+        }
 
         int removeBallIndex = -1;
         foreach (Orb orb in _orbs._orbList)
