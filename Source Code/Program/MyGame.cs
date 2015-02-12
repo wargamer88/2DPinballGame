@@ -89,7 +89,7 @@ public class MyGame : Game
                 _waterEffect = false;
                 _waterTimer = 0;
             }
-            _ball.velocity.Scale(0.85f);
+            _ball.velocity.Scale(0.55f);
         }
 
         if (_lightningEffect == true)
@@ -159,6 +159,7 @@ public class MyGame : Game
                         _lightningEffect = true;
                         break;
                     case "Brown":
+                        //Reflect gravity
                         _ball = _collisions.OrbBallCollision(orb, _ball);
                         break;
                     case "Blue":
@@ -221,10 +222,10 @@ public class MyGame : Game
 
     void ChangeGravity()
     {
-        if (Input.GetKeyDown(Key.LEFT)) { _gravity = new Vec2(-2, 0); }
-        if (Input.GetKeyDown(Key.RIGHT)) { _gravity = new Vec2(2, 0); }
-        if (Input.GetKeyDown(Key.UP)) { _gravity = new Vec2(0, -2); }
-        if (Input.GetKeyDown(Key.DOWN)) { _gravity = new Vec2(0, 2); }
+        if (Input.GetKeyDown(Key.LEFT)) { _gravity = new Vec2(-1, 0); }
+        if (Input.GetKeyDown(Key.RIGHT)) { _gravity = new Vec2(1, 0); }
+        if (Input.GetKeyDown(Key.UP)) { _gravity = new Vec2(0, -1); }
+        if (Input.GetKeyDown(Key.DOWN)) { _gravity = new Vec2(0, 1); }
     }
 
 
