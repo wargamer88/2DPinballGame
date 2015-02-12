@@ -132,7 +132,7 @@ namespace GXPEngine
 
 
 
-        public void CreateOrb(Color color,enumBallPositions position, int radius = 30)
+        public void CreateOrb(Color color,enumBallPositions position, int radius = 60)
         {
             switch (position)
             {

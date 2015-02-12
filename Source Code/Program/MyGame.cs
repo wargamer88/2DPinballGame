@@ -100,8 +100,10 @@ public class MyGame : Game
             {
                 _lightningEffect = false;
                 _lightningTimer = 0;
+                _gravity = new Vec2(0, 1);
             }
             _ball.velocity = Vec2.zero;
+            _gravity = Vec2.zero;
         }
     }
 
@@ -214,7 +216,7 @@ public class MyGame : Game
                     } while (correctPosition == false);
                 }
 
-                _orbs.CreateOrb(Spawn.RandomColor(), newPosition, 30);
+                _orbs.CreateOrb(Spawn.RandomColor(), newPosition, 40);
             }
             _timer = 0;
         }
