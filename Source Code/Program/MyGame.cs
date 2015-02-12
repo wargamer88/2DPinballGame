@@ -49,8 +49,13 @@ public class MyGame : Game
         _timer++;
         if (_timer ==66)
         {
-            if(_orbs._orbList.Count < 7)
-            _orbs.CreateOrb(Spawn.RandomColor(), Spawn.RandomPosition(), 30);
+            if (_orbs._orbList.Count < 7)
+            {
+                enumBallPositions newPosition = Spawn.RandomPosition();
+                //TODO: add position check
+
+                _orbs.CreateOrb(Spawn.RandomColor(), Spawn.RandomPosition(), 30);
+            }
             _timer = 0;
         }
         
@@ -68,7 +73,7 @@ public class MyGame : Game
         _ball = _collisions.OuterCircleCollisionTest(_outerCircle, _ball);
 
         int removeBallIndex = -1;
-        foreach (Ball orb in _orbs._orbList)
+        foreach (Orb orb in _orbs._orbList)
         {
             bool destroy = _collisions.OuterCircleCollisionTestBool(_outerCircle, orb);
             if (_collisions.OuterCircleCollisionTestBool(_outerCircle, orb))
