@@ -37,6 +37,9 @@ public class MyGame : Game
     private bool _lightningEffect = false;
     private int _lightningTimer = 0;
 
+    private bool _createdForTheFirstTime = false;
+    private bool _destroyBall = false;
+
 
 	public MyGame () : base(1366, 768, false, false)
 	{
@@ -47,7 +50,7 @@ public class MyGame : Game
         AddChild(_outerCircle);
 
         _ball = new Ball(30, new Vec2(width / 2, height / 2), null, _gravity, Color.Green);
-		AddChild (_ball);
+        AddChild(_ball);
 
         _orbs = new Orbs(this);
         AddChild(_orbs);
@@ -57,11 +60,7 @@ public class MyGame : Game
 
         _tf = TextField.CreateTextField("Score: 000000000000");
         AddChild(_tf);
-        _tf.text = "Score: " + _score;
-
-        
-
-        
+        _tf.text = "Score: " +_score;        
 
 		_ball.velocity = new Vec2 (0, 0);
 		//_ball.velocity = new Vec2 (37.3f, 103.7f);
@@ -77,10 +76,12 @@ public class MyGame : Game
         _ball.acceleration = _gravity;
 
         CheckMaxSpeed();
-        Collisions();
         CheckEffects();
+        Collisions();
         _ball.Step();
-        
+        _ball.UpdateAnimation();
+        _orbs.UpdateOrbAnimations();
+        _crystal.UpdateAnimation();
 	}
 
     void CheckEffects()
@@ -88,12 +89,12 @@ public class MyGame : Game
         if (_fireEffect == true)
         {
             _fireTimer++;
-            if (_fireTimer >= 45)
+            if (_fireTimer >= 20)
             {
                 _fireEffect = false;
                 _fireTimer = 0;
             }
-            _ball.velocity.Scale(2);
+            _ball.velocity.Scale(1.3f);
         }
 
         if (_waterEffect == true)
@@ -104,7 +105,7 @@ public class MyGame : Game
                 _waterEffect = false;
                 _waterTimer = 0;
             }
-            _ball.velocity.Scale(0.55f);
+            _ball.velocity.Scale(0.85f);
         }
 
         if (_lightningEffect == true)
@@ -117,8 +118,42 @@ public class MyGame : Game
                 _lightningTimer = 0;
                 _gravity = new Vec2(0, 1);
             }
+            else
+            {
+                _ball.velocity = Vec2.zero;
+                _gravity = Vec2.zero;
+            }
+        }
+
+        if (_destroyBall)
+        {
+            _ball.GraphicsSprite.Destroy();
+            _ball.GraphicsSprite = new AnimSprite(@"Assets\Light ball death.png", 16, 1);
+            _ball.GraphicsSprite.height = _ball.height + 40;
+            _ball.GraphicsSprite.width = _ball.width + 40;
+            _ball.GraphicsSprite.SetXY(-_ball.radius - 20, -_ball.radius - 20);
+            _ball.AddChild(_ball.GraphicsSprite);
+            if (!_createdForTheFirstTime)
+            {
+                _ball.Frame = 3;
+                _createdForTheFirstTime = true;
+            }
+            _ball.FirstFrame = 0;
+            _ball.LastFrame = 15;
+            _ball.FrameSpeed = 0.2;
             _ball.velocity = Vec2.zero;
             _gravity = Vec2.zero;
+
+            if (_ball.Frame >= 15)
+            {
+                _destroyBall = false;
+                _createdForTheFirstTime = false;
+                _ball.GraphicsSprite.Destroy();
+                _ball.Destroy();
+                _ball = new Ball(30, new Vec2(width / 2, height / 2), null, _gravity, Color.Green);
+                AddChild(_ball);
+                this.SetChildIndex(_ball, 2);
+            } 
         }
     }
 
@@ -128,10 +163,8 @@ public class MyGame : Game
         bool hitEdge = _collisions.OuterCircleCollisionTest(_outerCircle, _ball);
         if (hitEdge == true)
         {
-            _ball.Destroy();
-            _ball = new Ball(30, new Vec2(width / 2, height / 2), null, _gravity, Color.Green);
+            _destroyBall = true;
             Console.WriteLine("You Died!");
-            AddChild(_ball);
         } 
         #endregion
 
@@ -189,18 +222,20 @@ public class MyGame : Game
 
         #endregion
 
+        #region CrystalCollision
         if (_collisions.BallCollisionTestCrystalBool(_ball, _crystal))
         {
             _crystal.RespawnCrystal();
             //int scoreWithMultiplier = 
             _score++;
-            _tf.text = "Score: " + _score ;
-        }
+            _tf.text = "Score: " + "000000000" + _score;
+        } 
+        #endregion
     }
 
     void CheckMaxSpeed()
     {
-        float maxSpeed = 2;
+        float maxSpeed = 3;
 
         if (_ball.velocity.x > maxSpeed) _ball.velocity.x = maxSpeed;
         if (_ball.velocity.y > maxSpeed) _ball.velocity.y = maxSpeed;
@@ -239,7 +274,6 @@ public class MyGame : Game
                         }
                     } while (correctPosition == false);
                 }
-
                 _orbs.CreateOrb(Spawn.RandomColor(), newPosition, 40);
             }
             _timer = 0;
@@ -248,10 +282,10 @@ public class MyGame : Game
 
     void ChangeGravity()
     {
-        if (Input.GetKeyDown(Key.LEFT)) { _gravity = new Vec2(-1, 0); }
-        if (Input.GetKeyDown(Key.RIGHT)) { _gravity = new Vec2(1, 0); }
-        if (Input.GetKeyDown(Key.UP)) { _gravity = new Vec2(0, -1); }
-        if (Input.GetKeyDown(Key.DOWN)) { _gravity = new Vec2(0, 1); }
+        if (Input.GetKey(Key.LEFT)) { _gravity = new Vec2(-0.2f, 0); }
+        if (Input.GetKey(Key.RIGHT)) { _gravity = new Vec2(0.2f, 0); }
+        if (Input.GetKey(Key.UP)) { _gravity = new Vec2(0, -0.2f); }
+        if (Input.GetKey(Key.DOWN)) { _gravity = new Vec2(0, 0.2f); }
     }
 
 

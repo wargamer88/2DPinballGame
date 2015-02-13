@@ -10,6 +10,18 @@ namespace GXPEngine
         private Vec2 _velocity;
         private Vec2 _acceleration;
 
+        //Animation------------------------------------------------------------//
+        public AnimSprite GraphicsSprite;
+        private double _frame = 0;
+        private int _firstFrame = 0;
+        private int _lastFrame = 14;
+        private double _frameSpeed = 0.2;
+        public double FrameSpeed { set { _frameSpeed = value; } }
+        public double Frame { get { return _frame; } set { _frame = value; } }
+        public int FirstFrame { set { _firstFrame = value; } }
+        public int LastFrame { set { _lastFrame = value; } }
+        //--------------------------------------------------------------------//
+
         public readonly int radius;
         private Color _ballColor;
 
@@ -113,6 +125,26 @@ namespace GXPEngine
             {
                 return _positionEnum;
             }
+        }
+
+        void SetAnimationRange(int first, int last)
+        {
+            _firstFrame = first;
+            _lastFrame = last;
+        }
+
+        public void UpdateAnimation()
+        {
+            _frame = _frame + _frameSpeed;
+            if (_frame >= _lastFrame + 1.0 && _frame != 3)
+            {
+                _frame = _firstFrame;
+            }
+            if (_frame < _firstFrame && _frame != 3)
+            {
+                _frame = _firstFrame;
+            }
+            GraphicsSprite.SetFrame((int)_frame);
         }
 
     }
