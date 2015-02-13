@@ -19,6 +19,16 @@ namespace GXPEngine
             _outerCircle = outerCircle;
             _collisions = new Collisions();
             RespawnCrystal();
+            GraphicsSprite.Destroy();
+            GraphicsSprite = new AnimSprite(@"Assets\Crystal.png", 13, 1);
+            GraphicsSprite.height = this.height + 80;
+            GraphicsSprite.width = this.width + 80;
+            GraphicsSprite.SetXY(radius - 80, - radius - 40);
+            AddChild(GraphicsSprite);
+            Frame = 0;
+            FirstFrame = 0;
+            LastFrame = 13;
+            FrameSpeed = 0.2;
         }
 
         public void RespawnCrystal()
