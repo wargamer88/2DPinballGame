@@ -35,6 +35,7 @@
       <Link>Components\TextField.cs</Link>
     </Compile>
     <Compile Include="Collisions.cs" />
+    <Compile Include="Crystal.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="..\..\GXPEngine\sources\gxpengine\AnimSprite.cs">
       <Link>gxpengine\AnimSprite.cs</Link>

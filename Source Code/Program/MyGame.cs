@@ -10,7 +10,11 @@ public class MyGame : Game
 		new MyGame().Start();
 	}
 
+    private TextField _tf;
+    private int _score = 0;
+
     private Orbs _orbs;
+    private Crystal _crystal;
 
 	private OuterCircle _outerCircle;
     private Ball _ball;
@@ -47,6 +51,17 @@ public class MyGame : Game
 
         _orbs = new Orbs(this);
         AddChild(_orbs);
+
+        _crystal = new Crystal(this, _outerCircle);
+        AddChild(_crystal);
+
+        _tf = TextField.CreateTextField("Score: 000000000000");
+        AddChild(_tf);
+        _tf.text = "Score: " + _score;
+
+        
+
+        
 
 		_ball.velocity = new Vec2 (0, 0);
 		//_ball.velocity = new Vec2 (37.3f, 103.7f);
@@ -155,6 +170,7 @@ public class MyGame : Game
                         _fireEffect = true;
                         break;
                     case "White":
+                        _ball.velocity = new Vec2(Utils.Random(-10, 10), Utils.Random(-10, 10));
                         //FK This
                         break;
                     case "Cyan":
@@ -172,6 +188,14 @@ public class MyGame : Game
         }
 
         #endregion
+
+        if (_collisions.BallCollisionTestCrystalBool(_ball, _crystal))
+        {
+            _crystal.RespawnCrystal();
+            //int scoreWithMultiplier = 
+            _score++;
+            _tf.text = "Score: " + _score ;
+        }
     }
 
     void CheckMaxSpeed()

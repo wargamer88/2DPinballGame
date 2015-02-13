@@ -34,6 +34,33 @@ namespace GXPEngine
             }
             return false;
         }
+        public bool OuterCircleCollisionTestCrystalBool(OuterCircle OC, Crystal crystal)
+        {
+            Vec2 Difference = OC.position.Clone().Sub(crystal.position.Clone());
+
+            float distance = Difference.Length();
+
+            if (distance > (crystal.radius + (OC.radius + 10)))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool BallCollisionTestCrystalBool(Ball ball, Crystal crystal)
+        {
+            Vec2 Difference = crystal.position.Clone().Sub(ball.position.Clone());
+
+            float distance = Difference.Length();
+            
+
+            if (distance < (crystal.radius + ball.radius))
+            {
+                Console.WriteLine(distance);
+                return true;
+            }
+            return false;
+        }
 
         public bool OrbBallCollisionTest(Orb Orb, Ball ball)
         {
@@ -70,6 +97,8 @@ namespace GXPEngine
             }
             return ball;
         }
+
+        
     }
 }
 
