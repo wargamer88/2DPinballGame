@@ -102,8 +102,11 @@ public class MyGame : Game
                 _lightningTimer = 0;
                 _gravity = new Vec2(0, 1);
             }
-            _ball.velocity = Vec2.zero;
-            _gravity = Vec2.zero;
+            else
+            {
+                _ball.velocity = Vec2.zero;
+                _gravity = Vec2.zero;
+            }
         }
     }
 
