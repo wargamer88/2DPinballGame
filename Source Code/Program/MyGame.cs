@@ -38,7 +38,7 @@ public class MyGame : Game
     private int _lightningTimer = 0;
 
 
-	public MyGame () : base(1366, 768, false, false)
+	public MyGame () : base(1366, 768, true, false)
 	{
 		_canvas = new Canvas (width, height);
 		AddChild (_canvas);
@@ -88,12 +88,12 @@ public class MyGame : Game
         if (_fireEffect == true)
         {
             _fireTimer++;
-            if (_fireTimer >= 45)
+            if (_fireTimer >= 15)
             {
                 _fireEffect = false;
                 _fireTimer = 0;
             }
-            _ball.velocity.Scale(2);
+            _ball.velocity.Scale(1.2f);
         }
 
         if (_waterEffect == true)
@@ -104,7 +104,7 @@ public class MyGame : Game
                 _waterEffect = false;
                 _waterTimer = 0;
             }
-            _ball.velocity.Scale(0.55f);
+            _ball.velocity.Scale(0.85f);
         }
 
         if (_lightningEffect == true)
@@ -203,7 +203,7 @@ public class MyGame : Game
 
     void CheckMaxSpeed()
     {
-        float maxSpeed = 2;
+        float maxSpeed = 3;
 
         if (_ball.velocity.x > maxSpeed) _ball.velocity.x = maxSpeed;
         if (_ball.velocity.y > maxSpeed) _ball.velocity.y = maxSpeed;
@@ -251,10 +251,10 @@ public class MyGame : Game
 
     void ChangeGravity()
     {
-        if (Input.GetKeyDown(Key.LEFT)) { _gravity = new Vec2(-1, 0); }
-        if (Input.GetKeyDown(Key.RIGHT)) { _gravity = new Vec2(1, 0); }
-        if (Input.GetKeyDown(Key.UP)) { _gravity = new Vec2(0, -1); }
-        if (Input.GetKeyDown(Key.DOWN)) { _gravity = new Vec2(0, 1); }
+        if (Input.GetKey(Key.LEFT)) { _gravity = new Vec2(-0.2f, 0); }
+        if (Input.GetKey(Key.RIGHT)) { _gravity = new Vec2(0.2f, 0); }
+        if (Input.GetKey(Key.UP)) { _gravity = new Vec2(0, -0.2f); }
+        if (Input.GetKey(Key.DOWN)) { _gravity = new Vec2(0, 0.2f); }
     }
 
 

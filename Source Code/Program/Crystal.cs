@@ -13,7 +13,7 @@ namespace GXPEngine
         private Collisions _collisions;
 
         public Crystal(Game game, OuterCircle outerCircle)
-            : base(20, Vec2.zero, Vec2.zero, Vec2.zero, Color.Gold)
+            : base(20, Vec2.zero, Vec2.zero, Vec2.zero, Color.Black)
         {
             _game = game;
             _outerCircle = outerCircle;
