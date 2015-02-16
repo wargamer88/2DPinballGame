@@ -36,6 +36,7 @@ namespace GXPEngine
 
 			_position = pPosition ?? Vec2.zero;
 			_ballColor = pColor ?? Color.Blue;
+
             GraphicsSprite = new AnimSprite(@"Assets\Background.png", 1, 1);
             GraphicsSprite.height = this.height;
             GraphicsSprite.width = this.width;
@@ -46,6 +47,7 @@ namespace GXPEngine
             OuterCircleAnimation.width = this.width;
             OuterCircleAnimation.SetOrigin(OuterCircleAnimation.width / 2, OuterCircleAnimation.height / 2);
             AddChild(OuterCircleAnimation);
+
             draw ();
 
             x = _position.x;
