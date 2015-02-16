@@ -9,9 +9,12 @@ public class MyGame : Game
 	static void Main() {
 		new MyGame().Start();
 	}
-
-    private TextField _tf;
-    private int _score = 0;
+    
+    private TextField _txtScore;
+    private float _score = 0;
+    private TextField _txtMultiplier;
+    private float _multiplier = 1;
+    private int _multiplierTimer = 66;
 
     private Orbs _orbs;
     private Crystal _crystal;
@@ -27,6 +30,7 @@ public class MyGame : Game
     private int _timer = 0; //DEBUG
 
     //Effects
+    private int _effectsCollisionTimer = 0;
     //-Fire:
     private bool _fireEffect = false;
     private int _fireTimer = 0;
@@ -61,9 +65,14 @@ public class MyGame : Game
         _crystal = new Crystal(this, _outerCircle);
         AddChild(_crystal);
 
-        _tf = TextField.CreateTextField("Score: 000000000000");
-        AddChild(_tf);
-        _tf.text = "Score: " +_score;
+        _txtScore = TextField.CreateTextField("Score: 000000000000");
+        AddChild(_txtScore);
+        _txtScore.text = "Score: " +_score;
+
+        _txtMultiplier = TextField.CreateTextField("Multiplier: 000000000000");
+        AddChild(_txtMultiplier);
+        _txtMultiplier.text = "Multiplier: " + _multiplier;
+        _txtMultiplier.y = _txtScore.height + 1;
 
 		_ball.velocity = new Vec2 (0, 0);
 		//_ball.velocity = new Vec2 (37.3f, 103.7f);
@@ -87,6 +96,16 @@ public class MyGame : Game
         _orbs.UpdateOrbAnimations();
         _crystal.UpdateAnimation();
         _outerCircle.GraphicsSprite.rotation += 0.05f;
+
+        if (_multiplier > 1)
+        {
+            _multiplierTimer--;
+            if (_multiplierTimer <= 0)
+            {
+                _multiplierTimer = 66;
+            }
+        }
+        
 	}
 
     void CheckEffects()
@@ -94,12 +113,12 @@ public class MyGame : Game
         if (_fireEffect == true)
         {
             _fireTimer++;
-            if (_fireTimer >= 20)
+            if (_fireTimer >= 25)
             {
                 _fireEffect = false;
                 _fireTimer = 0;
             }
-            _ball.velocity.Scale(1.3f);
+            _ball.velocity.Scale(2.0f);
         }
 
         if (_waterEffect == true)
@@ -220,7 +239,7 @@ public class MyGame : Game
         if (hitEdge == true)
         {
             _destroyBall = true;
-            Console.WriteLine("You Died!");
+            //Console.WriteLine("You Died!");
         } 
         #endregion
 
@@ -246,53 +265,74 @@ public class MyGame : Game
         #endregion
 
         #region Orb/Ball Collision New One
+        _effectsCollisionTimer--;
         bool collision = false;
         foreach (Orb orb in _orbs._orbList)
         {
             collision = _collisions.OrbBallCollisionTest(orb, _ball);
             if (collision)
             {
+                if (_effectsCollisionTimer <= 0)
+                {
+                    _multiplier += 0.5f;
+                    Console.WriteLine(_multiplier);
+                    _txtMultiplier.text = "Multiplier: " + _multiplier;
+                }
                 string color = orb.ballColor.Name;
                 switch (color)
                 {
                     case "Red":
-                        if (!_fireEffect)
+                        if (_effectsCollisionTimer <= 0)
                         {
                             SoundManager.PlaySound(SoundEffect.FIRE);
-                            _fireEffect = true;
+                            _effectsCollisionTimer = 66;
                         }
-                        
+                        _fireEffect = true;
+
                         break;
                     case "White":
-                        if (!_windEffect)
+                        if (_effectsCollisionTimer <= 0)
                         {
                             SoundManager.PlaySound(SoundEffect.WIND);
-                            _ball.velocity = new Vec2(Utils.Random(-10, 10), Utils.Random(-10, 10));
-                            _windEffect = true;
+                            _effectsCollisionTimer = 66;
                         }
+                        _ball.velocity = new Vec2(Utils.Random(-10, 10), Utils.Random(-10, 10));
+                        _windEffect = true;
                         break;
                     case "Cyan":
-                        if (!_lightningEffect)
+                        if (_effectsCollisionTimer <= 0)
                         {
                             SoundManager.PlaySound(SoundEffect.LIGHTNING);
-                            _lightningEffect = true;
+                            _effectsCollisionTimer = 66;
                         }
+                        _lightningEffect = true;
                         
                         break;
                     case "Brown":
                         //Reflect gravity
-                        SoundManager.PlaySound(SoundEffect.EARTH);
+                        if (_effectsCollisionTimer <= 0)
+                        {
+                           SoundManager.PlaySound(SoundEffect.EARTH);
+                           _effectsCollisionTimer = 66;
+                        }
+                        
                         _ball = _collisions.OrbBallCollision(orb, _ball);
                         break;
                     case "Blue":
-                        if (!_waterEffect)
+                        if (_effectsCollisionTimer <= 0)
                         {
                             SoundManager.PlaySound(SoundEffect.WATER);
-                            _waterEffect = true;
+                            _effectsCollisionTimer = 66;
                         }
+                        _waterEffect = true;
                         break;
                 }
+
             }
+            else
+            {
+            }
+
         }
 
         #endregion
@@ -301,9 +341,9 @@ public class MyGame : Game
         if (_collisions.BallCollisionTestCrystalBool(_ball, _crystal))
         {
             _crystal.RespawnCrystal();
-            //int scoreWithMultiplier = 
-            _score++;
-            _tf.text = "Score: " + "000000000" + _score;
+            float scoreWithMultiplier = 1 * _multiplier;
+            _score += scoreWithMultiplier;
+            _txtScore.text = "Score: " + _score;
         } 
         #endregion
     }
