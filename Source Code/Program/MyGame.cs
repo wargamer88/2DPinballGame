@@ -43,6 +43,9 @@ public class MyGame : Game
     //-Wind
     private bool _windEffect = false;
     private int _windTimer = 0;
+    //SpawnImmortality
+    private bool _spawnImmortality = false;
+    private int _immortalTimer = 0;
 
     private bool _createdForTheFirstTime = false;
     private bool _destroyBall = false;
@@ -56,14 +59,14 @@ public class MyGame : Game
         _outerCircle = new OuterCircle(384, new Vec2(width/2, height/2), Color.Yellow);
         AddChild(_outerCircle);
 
+        _crystal = new Crystal(this, _outerCircle);
+        AddChild(_crystal);
+
         _ball = new Ball(30, new Vec2(width / 2, height / 2), null, _gravity, Color.Green);
         AddChild(_ball);
 
         _orbs = new Orbs(this);
         AddChild(_orbs);
-
-        _crystal = new Crystal(this, _outerCircle);
-        AddChild(_crystal);
 
         _txtScore = TextField.CreateTextField("Score: 000000000000");
         AddChild(_txtScore);
@@ -185,6 +188,17 @@ public class MyGame : Game
             }
         }
 
+        if (_spawnImmortality)
+	    {
+            _immortalTimer++;
+
+            if (_immortalTimer >= 66)
+            {
+                _spawnImmortality = false;
+                _immortalTimer = 0;
+            }
+	    }
+
         if (_destroyBall)
         {
             _ball.GraphicsSprite.Destroy();
@@ -196,6 +210,7 @@ public class MyGame : Game
             if (!_createdForTheFirstTime)
             {
                 _ball.Frame = 3;
+                _multiplier = 1;
                 _createdForTheFirstTime = true;
             }
             _ball.FirstFrame = 0;
@@ -235,15 +250,21 @@ public class MyGame : Game
 
 
                 _ball = new Ball(30, new Vec2(width / 2, height / 2), null, _gravity, Color.Green);
-                
+                _spawnImmortality = true;
+
                 AddChild(_ball);
-                this.SetChildIndex(_ball, 2);
+                this.SetChildIndex(_ball, 2); 
             } 
         }
     }
 
     void Collisions()
     {
+        if (_spawnImmortality)
+        {
+            return;
+        }
+
         #region Ball&Outercirle Collision
         bool hitEdge = _collisions.OuterCircleCollisionTest(_outerCircle, _ball);
         if (hitEdge == true)

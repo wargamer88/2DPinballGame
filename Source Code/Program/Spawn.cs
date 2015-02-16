@@ -28,7 +28,7 @@ namespace GXPEngine
                     return Color.Black;
             }
             
-        }
+        } 
 
         public static enumBallPositions RandomPosition()
         {
