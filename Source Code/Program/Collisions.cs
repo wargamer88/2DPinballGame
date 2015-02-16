@@ -40,7 +40,7 @@ namespace GXPEngine
 
             float distance = Difference.Length();
 
-            if (distance > (crystal.radius + (OC.radius - 10)))
+            if (distance > (crystal.radius + (OC.radius - 50)))
             {
                 return true;
             }
