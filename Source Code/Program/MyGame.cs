@@ -98,7 +98,7 @@ public class MyGame : Game
         _outerCircle.GraphicsSprite.rotation += 0.05f;
 
         _multiplierTimer--;
-        Console.WriteLine(_multiplier);
+        //Console.WriteLine(_multiplier);
 
         if (_multiplier >= 1.0f)
         {

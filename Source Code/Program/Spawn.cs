@@ -37,21 +37,21 @@ namespace GXPEngine
             switch (random)
             {
                 case 1:
-                    return enumBallPositions.Bottom;
-                case 2:
-                    return enumBallPositions.BottomLeft;
-                case 3:
-                    return enumBallPositions.BottomRight;
-                case 4:
-                    return enumBallPositions.Left;
-                case 5:
-                    return enumBallPositions.Right;
-                case 6:
                     return enumBallPositions.Top;
-                case 7:
+                case 2:
+                    return enumBallPositions.Bottom;
+                case 3:
+                    return enumBallPositions.Left;
+                case 4:
+                    return enumBallPositions.Right;
+                case 5:
                     return enumBallPositions.TopLeft;
-                case 8:
+                case 6:
                     return enumBallPositions.TopRight;
+                case 7:
+                    return enumBallPositions.BottomLeft;
+                case 8:
+                    return enumBallPositions.BottomRight;
                 default:
                     return enumBallPositions.Bottom;
             }

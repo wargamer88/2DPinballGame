@@ -210,11 +210,10 @@ namespace GXPEngine
             switch (position)
             {
                 case enumBallPositions.Top:
-                    _orb = new Orb(enumBallPositions.Top, radius, 
-                        positionTop.Clone(), 
-                        velocityTopToBottom.Clone(), 
-                        accelerationTopToBottom.Clone(), 
-                        color);
+                    _orb = new Orb(enumBallPositions.Top, radius, positionTop.Clone(), velocityTopToBottom.Clone(), accelerationTopToBottom.Clone(), color);
+                    _orb.velocity.x = Utils.Random(-500, 500);
+                    _orb.velocity.y = 768;
+                    _orb.velocity.Normalize();
                     GetRightAnimationOrb(color);
                     _orbList.Add(_orb);
                     AddChild(_orb);
@@ -222,6 +221,9 @@ namespace GXPEngine
                     break;
                 case enumBallPositions.Bottom:
                     _orb = new Orb(enumBallPositions.Bottom, radius, positionBottom.Clone(), velocityBottomToTop.Clone(), accelerationBottomToTop.Clone(), color);
+                    _orb.velocity.x = Utils.Random(-500, 500);
+                    _orb.velocity.y = -768;
+                    _orb.velocity.Normalize();
                     GetRightAnimationOrb(color);
                     _orbList.Add(_orb);
                     AddChild(_orb);
@@ -229,36 +231,54 @@ namespace GXPEngine
                     break;
                 case enumBallPositions.Left:
                     _orb = new Orb(enumBallPositions.Left, radius, positionLeft.Clone(), velocityLeftToRight.Clone(), accelerationLeftToRight.Clone(), color);
+                    _orb.velocity.x = 1366;
+                    _orb.velocity.y = Utils.Random(-500, 500);
+                    _orb.velocity.Normalize();
                     GetRightAnimationOrb(color);
                     _orbList.Add(_orb);
                     AddChild(_orb);
                     break;
                 case enumBallPositions.Right:
                     _orb = new Orb(enumBallPositions.Right, radius, positionRight.Clone(), velocityRightToLeft.Clone(), accelerationRightToLeft.Clone(), color);
+                    _orb.velocity.x = -1366;
+                    _orb.velocity.y = Utils.Random(-500, 500);
+                    _orb.velocity.Normalize();
                     GetRightAnimationOrb(color);
                     _orbList.Add(_orb);
                     AddChild(_orb);
                     break;
                 case enumBallPositions.TopLeft:
                     _orb = new Orb(enumBallPositions.TopLeft, radius, positionTopLeft.Clone(), velocityTopLeftToBottomRight.Clone(), accelerationTopLeftToBottomRight.Clone(), color);
+                    _orb.velocity.x = Utils.Random(0, 700);
+                    _orb.velocity.y = Utils.Random(0, 700);
+                    _orb.velocity.Normalize();
                     GetRightAnimationOrb(color);
                     _orbList.Add(_orb);
                     AddChild(_orb);
                     break;
                 case enumBallPositions.TopRight:
                     _orb = new Orb(enumBallPositions.TopRight, radius, positionTopRight.Clone(), velocityTopRightToBottomLeft.Clone(), accelerationTopRightToBottomLeft.Clone(), color);
+                    _orb.velocity.x = Utils.Random(-700,0);
+                    _orb.velocity.y = Utils.Random(0, 700);
+                    _orb.velocity.Normalize();
                     GetRightAnimationOrb(color);
                     _orbList.Add(_orb);
                      AddChild(_orb);
                     break;
                 case enumBallPositions.BottomLeft:
                     _orb = new Orb(enumBallPositions.BottomLeft, radius, positionBottomLeft.Clone(), velocityBottomLeftToTopRight.Clone(), accelerationBottomLeftToTopRight.Clone(), color);
+                    _orb.velocity.x = Utils.Random(0, 700);
+                    _orb.velocity.y = Utils.Random(-700, 0);
+                    _orb.velocity.Normalize();
                     GetRightAnimationOrb(color);
                     _orbList.Add(_orb);
                     AddChild(_orb);
                     break;
                 case enumBallPositions.BottomRight:
                     _orb = new Orb(enumBallPositions.BottomRight, radius, positionBottomRight.Clone(), velocityBottomRightToTopLeft.Clone(), accelerationBottomRightToTopLeft.Clone(), color);
+                    _orb.velocity.x = Utils.Random(-700,0);
+                    _orb.velocity.y = Utils.Random(-700,0);
+                    _orb.velocity.Normalize();
                     GetRightAnimationOrb(color);
                     _orbList.Add(_orb);
                     AddChild(_orb);
