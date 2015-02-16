@@ -112,6 +112,7 @@
     <Compile Include="Orb.cs" />
     <Compile Include="Orbs.cs" />
     <Compile Include="OuterCircle.cs" />
+    <Compile Include="SoundManager.cs" />
     <Compile Include="Spawn.cs" />
     <Compile Include="Vec2.cs" />
     <Compile Include="..\..\Components\LineSegment.cs">

@@ -71,6 +71,7 @@ public class MyGame : Game
 	}
 
 	void Update () {
+        SoundManager.PlayMusic(Music.INGAME);
 		targetFps = Input.GetMouseButton (0) ? 1600 : 60;
         ChangeGravity();
         _orbs.StepOrbs();
@@ -254,24 +255,40 @@ public class MyGame : Game
                 switch (color)
                 {
                     case "Red":
-                        _fireEffect = true;
+                        if (!_fireEffect)
+                        {
+                            SoundManager.PlaySound(SoundEffect.FIRE);
+                            _fireEffect = true;
+                        }
+                        
                         break;
                     case "White":
                         if (!_windEffect)
                         {
+                            SoundManager.PlaySound(SoundEffect.WIND);
                             _ball.velocity = new Vec2(Utils.Random(-10, 10), Utils.Random(-10, 10));
                             _windEffect = true;
                         }
                         break;
                     case "Cyan":
-                        _lightningEffect = true;
+                        if (!_lightningEffect)
+                        {
+                            SoundManager.PlaySound(SoundEffect.LIGHTNING);
+                            _lightningEffect = true;
+                        }
+                        
                         break;
                     case "Brown":
                         //Reflect gravity
+                        SoundManager.PlaySound(SoundEffect.EARTH);
                         _ball = _collisions.OrbBallCollision(orb, _ball);
                         break;
                     case "Blue":
-                        _waterEffect = true;
+                        if (!_waterEffect)
+                        {
+                            SoundManager.PlaySound(SoundEffect.WATER);
+                            _waterEffect = true;
+                        }
                         break;
                 }
             }
