@@ -157,15 +157,15 @@ namespace GXPEngine
             }
             if (color == Color.White)
             {
-                _orb.GraphicsSprite = new AnimSprite(@"Assets\Wind.png", 5, 1);
+                _orb.GraphicsSprite = new AnimSprite(@"Assets\Wind.png", 10, 1);
                 _orb.GraphicsSprite.height = _orb.height + 40;
                 _orb.GraphicsSprite.width = _orb.width + 40;
                 _orb.GraphicsSprite.SetXY(-_orb.radius - 20, -_orb.radius - 20);
                 _orb.AddChild(_orb.GraphicsSprite);
                 _orb.Frame = 0;
                 _orb.FirstFrame = 0;
-                _orb.LastFrame = 5;
-                _orb.FrameSpeed = 0.4;
+                _orb.LastFrame = 10;
+                _orb.FrameSpeed = 0.2;
             }
             if (color == Color.Cyan)
             {
