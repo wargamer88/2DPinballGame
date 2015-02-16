@@ -90,7 +90,7 @@ namespace GXPEngine
                 float scalar = relativeVelocity.Clone().Dot(normal);
                 Vec2 impulse = normal.Clone().Scale(scalar);
                 //Factor1 = the Mass of Ball1 (Bounciness), Factor2 = The mass of Orb (bounciness)
-                float factor1 = 2.0f;
+                float factor1 = 4.0f;
                 float factor2 = 0.0f;
                 ball.velocity = ball.velocity.Sub(impulse.Clone().Scale(factor1));
                 Orb.velocity = Orb.velocity.Add(impulse.Clone().Scale(factor2));

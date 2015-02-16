@@ -36,6 +36,9 @@ public class MyGame : Game
     //-Lightning
     private bool _lightningEffect = false;
     private int _lightningTimer = 0;
+    //-Wind
+    private bool _windEffect = false;
+    private int _windTimer = 0;
 
     private bool _createdForTheFirstTime = false;
     private bool _destroyBall = false;
@@ -113,7 +116,7 @@ public class MyGame : Game
         {
             _lightningTimer++;
 
-            if (_lightningTimer >= 60)
+            if (_lightningTimer >= 40)
             {
                 _lightningEffect = false;
                 _lightningTimer = 0;
@@ -123,6 +126,15 @@ public class MyGame : Game
             {
                 _ball.velocity = Vec2.zero;
                 _gravity = Vec2.zero;
+            }
+        }
+        if (_windEffect)
+        {
+            _windTimer++;
+            if (_windTimer >= 40)
+            {
+                _windTimer = 0;
+                _windEffect = false;
             }
         }
 
@@ -204,8 +216,11 @@ public class MyGame : Game
                         _fireEffect = true;
                         break;
                     case "White":
-                        _ball.velocity = new Vec2(Utils.Random(-10, 10), Utils.Random(-10, 10));
-                        //FK This
+                        if (!_windEffect)
+                        {
+                            _ball.velocity = new Vec2(Utils.Random(-10, 10), Utils.Random(-10, 10));
+                            _windEffect = true;
+                        }
                         break;
                     case "Cyan":
                         _lightningEffect = true;
@@ -283,10 +298,10 @@ public class MyGame : Game
 
     void ChangeGravity()
     {
-        if (Input.GetKey(Key.LEFT)) { _gravity = new Vec2(-0.2f, 0); _outerCircle.OuterCircleAnimation.rotation++; }
-        if (Input.GetKey(Key.RIGHT)) { _gravity = new Vec2(0.2f, 0); _outerCircle.OuterCircleAnimation.rotation--; }
-        if (Input.GetKey(Key.UP)) { _gravity = new Vec2(0, -0.2f); _outerCircle.OuterCircleAnimation.rotation++; }
-        if (Input.GetKey(Key.DOWN)) { _gravity = new Vec2(0, 0.2f); _outerCircle.OuterCircleAnimation.rotation--; }
+        if (Input.GetKey(Key.LEFT)) { _gravity = new Vec2(-0.2f, 0); }
+        if (Input.GetKey(Key.RIGHT)) { _gravity = new Vec2(0.2f, 0); }
+        if (Input.GetKey(Key.UP)) { _gravity = new Vec2(0, -0.2f); }
+        if (Input.GetKey(Key.DOWN)) { _gravity = new Vec2(0, 0.2f); }
     }
 
 

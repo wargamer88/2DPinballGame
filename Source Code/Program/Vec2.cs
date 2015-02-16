@@ -85,6 +85,53 @@ namespace GXPEngine
             return result;
         }
 
+        public double GetAngleRadians()
+        {
+            return Math.Atan2(y, x);
+        }
+
+        public double GetAngleDegrees()
+        {
+            double radians = Math.Atan2(y, x);
+            return radians * 180 / Math.PI;
+        }
+
+        public void SetAngleDegrees(double angleAsDegrees)
+        {
+            double angle = Math.PI * angleAsDegrees / 180;
+
+            float length = Length();
+            x = (float)Math.Cos(angle) * length;
+            y = (float)Math.Sin(angle) * length;
+        }
+
+        public void SetAngleRadians(double angleAsRadians)
+        {
+            float length = Length();
+            x = (float)Math.Cos(angleAsRadians) * length;
+            y = (float)Math.Sin(angleAsRadians) * length;
+        }
+
+        public void RotateDegrees(double degrees)
+        {
+            double angle = Math.PI * degrees / 180;
+
+            float x2 = (float)(x * Math.Cos(angle) - y * Math.Sin(angle));
+            float y2 = (float)(x * Math.Sin(angle) + y * Math.Cos(angle));
+
+            x = x2;
+            y = y2;
+        }
+
+        public void RotateRadians(double radians)
+        {
+            float x2 = (float)(x * Math.Cos(radians) - y * Math.Sin(radians));
+            float y2 = (float)(x * Math.Sin(radians) + y * Math.Cos(radians));
+
+            x = x2;
+            y = y2;
+        }
+
         public Vec2 Reflect(Vec2 normal, float bounciness = 1)
         {
 		    //v' = 2 * (v . n) * n - v;  (. = Dot, n = Normal) <--- Perfect Reflection
