@@ -43,7 +43,7 @@ namespace GXPEngine
             Frame = 0;
             FirstFrame = 0;
             LastFrame = 8;
-            FrameSpeed = 0.05;
+            FrameSpeed = 0.06;
 
 			draw ();
 
