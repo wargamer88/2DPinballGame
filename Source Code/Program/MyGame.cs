@@ -147,7 +147,8 @@ public class MyGame : Game
         if (_windEffect)
         {
             _windTimer++;
-            if (_windTimer >= 40)
+            _ball.velocity.Scale(2);
+            if (_windTimer >= 25)
             {
                 _windEffect = false;
                 _windTimer = 0;
@@ -305,7 +306,7 @@ public class MyGame : Game
         _timer++;
         if (_timer == 66)
         {
-            if (_orbs._orbList.Count < 7)
+            if (_orbs._orbList.Count < 5)
             {
                 bool correctPosition = false;
                 enumBallPositions newPosition = Spawn.RandomPosition();
