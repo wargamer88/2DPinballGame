@@ -105,6 +105,10 @@ public class MyGame : Game
 
         if (_multiplier >= 1.0f)
         {
+            if (_multiplier >= 3.0f)
+            {
+                _multiplier = 3.0f;
+            }
             
             if (_multiplierTimer < 0)
             {
@@ -115,6 +119,7 @@ public class MyGame : Game
             {
                 _multiplier = 1.0f;
             }
+
         }
         _multiplier = (float)Math.Round(_multiplier, 1);
         _txtMultiplier.text = "Multiplier: " + _multiplier;
