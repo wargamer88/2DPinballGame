@@ -97,14 +97,23 @@ public class MyGame : Game
         _crystal.UpdateAnimation();
         _outerCircle.GraphicsSprite.rotation += 0.05f;
 
-        if (_multiplier > 1)
+        _multiplierTimer--;
+        Console.WriteLine(_multiplier);
+
+        if (_multiplier >= 1.0f)
         {
-            _multiplierTimer--;
-            if (_multiplierTimer <= 0)
+            if (_multiplierTimer < 0)
             {
+                _multiplier -=0.1f;
                 _multiplierTimer = 66;
             }
+            if (_multiplier < 1.0f)
+            {
+                _multiplier = 1.0f;
+            }
         }
+        _multiplier = (float)Math.Round(_multiplier, 1);
+        _txtMultiplier.text = "Multiplier: " + _multiplier;
         
 	}
 
@@ -239,7 +248,6 @@ public class MyGame : Game
         if (hitEdge == true)
         {
             _destroyBall = true;
-            //Console.WriteLine("You Died!");
         } 
         #endregion
 
@@ -275,8 +283,6 @@ public class MyGame : Game
                 if (_effectsCollisionTimer <= 0)
                 {
                     _multiplier += 0.5f;
-                    Console.WriteLine(_multiplier);
-                    _txtMultiplier.text = "Multiplier: " + _multiplier;
                 }
                 string color = orb.ballColor.Name;
                 switch (color)
