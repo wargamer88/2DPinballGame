@@ -41,7 +41,7 @@ public class MyGame : Game
     private bool _destroyBall = false;
 
 
-	public MyGame () : base(1366, 768, false, false)
+	public MyGame () : base(1366, 768, true, false)
 	{
 		_canvas = new Canvas (width, height);
 		AddChild (_canvas);
@@ -82,6 +82,7 @@ public class MyGame : Game
         _ball.UpdateAnimation();
         _orbs.UpdateOrbAnimations();
         _crystal.UpdateAnimation();
+        _outerCircle.UpdateAnimation();
 	}
 
     void CheckEffects()
