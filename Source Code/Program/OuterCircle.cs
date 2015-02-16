@@ -16,6 +16,7 @@ namespace GXPEngine
 
         //Animation------------------------------------------------------------//
         public AnimSprite GraphicsSprite;
+        public AnimSprite OuterCircleAnimation;
         private double _frame = 0;
         private int _firstFrame = 0;
         private int _lastFrame = 14;
@@ -31,21 +32,21 @@ namespace GXPEngine
 		{
 			radius = pRadius;
 			SetOrigin (radius, radius);
-            //this.alpha = 0.0f;
+            this.alpha = 0.0f;
 
 			_position = pPosition ?? Vec2.zero;
 			_ballColor = pColor ?? Color.Blue;
-            GraphicsSprite = new AnimSprite(@"Assets\Final Ring.png", 8, 1);
+            GraphicsSprite = new AnimSprite(@"Assets\Background.png", 1, 1);
             GraphicsSprite.height = this.height;
             GraphicsSprite.width = this.width;
-            GraphicsSprite.SetXY(-radius, -radius);
+            GraphicsSprite.SetOrigin(GraphicsSprite.width / 2, GraphicsSprite.height / 2);
             AddChild(GraphicsSprite);
-            Frame = 0;
-            FirstFrame = 0;
-            LastFrame = 8;
-            FrameSpeed = 0.06;
-
-			draw ();
+            OuterCircleAnimation = new AnimSprite(@"Assets\Solo Ring.png", 1, 1);
+            OuterCircleAnimation.height = this.height;
+            OuterCircleAnimation.width = this.width;
+            OuterCircleAnimation.SetOrigin(OuterCircleAnimation.width / 2, OuterCircleAnimation.height / 2);
+            AddChild(OuterCircleAnimation);
+            draw ();
 
             x = _position.x;
             y = _position.y;

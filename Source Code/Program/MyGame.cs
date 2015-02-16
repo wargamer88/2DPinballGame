@@ -41,7 +41,7 @@ public class MyGame : Game
     private bool _destroyBall = false;
 
 
-	public MyGame () : base(1366, 768, true, false)
+	public MyGame () : base(1366, 768, false, false)
 	{
 		_canvas = new Canvas (width, height);
 		AddChild (_canvas);
@@ -60,7 +60,7 @@ public class MyGame : Game
 
         _tf = TextField.CreateTextField("Score: 000000000000");
         AddChild(_tf);
-        _tf.text = "Score: " +_score;        
+        _tf.text = "Score: " +_score;
 
 		_ball.velocity = new Vec2 (0, 0);
 		//_ball.velocity = new Vec2 (37.3f, 103.7f);
@@ -82,7 +82,7 @@ public class MyGame : Game
         _ball.UpdateAnimation();
         _orbs.UpdateOrbAnimations();
         _crystal.UpdateAnimation();
-        _outerCircle.UpdateAnimation();
+        _outerCircle.GraphicsSprite.rotation += 0.05f;
 	}
 
     void CheckEffects()
@@ -283,10 +283,10 @@ public class MyGame : Game
 
     void ChangeGravity()
     {
-        if (Input.GetKey(Key.LEFT)) { _gravity = new Vec2(-0.2f, 0); }
-        if (Input.GetKey(Key.RIGHT)) { _gravity = new Vec2(0.2f, 0); }
-        if (Input.GetKey(Key.UP)) { _gravity = new Vec2(0, -0.2f); }
-        if (Input.GetKey(Key.DOWN)) { _gravity = new Vec2(0, 0.2f); }
+        if (Input.GetKey(Key.LEFT)) { _gravity = new Vec2(-0.2f, 0); _outerCircle.OuterCircleAnimation.rotation++; }
+        if (Input.GetKey(Key.RIGHT)) { _gravity = new Vec2(0.2f, 0); _outerCircle.OuterCircleAnimation.rotation--; }
+        if (Input.GetKey(Key.UP)) { _gravity = new Vec2(0, -0.2f); _outerCircle.OuterCircleAnimation.rotation++; }
+        if (Input.GetKey(Key.DOWN)) { _gravity = new Vec2(0, 0.2f); _outerCircle.OuterCircleAnimation.rotation--; }
     }
 
 
