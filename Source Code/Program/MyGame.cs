@@ -102,6 +102,7 @@ public class MyGame : Game
 
         if (_multiplier >= 1.0f)
         {
+            
             if (_multiplierTimer < 0)
             {
                 _multiplier -=0.1f;

@@ -210,7 +210,11 @@ namespace GXPEngine
             switch (position)
             {
                 case enumBallPositions.Top:
-                    _orb = new Orb(enumBallPositions.Top, radius, positionTop.Clone(), velocityTopToBottom.Clone(), accelerationTopToBottom.Clone(), color);
+                    _orb = new Orb(enumBallPositions.Top, radius, 
+                        positionTop.Clone(), 
+                        velocityTopToBottom.Clone(), 
+                        accelerationTopToBottom.Clone(), 
+                        color);
                     GetRightAnimationOrb(color);
                     _orbList.Add(_orb);
                     AddChild(_orb);
