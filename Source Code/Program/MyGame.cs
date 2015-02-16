@@ -259,7 +259,8 @@ public class MyGame : Game
                     case "White":
                         if (!_windEffect)
                         {
-                            _ball.velocity = new Vec2(Utils.Random(-10, 10), Utils.Random(-10, 10)); 
+                            _ball.velocity = new Vec2(Utils.Random(-10, 10), Utils.Random(-10, 10));
+                            _windEffect = true;
                         }
                         break;
                     case "Cyan":
