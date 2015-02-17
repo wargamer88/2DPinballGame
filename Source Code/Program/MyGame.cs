@@ -79,10 +79,10 @@ public class MyGame : Game
         //_ball.velocity = new Vec2 (37.3f, 103.7f);
         _previousPosition = _ball.position.Clone();
 
-        _background = new Sprite("Assets/background screen.png");
+        _background = new Sprite("Assets/background screen 2.png");
         AddChild(_background);
         PrivateFontCollection pfc = new PrivateFontCollection();
-        pfc.AddFontFile(@"Assets\cute_line\CUTEL___.TTF");
+        pfc.AddFontFile(@"Assets\fonts\homer_simpson\Homer_Simpson.ttf");
         _customFont = new Font(pfc.Families[0], 16, FontStyle.Regular);
 
         _txtScore = TextField.CreateTextField("Score: 000000000000");
