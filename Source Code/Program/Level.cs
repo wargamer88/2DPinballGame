@@ -91,24 +91,28 @@ namespace GXPEngine
             _txtScore = TextField.CreateTextField("000000000000");
             AddChild(_txtScore);
             _txtScore.text = "" + _score;
+            _txtScore.x += 180;
+            _txtScore.y += 32;
 
             _txtMultiplier = TextField.CreateTextField("000000000000");
             AddChild(_txtMultiplier);
             _txtMultiplier.text = "" + _multiplier;
-            _txtMultiplier.y = _txtScore.height + 1;
+            _txtMultiplier.x += 250;
+            _txtMultiplier.y += 129;
 
             _txtTimer = TextField.CreateTextField("000000000000");
             AddChild(_txtTimer);
             _deathTimer = 10;
             _secondTimer = 1 * Utils.frameRate;
             _txtTimer.text = "" + _deathTimer;
-            _txtTimer.x = 1100;
+            _txtTimer.x += 1205;
+            _txtTimer.y += 30;
 
             _txtLives = TextField.CreateTextField("000000000000");
             AddChild(_txtLives);
             _txtLives.text = "" + _lives;
-            _txtLives.x = 1100;
-            _txtLives.y = _txtLives.height + 1;
+            _txtLives.x = 1210;
+            _txtLives.y = 129;
 
             _outerCircleRing = new Sprite(@"Assets\Solo Ring.png");
             _outerCircleRing.x = _outerCircle.x + 6;
