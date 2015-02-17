@@ -223,6 +223,7 @@ public class MyGame : Game
             {
                 _destroyBall = false;
                 _createdForTheFirstTime = false;
+                _multiplier = 1;
                 _ball.GraphicsSprite.Destroy();
                 _ball.Destroy();
 
