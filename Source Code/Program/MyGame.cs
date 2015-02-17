@@ -82,7 +82,7 @@ public class MyGame : Game
         _background = new Sprite("Assets/background screen.png");
         AddChild(_background);
         PrivateFontCollection pfc = new PrivateFontCollection();
-        pfc.AddFontFile(@"Assets\cute_line\CUTEL__.TFF");
+        pfc.AddFontFile(@"Assets\cute_line\CUTEL___.TTF");
         _customFont = new Font(pfc.Families[0], 16, FontStyle.Regular);
 
         _txtScore = TextField.CreateTextField("Score: 000000000000");
