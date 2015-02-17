@@ -60,6 +60,9 @@ namespace GXPEngine
 
         private bool _createdForTheFirstTime = false;
         private bool _destroyBall = false;
+
+        public float Score { get { return _score; } }
+        public bool GameOver { get { return _gameOver; } }
     
         public Level()
         {
@@ -117,16 +120,7 @@ namespace GXPEngine
 
         public void Update()
         {
-            if (_gameOver)
-            {
-                if (Input.GetKey(Key.F))
-                {
-                    _gameOver = false;
-                    _lives = 3;
-                    _txtLives.text = "Lives Left: " + _lives;
-                }
-            }
-            else
+            if (!_gameOver)
             {
                 SoundManager.PlayMusic(Music.INGAME);
                 ChangeGravity();
