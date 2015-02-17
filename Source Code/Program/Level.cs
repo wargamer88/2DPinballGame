@@ -141,6 +141,10 @@ namespace GXPEngine
                     _pauseScreen = null;
                 }
             }
+            if (_pause && Input.GetKey(Key.M))
+            {
+                _gameOver = true;
+            }
             if (!_gameOver && !_pause)
             {
                 
