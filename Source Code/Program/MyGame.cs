@@ -125,25 +125,33 @@ public class MyGame : Game
 	void Update () {
         if (_gameOver)
         {
-            return;
+            if (Input.GetKey(Key.F))
+            {
+                _gameOver = false;
+                _lives = 3;
+                _txtLives.text = "Lives Left: " + _lives;
+            }
         }
-        SoundManager.PlayMusic(Music.INGAME);
-		targetFps = Input.GetMouseButton (0) ? 1600 : 60;
-        ChangeGravity();
-        _orbs.StepOrbs();
-        SpawnOrbs();
+        else
+        {
+            SoundManager.PlayMusic(Music.INGAME);
+            targetFps = Input.GetMouseButton(0) ? 1600 : 60;
+            ChangeGravity();
+            _orbs.StepOrbs();
+            SpawnOrbs();
 
-        _ball.acceleration = _gravity;
+            _ball.acceleration = _gravity;
 
-        CheckMaxSpeed();
-        CheckEffects();
-        Collisions();
-        _ball.Step();
-        _ball.UpdateAnimation();
-        _orbs.UpdateOrbAnimations();
-        _crystal.UpdateAnimation();
-        _outerCircle.GraphicsSprite.rotation += 0.05f;
-        HudTimers();
+            CheckMaxSpeed();
+            CheckEffects();
+            Collisions();
+            _ball.Step();
+            _ball.UpdateAnimation();
+            _orbs.UpdateOrbAnimations();
+            _crystal.UpdateAnimation();
+            _outerCircle.GraphicsSprite.rotation += 0.05f;
+            HudTimers();
+        }
 	}
 
     void HudTimers()
