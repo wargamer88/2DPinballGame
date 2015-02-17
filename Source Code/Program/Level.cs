@@ -85,23 +85,23 @@ namespace GXPEngine
             _background = new Sprite("Assets/background screen 3.png");
             AddChild(_background);
 
-            _txtScore = TextField.CreateTextField("Score: 000000000000");
+            _txtScore = TextField.CreateTextField("000000000000");
             AddChild(_txtScore);
             _txtScore.text = "Score: " + _score;
 
-            _txtMultiplier = TextField.CreateTextField("Multiplier: 000000000000");
+            _txtMultiplier = TextField.CreateTextField("000000000000");
             AddChild(_txtMultiplier);
             _txtMultiplier.text = "Multiplier: " + _multiplier;
             _txtMultiplier.y = _txtScore.height + 1;
 
-            _txtTimer = TextField.CreateTextField("Death Timer: 000000000000");
+            _txtTimer = TextField.CreateTextField("000000000000");
             AddChild(_txtTimer);
             _deathTimer = 10;
             _secondTimer = 1 * Utils.frameRate;
             _txtTimer.text = "Time Left: " + _deathTimer;
             _txtTimer.x = 1100;
 
-            _txtLives = TextField.CreateTextField("Lives Left: 000000000000");
+            _txtLives = TextField.CreateTextField("000000000000");
             AddChild(_txtLives);
             _txtLives.text = "Lives Left: " + _lives;
             _txtLives.x = 1100;
