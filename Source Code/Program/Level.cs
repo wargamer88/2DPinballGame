@@ -26,6 +26,7 @@ namespace GXPEngine
 
         private Orbs _orbs;
         private Crystal _crystal;
+        private List<Crystal> _crystalList = new List<Crystal>();
 
         private OuterCircle _outerCircle;
         private Sprite _outerCircleRing;
@@ -81,7 +82,7 @@ namespace GXPEngine
             //_ball.velocity = new Vec2 (37.3f, 103.7f);
             _previousPosition = _ball.position.Clone();
 
-            _background = new Sprite("Assets/background screen 2.png");
+            _background = new Sprite("Assets/background screen 3.png");
             AddChild(_background);
 
             _txtScore = TextField.CreateTextField("Score: 000000000000");
