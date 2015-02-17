@@ -54,8 +54,8 @@ namespace GXPEngine
         private Vec2 accelerationBottomLeftToTopRight;
         private Vec2 accelerationBottomRightToTopLeft;
 
-        public Orbs(Game game)
-            : base(game.width, game.height)
+        public Orbs(int height, int width)
+            : base(width, height)
         {
             _orbList = new List<Orb>();
 

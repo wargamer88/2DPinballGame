@@ -8,14 +8,17 @@ namespace GXPEngine
 {
     class Crystal : Ball
     {
-        private Game _game;
         private OuterCircle _outerCircle;
         private Collisions _collisions;
 
-        public Crystal(Game game, OuterCircle outerCircle)
+        private int _height = 0;
+        private int _width = 0;
+
+        public Crystal(int height, int width, OuterCircle outerCircle)
             : base(20, Vec2.zero, Vec2.zero, Vec2.zero, Color.Black)
         {
-            _game = game;
+            _height = height;
+            _width = width;
             _outerCircle = outerCircle;
             _collisions = new Collisions();
             RespawnCrystal();
@@ -37,8 +40,8 @@ namespace GXPEngine
             do
             {
                 this.position = new Vec2(
-                    _game.width / 2 + Utils.Random(-(_outerCircle.width / 2), (_outerCircle.width / 2)),
-                    _game.height / 2 + Utils.Random(-(_outerCircle.height / 2), (_outerCircle.height / 2))
+                    _width / 2 + Utils.Random(-(_outerCircle.width / 2), (_outerCircle.width / 2)),
+                    _height / 2 + Utils.Random(-(_outerCircle.height / 2), (_outerCircle.height / 2))
                     );
 
                 this.Step();
