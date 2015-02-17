@@ -38,11 +38,11 @@ namespace GXPEngine
 
 		public Font font {
 			get {
-				return _font;
+                return _font;
 			}
 
 			set {
-				_font = value;
+                _font = value;
 				_invalidate = true;
 			}
 		}
@@ -89,7 +89,7 @@ namespace GXPEngine
 				if (_borderSize > 0 && _borderColor != Color.Empty) {
 					graphics.DrawRectangle (_borderPen, 0, 0, width, height);
 				}
-				graphics.DrawString (_text, _font, _textBrush, 0, 0); 
+                graphics.DrawString(_text, _font, _textBrush, 0, 0); 
 			}
 
 			base.RenderSelf (glContext);
@@ -98,7 +98,7 @@ namespace GXPEngine
 		// HELPER FUNCTION TO CREATE SIZED TEXTFIELD
 		private static Image _stub = new Bitmap(1,1);
 		private static Graphics _stubGraphics = Graphics.FromImage(_stub);
-		private static Font _font = new Font ("Arial", 16);
+		private static Font _font = new Font ("Comic Sans MS", 16);
 
 		/// <summary>
 		/// Creates a text field based on a standard Arial font and font size 16 to contain the given characters.
