@@ -16,6 +16,9 @@ public class MyGame : Game
     private TextField _txtMultiplier;
     private float _multiplier = 1;
     private int _multiplierTimer = 66;
+    private TextField _txtTimer;
+    private int _deathTimer = 0;
+    private int _secondTimer = 0;
     private Font _customFont;
 
     private Orbs _orbs;
@@ -72,6 +75,12 @@ public class MyGame : Game
         _orbs = new Orbs(this);
         AddChild(_orbs);
 
+        _ball.velocity = new Vec2(0, 0);
+        //_ball.velocity = new Vec2 (37.3f, 103.7f);
+        _previousPosition = _ball.position.Clone();
+
+        _background = new Sprite("Assets/background screen.png");
+        AddChild(_background);
         PrivateFontCollection pfc = new PrivateFontCollection();
         pfc.AddFontFile(@"Assets\cute_line\CUTEL__.TFF");
         _customFont = new Font(pfc.Families[0], 16, FontStyle.Regular);
@@ -87,12 +96,12 @@ public class MyGame : Game
         _txtMultiplier.y = _txtScore.height + 1;
         _txtMultiplier.font = _customFont;
 
-		_ball.velocity = new Vec2 (0, 0);
-		//_ball.velocity = new Vec2 (37.3f, 103.7f);
-		_previousPosition = _ball.position.Clone ();
-
-        _background = new Sprite("Assets/background screen.png");
-        AddChild(_background);
+        _txtTimer = TextField.CreateTextField("Death Timer: 000000000000");
+        AddChild(_txtTimer);
+        _deathTimer = 10;
+        _secondTimer = 1 * Utils.frameRate;
+        _txtTimer.text = "Time Left: " + _deathTimer;
+        _txtTimer.x = 1100;
 
         _outerCircleRing = new Sprite(@"Assets\Solo Ring.png");
         _outerCircleRing.x = _outerCircle.x+6;
@@ -121,7 +130,12 @@ public class MyGame : Game
         _orbs.UpdateOrbAnimations();
         _crystal.UpdateAnimation();
         _outerCircle.GraphicsSprite.rotation += 0.05f;
+        HudTimers();
+	}
 
+    void HudTimers()
+    {
+        #region Multiplier
         _multiplierTimer--;
         //Console.WriteLine(_multiplier);
 
@@ -134,7 +148,7 @@ public class MyGame : Game
             
             if (_multiplierTimer < 0)
             {
-                _multiplier -=0.1f;
+                _multiplier -= 0.1f;
                 _multiplierTimer = 66;
             }
             if (_multiplier < 1.0f)
@@ -145,7 +159,17 @@ public class MyGame : Game
         }
         _multiplier = (float)Math.Round(_multiplier, 1);
         _txtMultiplier.text = "Multiplier: " + _multiplier;
+        #endregion
         
+        #region DeathTimer
+        _secondTimer--;
+        if (_secondTimer <= 0)
+        {
+            _deathTimer--;
+            _secondTimer = 1 * Utils.frameRate;
+            _txtTimer.text = "Time Left: " + _deathTimer;
+        }
+        #endregion
 	}
 
     void CheckEffects()
