@@ -19,7 +19,10 @@ public class MyGame : Game
     private TextField _txtTimer;
     private int _deathTimer = 0;
     private int _secondTimer = 0;
-    private Font _customFont;
+    private TextField _txtLives;
+    private int _lives = 3;
+    private bool _gameOver = false;
+    //private Font _customFont;
 
     private Orbs _orbs;
     private Crystal _crystal;
@@ -81,20 +84,20 @@ public class MyGame : Game
 
         _background = new Sprite("Assets/background screen.png");
         AddChild(_background);
-        PrivateFontCollection pfc = new PrivateFontCollection();
-        pfc.AddFontFile(@"Assets\cute_line\CUTEL___.TTF");
-        _customFont = new Font(pfc.Families[0], 16, FontStyle.Regular);
+        //PrivateFontCollection pfc = new PrivateFontCollection();
+        //pfc.AddFontFile(@"Assets\cute_line\CUTEL___.TTF");
+        //_customFont = new Font(pfc.Families[0], 16, FontStyle.Regular);
 
         _txtScore = TextField.CreateTextField("Score: 000000000000");
         AddChild(_txtScore);
         _txtScore.text = "Score: " +_score;
-        _txtScore.font = _customFont;
+        //_txtScore.font = _customFont;
 
         _txtMultiplier = TextField.CreateTextField("Multiplier: 000000000000");
         AddChild(_txtMultiplier);
         _txtMultiplier.text = "Multiplier: " + _multiplier;
         _txtMultiplier.y = _txtScore.height + 1;
-        _txtMultiplier.font = _customFont;
+        //_txtMultiplier.font = _customFont;
 
         _txtTimer = TextField.CreateTextField("Death Timer: 000000000000");
         AddChild(_txtTimer);
@@ -102,6 +105,12 @@ public class MyGame : Game
         _secondTimer = 1 * Utils.frameRate;
         _txtTimer.text = "Time Left: " + _deathTimer;
         _txtTimer.x = 1100;
+
+        _txtLives = TextField.CreateTextField("Lives Left: 000000000000");
+        AddChild(_txtLives);
+        _txtLives.text = "Lives Left: " + _lives;
+        _txtLives.x = 1100;
+        _txtLives.y = _txtLives.height + 1;
 
         _outerCircleRing = new Sprite(@"Assets\Solo Ring.png");
         _outerCircleRing.x = _outerCircle.x+6;
@@ -114,6 +123,10 @@ public class MyGame : Game
 	}
 
 	void Update () {
+        if (_gameOver)
+        {
+            return;
+        }
         SoundManager.PlayMusic(Music.INGAME);
 		targetFps = Input.GetMouseButton (0) ? 1600 : 60;
         ChangeGravity();
@@ -166,6 +179,15 @@ public class MyGame : Game
         if (_secondTimer <= 0)
         {
             _deathTimer--;
+            if (_deathTimer > 10)
+            {
+                _deathTimer = 10;
+            }
+            else if (_deathTimer <= 0)
+            {
+                _destroyBall = true;
+                _deathTimer = 10;
+            }
             _secondTimer = 1 * Utils.frameRate;
             _txtTimer.text = "Time Left: " + _deathTimer;
         }
@@ -174,6 +196,7 @@ public class MyGame : Game
 
     void CheckEffects()
     {
+        #region OrbEffects
         if (_fireEffect == true)
         {
             _fireTimer++;
@@ -237,10 +260,12 @@ public class MyGame : Game
                 _windEffect = false;
                 _windTimer = 0;
             }
-        }
+        } 
+        #endregion
 
+        #region RespawnImmortality
         if (_spawnImmortality)
-	    {
+        {
             _immortalTimer++;
 
             if (_immortalTimer >= 66)
@@ -248,8 +273,10 @@ public class MyGame : Game
                 _spawnImmortality = false;
                 _immortalTimer = 0;
             }
-	    }
+        } 
+        #endregion
 
+        #region DestroyBall(DEATH)
         if (_destroyBall)
         {
             _ball.GraphicsSprite.Destroy();
@@ -278,11 +305,6 @@ public class MyGame : Game
                 _ball.GraphicsSprite.Destroy();
                 _ball.Destroy();
 
-                //{ _gravity = new Vec2(-0.2f, 0); _outerCircleRing.rotation = 270; }
-                //{ _gravity = new Vec2(0.2f, 0); _outerCircleRing.rotation = 90; }
-                //{ _gravity = new Vec2(0, -0.2f); _outerCircleRing.rotation = 0; }
-                //{ _gravity = new Vec2(0, 0.2f); _outerCircleRing.rotation = 180; }
-
                 if (_outerCircleRing.rotation == 0)
                 {
                     _gravity = new Vec2(0, -0.2f);
@@ -302,12 +324,21 @@ public class MyGame : Game
 
 
                 _ball = new Ball(30, new Vec2(width / 2, height / 2), null, _gravity, Color.Green);
+                _lives = _lives - 1;
+                if (_lives <= 0)
+                {
+                    _lives = 0;
+                    _gameOver = true;
+                }
+                _txtLives.text = "Lives Left: " + _lives;
+                _deathTimer = 10;
                 _spawnImmortality = true;
 
                 AddChild(_ball);
-                this.SetChildIndex(_ball, 2); 
-            } 
-        }
+                this.SetChildIndex(_ball, 2);
+            }
+        } 
+        #endregion
     }
 
     void Collisions()
@@ -357,6 +388,7 @@ public class MyGame : Game
                 if (_effectsCollisionTimer <= 0)
                 {
                     _multiplier += 0.5f;
+                    _deathTimer += 3;
                 }
                 string color = orb.ballColor.Name;
                 switch (color)
@@ -422,6 +454,7 @@ public class MyGame : Game
         {
             _crystal.RespawnCrystal();
             float scoreWithMultiplier = 1 * _multiplier;
+            _deathTimer += 1;
             _score += scoreWithMultiplier;
             _txtScore.text = "Score: " + _score;
         } 
