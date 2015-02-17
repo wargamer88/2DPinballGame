@@ -14,6 +14,7 @@ public class MyGame : Game
     private Level _level;
     private float _lastScore;
     private bool _gameOver = false;
+    private GameOverMenu _gameOverMenu;
 
 	public MyGame () : base(1366, 768, false, false)
 	{
@@ -34,6 +35,10 @@ public class MyGame : Game
                 _level.Destroy();
                 _level = null;
             }
+        }
+        if (_gameOver)
+        {
+            _gameOverMenu = new GameOverMenu();
         }
 	}
 }
