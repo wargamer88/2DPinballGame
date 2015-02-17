@@ -20,6 +20,7 @@ public class MyGame : Game
     private Crystal _crystal;
 
 	private OuterCircle _outerCircle;
+    private Sprite _outerCircleRing;
     private Ball _ball;
     private Collisions _collisions = new Collisions();
 
@@ -28,6 +29,7 @@ public class MyGame : Game
 	private Vec2 _previousPosition;
 	private Canvas _canvas;
     private int _timer = 0; //DEBUG
+    private Sprite _background;
 
     //Effects
     private int _effectsCollisionTimer = 0;
@@ -80,6 +82,18 @@ public class MyGame : Game
 		_ball.velocity = new Vec2 (0, 0);
 		//_ball.velocity = new Vec2 (37.3f, 103.7f);
 		_previousPosition = _ball.position.Clone ();
+
+        _background = new Sprite("Assets/background screen.png");
+        AddChild(_background);
+
+        _outerCircleRing = new Sprite(@"Assets\Solo Ring.png");
+        _outerCircleRing.x = _outerCircle.x+5;
+        _outerCircleRing.y = _outerCircle.y-1;
+        _outerCircle.SetScaleXY(1.01f, 1.01f);
+        _outerCircleRing.SetOrigin(_outerCircleRing.width / 2, _outerCircleRing.height / 2);
+        AddChild(_outerCircleRing);
+
+        
 	}
 
 	void Update () {
@@ -105,6 +119,10 @@ public class MyGame : Game
 
         if (_multiplier >= 1.0f)
         {
+            if (_multiplier >= 3.0f)
+            {
+                _multiplier = 3.0f;
+            }
             
             if (_multiplierTimer < 0)
             {
@@ -115,6 +133,7 @@ public class MyGame : Game
             {
                 _multiplier = 1.0f;
             }
+
         }
         _multiplier = (float)Math.Round(_multiplier, 1);
         _txtMultiplier.text = "Multiplier: " + _multiplier;
@@ -153,19 +172,19 @@ public class MyGame : Game
             {
                 _lightningEffect = false;
                 _lightningTimer = 0;
-                if (_outerCircle.OuterCircleAnimation.rotation == 0)
+                if (_outerCircleRing.rotation == 0)
                 {
                     _gravity = new Vec2(0, -0.2f);
                 }
-                else if (_outerCircle.OuterCircleAnimation.rotation == 90)
+                else if (_outerCircleRing.rotation == 90)
                 {
                     _gravity = new Vec2(0.2f, 0);
                 }
-                else if (_outerCircle.OuterCircleAnimation.rotation == 180)
+                else if (_outerCircleRing.rotation == 180)
                 {
                     _gravity = new Vec2(0, 0.2f);
                 }
-                else if (_outerCircle.OuterCircleAnimation.rotation == 270)
+                else if (_outerCircleRing.rotation == 270)
                 {
                     _gravity = new Vec2(-0.2f, 0);
                 }
@@ -227,24 +246,24 @@ public class MyGame : Game
                 _ball.GraphicsSprite.Destroy();
                 _ball.Destroy();
 
-                //{ _gravity = new Vec2(-0.2f, 0); _outerCircle.OuterCircleAnimation.rotation = 270; }
-                //{ _gravity = new Vec2(0.2f, 0); _outerCircle.OuterCircleAnimation.rotation = 90; }
-                //{ _gravity = new Vec2(0, -0.2f); _outerCircle.OuterCircleAnimation.rotation = 0; }
-                //{ _gravity = new Vec2(0, 0.2f); _outerCircle.OuterCircleAnimation.rotation = 180; }
+                //{ _gravity = new Vec2(-0.2f, 0); _outerCircleRing.rotation = 270; }
+                //{ _gravity = new Vec2(0.2f, 0); _outerCircleRing.rotation = 90; }
+                //{ _gravity = new Vec2(0, -0.2f); _outerCircleRing.rotation = 0; }
+                //{ _gravity = new Vec2(0, 0.2f); _outerCircleRing.rotation = 180; }
 
-                if (_outerCircle.OuterCircleAnimation.rotation == 0)
+                if (_outerCircleRing.rotation == 0)
                 {
                     _gravity = new Vec2(0, -0.2f);
                 }
-                else if (_outerCircle.OuterCircleAnimation.rotation == 90)
+                else if (_outerCircleRing.rotation == 90)
                 {
                     _gravity = new Vec2(0.2f, 0);
                 }
-                else if (_outerCircle.OuterCircleAnimation.rotation == 180)
+                else if (_outerCircleRing.rotation == 180)
                 {
                     _gravity = new Vec2(0, 0.2f);
                 }
-                else if (_outerCircle.OuterCircleAnimation.rotation == 270)
+                else if (_outerCircleRing.rotation == 270)
                 {
                     _gravity = new Vec2(-0.2f, 0);
                 }
@@ -426,10 +445,10 @@ public class MyGame : Game
 
     void ChangeGravity()
     {
-        if (Input.GetKey(Key.LEFT))     { _gravity = new Vec2(-0.2f, 0); _outerCircle.OuterCircleAnimation.rotation = 270; }
-        if (Input.GetKey(Key.RIGHT))    { _gravity = new Vec2(0.2f, 0); _outerCircle.OuterCircleAnimation.rotation = 90; }
-        if (Input.GetKey(Key.UP))       { _gravity = new Vec2(0, -0.2f); _outerCircle.OuterCircleAnimation.rotation = 0; }
-        if (Input.GetKey(Key.DOWN))     { _gravity = new Vec2(0, 0.2f); _outerCircle.OuterCircleAnimation.rotation = 180; }
+        if (Input.GetKey(Key.LEFT)) { _gravity = new Vec2(-0.2f, 0); _outerCircleRing.rotation = 270; }
+        if (Input.GetKey(Key.RIGHT)) { _gravity = new Vec2(0.2f, 0); _outerCircleRing.rotation = 90; }
+        if (Input.GetKey(Key.UP)) { _gravity = new Vec2(0, -0.2f); _outerCircleRing.rotation = 0; }
+        if (Input.GetKey(Key.DOWN)) { _gravity = new Vec2(0, 0.2f); _outerCircleRing.rotation = 180; }
     }
 
 
