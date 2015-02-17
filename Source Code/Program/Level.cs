@@ -22,6 +22,8 @@ namespace GXPEngine
         private TextField _txtLives;
         private int _lives = 3;
         private bool _gameOver = false;
+        private bool _pause = false;
+        private Sprite _pauseScreen;
         private Font _customFont;
 
         private Orbs _orbs;
@@ -124,7 +126,22 @@ namespace GXPEngine
 
         public void Update()
         {
-            if (!_gameOver)
+            if (Input.GetKeyDown(Key.P))
+            {
+                if (!_pause)
+                {
+                    _pause = true;
+                    _pauseScreen = new Sprite(@"Assets\Menu\pause menu.png");
+                    AddChild(_pauseScreen); 
+                }
+                else if (_pause)
+                {
+                    _pauseScreen.Destroy();
+                    _pause = false;
+                    _pauseScreen = null;
+                }
+            }
+            if (!_gameOver && !_pause)
             {
                 SoundManager.PlayMusic(Music.INGAME);
                 ChangeGravity();
@@ -143,6 +160,7 @@ namespace GXPEngine
                 _outerCircle.GraphicsSprite.rotation += 0.05f;
                 HudTimers();
             }
+            
         }
 
         void HudTimers()
