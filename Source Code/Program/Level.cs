@@ -143,7 +143,7 @@ namespace GXPEngine
             }
             if (!_gameOver && !_pause)
             {
-                SoundManager.PlayMusic(Music.INGAME);
+                
                 ChangeGravity();
                 _orbs.StepOrbs();
                 SpawnOrbs();
@@ -296,6 +296,7 @@ namespace GXPEngine
             #region DestroyBall(DEATH)
             if (_destroyBall)
             {
+                
                 _ball.GraphicsSprite.Destroy();
                 _ball.GraphicsSprite = new AnimSprite(@"Assets\Light ball death.png", 16, 1);
                 _ball.GraphicsSprite.height = _ball.height + 40;
@@ -316,6 +317,7 @@ namespace GXPEngine
 
                 if (_ball.Frame >= 15)
                 {
+                    
                     _destroyBall = false;
                     _createdForTheFirstTime = false;
                     _multiplier = 1;

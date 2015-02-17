@@ -18,8 +18,11 @@ public class MyGame : Game
 
 	public MyGame () : base(1366, 768, false, false)
 	{
+        SoundManager.PlayMusic(Music.MENU);
         _menu = new MainMenu();
         AddChild(_menu);
+
+        SoundManager.onAfterFadeMusic += checkstatus;
 	}
 
 	void Update () {
@@ -39,6 +42,7 @@ public class MyGame : Game
 
                 _level = new Level();
                 AddChild(_level);
+                SoundManager.StopMusic(true);
             }
         }
         #region LevelState
@@ -50,6 +54,8 @@ public class MyGame : Game
             {
                 _level.Destroy();
                 _level = null;
+                SoundManager.StopMusic(true);
+                
 
                 _gameOverMenu = new GameOverMenu();
                 AddChild(_gameOverMenu);
@@ -66,6 +72,21 @@ public class MyGame : Game
                 _menu = new MainMenu();
                 AddChild(_menu);
             } 
+        }
+    }
+
+    void checkstatus(string action)
+    {
+        if (action == "musicFaded")
+        {
+            if (_level != null)
+            {
+                SoundManager.PlayMusic(Music.INGAME);
+            }
+            if (_gameOverMenu != null || _menu != null)
+            {
+                SoundManager.PlayMusic(Music.MENU);
+            }
         }
     }
 }
