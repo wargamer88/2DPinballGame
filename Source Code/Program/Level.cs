@@ -86,20 +86,15 @@ namespace GXPEngine
 
             _background = new Sprite("Assets/background screen 2.png");
             AddChild(_background);
-            PrivateFontCollection pfc = new PrivateFontCollection();
-            pfc.AddFontFile(@"Assets\fonts\homer_simpson\Homer_Simpson.ttf");
-            _customFont = new Font(pfc.Families[0], 16, FontStyle.Regular);
 
             _txtScore = TextField.CreateTextField("Score: 000000000000");
             AddChild(_txtScore);
             _txtScore.text = "Score: " + _score;
-            //_txtScore.font = _customFont;
 
             _txtMultiplier = TextField.CreateTextField("Multiplier: 000000000000");
             AddChild(_txtMultiplier);
             _txtMultiplier.text = "Multiplier: " + _multiplier;
             _txtMultiplier.y = _txtScore.height + 1;
-            //_txtMultiplier.font = _customFont;
 
             _txtTimer = TextField.CreateTextField("Death Timer: 000000000000");
             AddChild(_txtTimer);
