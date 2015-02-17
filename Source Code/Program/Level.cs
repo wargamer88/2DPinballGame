@@ -90,23 +90,23 @@ namespace GXPEngine
 
             _txtScore = TextField.CreateTextField("000000000000");
             AddChild(_txtScore);
-            _txtScore.text = "Score: " + _score;
+            _txtScore.text = "" + _score;
 
             _txtMultiplier = TextField.CreateTextField("000000000000");
             AddChild(_txtMultiplier);
-            _txtMultiplier.text = "Multiplier: " + _multiplier;
+            _txtMultiplier.text = "" + _multiplier;
             _txtMultiplier.y = _txtScore.height + 1;
 
             _txtTimer = TextField.CreateTextField("000000000000");
             AddChild(_txtTimer);
             _deathTimer = 10;
             _secondTimer = 1 * Utils.frameRate;
-            _txtTimer.text = "Time Left: " + _deathTimer;
+            _txtTimer.text = "" + _deathTimer;
             _txtTimer.x = 1100;
 
             _txtLives = TextField.CreateTextField("000000000000");
             AddChild(_txtLives);
-            _txtLives.text = "Lives Left: " + _lives;
+            _txtLives.text = "" + _lives;
             _txtLives.x = 1100;
             _txtLives.y = _txtLives.height + 1;
 
@@ -166,7 +166,7 @@ namespace GXPEngine
 
             }
             _multiplier = (float)Math.Round(_multiplier, 1);
-            _txtMultiplier.text = "Multiplier: " + _multiplier;
+            _txtMultiplier.text = "" + _multiplier;
             #endregion
 
             #region DeathTimer
@@ -184,7 +184,7 @@ namespace GXPEngine
                     _deathTimer = 10;
                 }
                 _secondTimer = 1 * Utils.frameRate;
-                _txtTimer.text = "Time Left: " + _deathTimer;
+                _txtTimer.text = "" + _deathTimer;
             }
             #endregion
         }
@@ -325,7 +325,7 @@ namespace GXPEngine
                         _lives = 0;
                         _gameOver = true;
                     }
-                    _txtLives.text = "Lives Left: " + _lives;
+                    _txtLives.text = "" + _lives;
                     _deathTimer = 10;
                     _spawnImmortality = true;
 
@@ -451,7 +451,7 @@ namespace GXPEngine
                 float scoreWithMultiplier = 1 * _multiplier;
                 _deathTimer += 1;
                 _score += scoreWithMultiplier;
-                _txtScore.text = "Score: " + _score;
+                _txtScore.text = "" + _score;
             }
             #endregion
         }
