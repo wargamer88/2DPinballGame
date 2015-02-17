@@ -98,7 +98,7 @@ namespace GXPEngine
 		// HELPER FUNCTION TO CREATE SIZED TEXTFIELD
 		private static Image _stub = new Bitmap(1,1);
 		private static Graphics _stubGraphics = Graphics.FromImage(_stub);
-		private static Font _font = new Font ("Comic Sans MS", 16);
+		private static Font _font = new Font ("Times New Roman", 16);
 
 		/// <summary>
 		/// Creates a text field based on a standard Arial font and font size 16 to contain the given characters.
@@ -108,7 +108,7 @@ namespace GXPEngine
 		public static TextField CreateTextField (string text) {
 			SizeF size = _stubGraphics.MeasureString (text, _font);
 			TextField result = new TextField ((int)(size.Width + 5), (int)(size.Height+5));
-			result.backgroundColor = Color.White;
+			result.backgroundColor = Color.Transparent;
 			result.text = text;
 			return result;
 		}
