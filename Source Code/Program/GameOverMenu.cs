@@ -7,8 +7,6 @@ namespace GXPEngine
 {
     class GameOverMenu : GameObject
     {
-        private int _width = 1366;
-        private int _height = 768;
         private bool _allowDestruction = false;
 
         public bool AllowDestruction { get { return _allowDestruction; } }

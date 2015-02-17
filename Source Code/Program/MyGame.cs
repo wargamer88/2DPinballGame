@@ -11,14 +11,15 @@ public class MyGame : Game
 		new MyGame().Start();
 	}
 
+    private MainMenu _menu;
     private Level _level;
     private float _lastScore;
     private GameOverMenu _gameOverMenu;
 
 	public MyGame () : base(1366, 768, false, false)
 	{
-        _level = new Level();
-        AddChild(_level);
+        _menu = new MainMenu();
+        AddChild(_menu);
 	}
 
 	void Update () {
@@ -29,6 +30,17 @@ public class MyGame : Game
 
     void CheckState()
     {
+        if (_menu != null)
+        {
+            if (_menu.StartLevel)
+            {
+                _menu.Destroy();
+                _menu = null;
+
+                _level = new Level();
+                AddChild(_level);
+            }
+        }
         #region LevelState
         if (_level != null)
         {
@@ -51,8 +63,8 @@ public class MyGame : Game
                 _gameOverMenu.Destroy();
                 _gameOverMenu = null;
 
-                _level = new Level();
-                AddChild(_level);
+                _menu = new MainMenu();
+                AddChild(_menu);
             } 
         }
     }
