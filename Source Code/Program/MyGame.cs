@@ -89,7 +89,7 @@ public class MyGame : Game
         _outerCircleRing = new Sprite(@"Assets\Solo Ring.png");
         _outerCircleRing.x = _outerCircle.x+5;
         _outerCircleRing.y = _outerCircle.y-1;
-        _outerCircle.SetScaleXY(1.01f, 1.01f);
+        _outerCircleRing.SetScaleXY(1.001f, 1.001f);
         _outerCircleRing.SetOrigin(_outerCircleRing.width / 2, _outerCircleRing.height / 2);
         AddChild(_outerCircleRing);
 
