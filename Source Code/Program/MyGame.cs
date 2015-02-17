@@ -1,6 +1,7 @@
 using System;
 using GXPEngine;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Collections.Generic;
 
 public class MyGame : Game
@@ -15,6 +16,7 @@ public class MyGame : Game
     private TextField _txtMultiplier;
     private float _multiplier = 1;
     private int _multiplierTimer = 66;
+    private Font _customFont;
 
     private Orbs _orbs;
     private Crystal _crystal;
@@ -70,14 +72,20 @@ public class MyGame : Game
         _orbs = new Orbs(this);
         AddChild(_orbs);
 
+        PrivateFontCollection pfc = new PrivateFontCollection();
+        pfc.AddFontFile(@"Assets\cute_line\CUTEL__.TFF");
+        _customFont = new Font(pfc.Families[0], 16, FontStyle.Regular);
+
         _txtScore = TextField.CreateTextField("Score: 000000000000");
         AddChild(_txtScore);
         _txtScore.text = "Score: " +_score;
+        _txtScore.font = _customFont;
 
         _txtMultiplier = TextField.CreateTextField("Multiplier: 000000000000");
         AddChild(_txtMultiplier);
         _txtMultiplier.text = "Multiplier: " + _multiplier;
         _txtMultiplier.y = _txtScore.height + 1;
+        _txtMultiplier.font = _customFont;
 
 		_ball.velocity = new Vec2 (0, 0);
 		//_ball.velocity = new Vec2 (37.3f, 103.7f);
@@ -87,9 +95,9 @@ public class MyGame : Game
         AddChild(_background);
 
         _outerCircleRing = new Sprite(@"Assets\Solo Ring.png");
-        _outerCircleRing.x = _outerCircle.x+5;
-        _outerCircleRing.y = _outerCircle.y-1;
-        _outerCircleRing.SetScaleXY(1.001f, 1.001f);
+        _outerCircleRing.x = _outerCircle.x+6;
+        _outerCircleRing.y = _outerCircle.y+1;
+        _outerCircleRing.SetScaleXY(1.005f, 1.005f);
         _outerCircleRing.SetOrigin(_outerCircleRing.width / 2, _outerCircleRing.height / 2);
         AddChild(_outerCircleRing);
 
