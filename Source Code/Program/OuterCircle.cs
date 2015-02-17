@@ -42,17 +42,15 @@ namespace GXPEngine
             GraphicsSprite.width = this.width;
             GraphicsSprite.SetOrigin(GraphicsSprite.width / 2, GraphicsSprite.height / 2);
             AddChild(GraphicsSprite);
-            OuterCircleAnimation = new AnimSprite(@"Assets\Solo Ring.png", 1, 1);
-            OuterCircleAnimation.height = this.height;
-            OuterCircleAnimation.width = this.width;
-            OuterCircleAnimation.SetOrigin(OuterCircleAnimation.width / 2, OuterCircleAnimation.height / 2);
-            AddChild(OuterCircleAnimation);
+            
 
             draw ();
 
             x = _position.x;
             y = _position.y;
 		}
+
+        
 
         private void draw()
         {
