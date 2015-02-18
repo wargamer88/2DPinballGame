@@ -699,7 +699,8 @@ namespace GXPEngine
             #endregion
 
             #region new spawning
-            if (spawnTimer <= 0)
+
+            if (spawnTimer <= 0 && waveNR < _wavesList.Count)
             {
                 string[] wave = _wavesList[waveNR-1];
                 bool check = wave[0].StartsWith("<wave=" + (waveNR) + ">");
@@ -786,6 +787,45 @@ namespace GXPEngine
                         }
                     }
                 }
+            }
+
+            if (waveNR > _wavesList.Count)
+            {
+                #region Random spawning after waves are done
+                _timer++;
+                if (_timer == 66)
+                {
+                    if (_orbs._orbList.Count < 5)
+                    {
+                        bool correctPosition = false;
+                        enumBallPositions newPosition = Spawn.RandomPosition();
+                        if (_orbs._orbList.Count > 3)
+                        {
+                            do
+                            {
+                                newPosition = Spawn.RandomPosition();
+
+                                for (int i = 0; i < _orbs._orbList.Count; i++)
+                                {
+                                    if (i >= _orbs._orbList.Count - 3)
+                                    {
+                                        if (_orbs._orbList[i].positionEnum == newPosition)
+                                        {
+                                            correctPosition = false;
+                                        }
+                                        else
+                                        {
+                                            correctPosition = true;
+                                        }
+                                    }
+                                }
+                            } while (correctPosition == false);
+                        }
+                        _orbs.CreateOrb(Spawn.RandomColor(), newPosition, 40);
+                    }
+                    _timer = 0;
+                }
+                #endregion
             }
             #endregion
         }
