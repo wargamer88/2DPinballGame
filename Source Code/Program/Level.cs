@@ -238,7 +238,7 @@ namespace GXPEngine
                 {
                     _ball.LightType = 0;
                     _ball.GraphicsSprite.Destroy();
-                    _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death_light level 0.png", 16, 1);
+                    _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light balls animation_light level 0.png", 16, 1);
                     _ball.GraphicsSprite.height = _ball.height + 40;
                     _ball.GraphicsSprite.width = _ball.width + 40;
                     _ball.GraphicsSprite.SetXY(-_ball.radius - 20, -_ball.radius - 20);
@@ -251,7 +251,7 @@ namespace GXPEngine
                 {
                     _ball.LightType = 1;
                     _ball.GraphicsSprite.Destroy();
-                    _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death_light level 1.png", 16, 1);
+                    _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light balls animation_light level 1.png", 16, 1);
                     _ball.GraphicsSprite.height = _ball.height + 40;
                     _ball.GraphicsSprite.width = _ball.width + 40;
                     _ball.GraphicsSprite.SetXY(-_ball.radius - 20, -_ball.radius - 20);
@@ -264,7 +264,7 @@ namespace GXPEngine
                 {
                     _ball.LightType = 1;
                     _ball.GraphicsSprite.Destroy();
-                    _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death_light level 2.png", 16, 1);
+                    _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light balls animation_light level 2.png", 16, 1);
                     _ball.GraphicsSprite.height = _ball.height + 40;
                     _ball.GraphicsSprite.width = _ball.width + 40;
                     _ball.GraphicsSprite.SetXY(-_ball.radius - 20, -_ball.radius - 20);
@@ -273,6 +273,10 @@ namespace GXPEngine
                     _ball.LastFrame = 16;
                     _ball.FrameSpeed = 0.2;
                 }
+                //if (_deathTimer)
+                //{
+                    
+                //}
 
                 _secondTimer = 1 * Utils.frameRate;
                 _txtTimer.text = "" + _deathTimer;
