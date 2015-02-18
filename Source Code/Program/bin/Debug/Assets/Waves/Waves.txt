@@ -1,0 +1,23 @@
+
+<wave=1>
+	Orb=fire
+	position=bottom
+sleep=10
+</wave>
+
+
+<wave=2>
+	Orb=water
+	position=top
+	Orb=earth
+	position=left
+sleep=15
+</wave>
+
+<wave=3>
+	Orb=fire
+	position=right
+	Orb=water
+	position=top
+sleep=15
+</wave>
