@@ -1,3 +1,21 @@
+orb 	= 	fire
+		water
+		earth
+		wind
+		lightning
+
+position = 	top
+		bottom
+		left
+		right
+		topleft
+		topright
+		bottomleft
+		bottomright
+
+sleep	=	amount of seconds
+
+</wave>
 
 <wave=1>
 	Orb=fire

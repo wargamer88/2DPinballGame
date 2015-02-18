@@ -37,6 +37,8 @@ namespace GXPEngine
                 _detailedWaves.Add(wave.Split(stringSeperator, StringSplitOptions.RemoveEmptyEntries));
             }
 
+            _detailedWaves.RemoveAt(0);
+
             return _detailedWaves;
         }
     }
