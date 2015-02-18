@@ -38,6 +38,7 @@
     <Compile Include="Crystal.cs" />
     <Compile Include="GameOverMenu.cs" />
     <Compile Include="Level.cs" />
+    <Compile Include="LevelReader.cs" />
     <Compile Include="MainMenu.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="..\..\GXPEngine\sources\gxpengine\AnimSprite.cs">

@@ -23,6 +23,8 @@ public class MyGame : Game
         AddChild(_menu);
 
         SoundManager.onAfterFadeMusic += checkstatus;
+
+        
 	}
 
 	void Update () {
