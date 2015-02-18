@@ -481,7 +481,6 @@ namespace GXPEngine
             if (_collisions.BallCollisionTestCrystalBool(_ball, _crystal))
             {
                 _crystal.RespawnCrystal();
-                SoundManager.PlaySound(SoundEffect.CRYSTAL);
                 float scoreWithMultiplier = 1 * _multiplier;
                 _deathTimer += 1;
                 _score += scoreWithMultiplier;
