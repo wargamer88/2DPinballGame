@@ -13,6 +13,18 @@ namespace GXPEngine
         WATER,
         WIND,
 
+        EXPLOSION,
+        ICE,
+        ICE_BREAK,
+        LAVA,
+        MAGNET,
+        SAND,
+        SCORCH,
+        STEAM,
+        STORM,
+        SWIFT,
+        WOOD,
+
     }
 
     public enum Music
@@ -39,6 +51,18 @@ namespace GXPEngine
             { SoundEffect.LIGHTNING,    new Sound(@"Assets\sounds\effects\Lightning.wav")  },
             { SoundEffect.WATER,        new Sound(@"Assets\sounds\effects\Water.wav")  },
             { SoundEffect.WIND,         new Sound(@"Assets\sounds\effects\Wind.wav")  },
+            
+            { SoundEffect.EXPLOSION,    new Sound(@"Assets\sounds\effects\explosion.wav")  },
+            { SoundEffect.ICE,          new Sound(@"Assets\sounds\effects\ice.wav")  },
+            { SoundEffect.ICE_BREAK,    new Sound(@"Assets\sounds\effects\ice break.wav")  },
+            { SoundEffect.LAVA,         new Sound(@"Assets\sounds\effects\lava.wav")  },
+            { SoundEffect.MAGNET,       new Sound(@"Assets\sounds\effects\magnet.wav")  },
+            { SoundEffect.SAND,         new Sound(@"Assets\sounds\effects\sand.wav")  },
+            { SoundEffect.SCORCH,       new Sound(@"Assets\sounds\effects\scorch.wav")  },
+            { SoundEffect.STEAM,        new Sound(@"Assets\sounds\effects\steam.wav")  },
+            { SoundEffect.STORM,        new Sound(@"Assets\sounds\effects\storm.wav")  },
+            { SoundEffect.SWIFT,        new Sound(@"Assets\sounds\effects\swift.wav")  },
+            { SoundEffect.WOOD,         new Sound(@"Assets\sounds\effects\wood.wav")  },
         };
 
         private static Dictionary<Music, Sound> _dictionaryMusic = new Dictionary<Music, Sound>()
