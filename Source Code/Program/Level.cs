@@ -700,7 +700,7 @@ namespace GXPEngine
 
             #region new spawning
 
-            if (spawnTimer <= 0 && waveNR < _wavesList.Count)
+            if (spawnTimer <= 0 && waveNR <= _wavesList.Count)
             {
                 string[] wave = _wavesList[waveNR-1];
                 bool check = wave[0].StartsWith("<wave=" + (waveNR) + ">");
@@ -789,7 +789,7 @@ namespace GXPEngine
                 }
             }
 
-            if (waveNR > _wavesList.Count)
+            if (waveNR > _wavesList.Count && spawnTimer <= 0)
             {
                 #region Random spawning after waves are done
                 _timer++;
