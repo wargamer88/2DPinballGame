@@ -126,25 +126,7 @@ namespace GXPEngine
 
         public void Update()
         {
-            if (Input.GetKeyDown(Key.P))
-            {
-                if (!_pause)
-                {
-                    _pause = true;
-                    _pauseScreen = new Sprite(@"Assets\Menu\pause menu.png");
-                    AddChild(_pauseScreen); 
-                }
-                else if (_pause)
-                {
-                    _pauseScreen.Destroy();
-                    _pause = false;
-                    _pauseScreen = null;
-                }
-            }
-            if (_pause && Input.GetKey(Key.M))
-            {
-                _gameOver = true;
-            }
+            CheckPause();
             if (!_gameOver && !_pause)
             {
                 SoundManager.PlayMusic(Music.INGAME);
@@ -165,6 +147,29 @@ namespace GXPEngine
                 HudTimers();
             }
             
+        }
+
+        void CheckPause()
+        {
+            if (Input.GetKeyDown(Key.P))
+            {
+                if (!_pause)
+                {
+                    _pause = true;
+                    _pauseScreen = new Sprite(@"Assets\Menu\pause menu.png");
+                    AddChild(_pauseScreen);
+                }
+                else if (_pause)
+                {
+                    _pauseScreen.Destroy();
+                    _pause = false;
+                    _pauseScreen = null;
+                }
+            }
+            if (_pause && Input.GetKey(Key.M))
+            {
+                _gameOver = true;
+            }  
         }
 
         void HudTimers()

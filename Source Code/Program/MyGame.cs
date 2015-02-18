@@ -51,7 +51,7 @@ public class MyGame : Game
                 _level.Destroy();
                 _level = null;
 
-                _gameOverMenu = new GameOverMenu();
+                _gameOverMenu = new GameOverMenu(_lastScore);
                 AddChild(_gameOverMenu);
             }
         } 

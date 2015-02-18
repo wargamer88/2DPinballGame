@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using Microsoft.VisualBasic;
 
 namespace GXPEngine
 {
@@ -11,13 +13,16 @@ namespace GXPEngine
 
         public bool AllowDestruction { get { return _allowDestruction; } }
 
-        private Sprite Menu;
+        private Sprite _menu;
+        private float _score = 0;
+        private int _width = 1366;
+        private int _height = 768;
 
-        public GameOverMenu()
+        public GameOverMenu(float Score)
         {
-            Menu = new Sprite(@"Assets\Menu\Gameover.png");
-            AddChild(Menu);
-
+            _score = Score;
+            _menu = new Sprite(@"Assets\Menu\Gameover.png");
+            AddChild(_menu);
         }
 
         void Update()
@@ -28,12 +33,12 @@ namespace GXPEngine
             }
             if (Input.GetKey(Key.H))
             {
-                Menu.Destroy();
-                Menu = null;
-                Menu = new Sprite(@"Assets\Menu\Highscore.png");
-                AddChild(Menu);
+                _menu.Destroy();
+                _menu = null;
+                _menu = new Sprite(@"Assets\Menu\Highscore.png");
+                AddChild(_menu);
+                Console.Clear();
             }
-
         }
     }
 }
