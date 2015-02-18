@@ -14,7 +14,7 @@ namespace GXPEngine
         public AnimSprite GraphicsSprite;                       
         private double _frame = 0;                              
         private int _firstFrame = 0;                            
-        private int _lastFrame = 14;                            
+        private int _lastFrame = 15;                            
         private double _frameSpeed = 0.4;                       
         public double FrameSpeed { set { _frameSpeed = value; } }
         public double Frame { get { return _frame; } set { _frame = value; } }          
