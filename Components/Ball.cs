@@ -14,7 +14,7 @@ namespace GXPEngine
         public AnimSprite GraphicsSprite;                       
         private double _frame = 0;                              
         private int _firstFrame = 0;                            
-        private int _lastFrame = 15;                            
+        private int _lastFrame = 14;                            
         private double _frameSpeed = 0.4;                       
         public double FrameSpeed { set { _frameSpeed = value; } }
         public double Frame { get { return _frame; } set { _frame = value; } }          
@@ -38,7 +38,7 @@ namespace GXPEngine
             _acceleration = pAcceleration;
 			_ballColor = pColor ?? Color.Blue;
 
-            GraphicsSprite = new AnimSprite(@"Assets\Light Ball animation.png", 15, 1);
+            GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light balls animation_light level 3.png", 15, 1);
             _frameSpeed = 0.4;
             GraphicsSprite.height = this.height+40;
             GraphicsSprite.width = this.width+40;
