@@ -223,9 +223,9 @@ namespace GXPEngine
             if (_secondTimer <= 0)
             {
                 _deathTimer--;
-                if (_deathTimer > 15)
+                if (_deathTimer > 20)
                 {
-                    _deathTimer = 15;
+                    _deathTimer = 20;
                 }
                 else if (_deathTimer <= 0)
                 {
@@ -238,45 +238,80 @@ namespace GXPEngine
                 {
                     _ball.LightType = 0;
                     _ball.GraphicsSprite.Destroy();
-                    _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light balls animation_light level 0.png", 16, 1);
+                    _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light balls animation_light level 0.png", 15, 1);
                     _ball.GraphicsSprite.height = _ball.height + 40;
                     _ball.GraphicsSprite.width = _ball.width + 40;
                     _ball.GraphicsSprite.SetXY(-_ball.radius - 20, -_ball.radius - 20);
                     _ball.AddChild(_ball.GraphicsSprite);
                     _ball.FirstFrame = 0;
-                    _ball.LastFrame = 16;
+                    _ball.LastFrame = 15;
                     _ball.FrameSpeed = 0.2;
                 }
                 if (_deathTimer <= 6 && _deathTimer > 3)
                 {
                     _ball.LightType = 1;
                     _ball.GraphicsSprite.Destroy();
-                    _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light balls animation_light level 1.png", 16, 1);
+                    _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light balls animation_light level 1.png", 15, 1);
                     _ball.GraphicsSprite.height = _ball.height + 40;
                     _ball.GraphicsSprite.width = _ball.width + 40;
                     _ball.GraphicsSprite.SetXY(-_ball.radius - 20, -_ball.radius - 20);
                     _ball.AddChild(_ball.GraphicsSprite);
                     _ball.FirstFrame = 0;
-                    _ball.LastFrame = 16;
+                    _ball.LastFrame = 15;
                     _ball.FrameSpeed = 0.2;
                 }
                 if (_deathTimer <= 9 && _deathTimer > 6)
                 {
-                    _ball.LightType = 1;
+                    _ball.LightType = 2;
                     _ball.GraphicsSprite.Destroy();
-                    _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light balls animation_light level 2.png", 16, 1);
+                    _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light balls animation_light level 2.png", 15, 1);
                     _ball.GraphicsSprite.height = _ball.height + 40;
                     _ball.GraphicsSprite.width = _ball.width + 40;
                     _ball.GraphicsSprite.SetXY(-_ball.radius - 20, -_ball.radius - 20);
                     _ball.AddChild(_ball.GraphicsSprite);
                     _ball.FirstFrame = 0;
-                    _ball.LastFrame = 16;
+                    _ball.LastFrame = 15;
                     _ball.FrameSpeed = 0.2;
                 }
-                //if (_deathTimer)
-                //{
-                    
-                //}
+                if (_deathTimer <= 12 && _deathTimer > 9)
+                {
+                    _ball.LightType = 3;
+                    _ball.GraphicsSprite.Destroy();
+                    _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light balls animation_light level 3.png", 15, 1);
+                    _ball.GraphicsSprite.height = _ball.height + 40;
+                    _ball.GraphicsSprite.width = _ball.width + 40;
+                    _ball.GraphicsSprite.SetXY(-_ball.radius - 20, -_ball.radius - 20);
+                    _ball.AddChild(_ball.GraphicsSprite);
+                    _ball.FirstFrame = 0;
+                    _ball.LastFrame = 15;
+                    _ball.FrameSpeed = 0.2;
+                }
+                if (_deathTimer <= 15 && _deathTimer > 12)
+                {
+                    _ball.LightType = 4;
+                    _ball.GraphicsSprite.Destroy();
+                    _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light balls animation_light level 4.png", 15, 1);
+                    _ball.GraphicsSprite.height = _ball.height + 40;
+                    _ball.GraphicsSprite.width = _ball.width + 40;
+                    _ball.GraphicsSprite.SetXY(-_ball.radius - 20, -_ball.radius - 20);
+                    _ball.AddChild(_ball.GraphicsSprite);
+                    _ball.FirstFrame = 0;
+                    _ball.LastFrame = 15;
+                    _ball.FrameSpeed = 0.2;
+                }
+                if (_deathTimer > 15 && _deathTimer <= 20)
+                {
+                    _ball.LightType = 5;
+                    _ball.GraphicsSprite.Destroy();
+                    _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light balls animation_light level 5.png", 15, 1);
+                    _ball.GraphicsSprite.height = _ball.height + 40;
+                    _ball.GraphicsSprite.width = _ball.width + 40;
+                    _ball.GraphicsSprite.SetXY(-_ball.radius - 20, -_ball.radius - 20);
+                    _ball.AddChild(_ball.GraphicsSprite);
+                    _ball.FirstFrame = 0;
+                    _ball.LastFrame = 15;
+                    _ball.FrameSpeed = 0.2;
+                }
 
                 _secondTimer = 1 * Utils.frameRate;
                 _txtTimer.text = "" + _deathTimer;
@@ -403,7 +438,7 @@ namespace GXPEngine
                     _createdForTheFirstTime = true;
                 }
                 _ball.FirstFrame = 0;
-                _ball.LastFrame = 15;
+                _ball.LastFrame = 16;
                 _ball.FrameSpeed = 0.2;
                 _ball.velocity = Vec2.zero;
                 _gravity = Vec2.zero;
