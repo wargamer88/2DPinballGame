@@ -8,8 +8,14 @@ namespace GXPEngine
 {
     class Level : GameObject
     {
+
+        #region variables
         private int _width = 1366;
         private int _height = 768;
+
+        private int waveNR = 0;
+        private List<string[]> _wavesList;
+        private int spawnTimer = 0;
 
         private TextField _txtScore;
         private float _score = 0;
@@ -66,7 +72,9 @@ namespace GXPEngine
 
         public float Score { get { return _score; } }
         public bool GameOver { get { return _gameOver; } }
-    
+
+        #endregion
+
         public Level()
         {
             _canvas = new Canvas(_width, _height);
@@ -123,6 +131,10 @@ namespace GXPEngine
             _outerCircleRing.SetScaleXY(1.005f, 1.005f);
             _outerCircleRing.SetOrigin(_outerCircleRing.width / 2, _outerCircleRing.height / 2);
             AddChild(_outerCircleRing);
+
+            waveNR++;
+            LevelReader _levelReader = new LevelReader();
+            _wavesList = _levelReader.SplitWaves();
         }
 
         public void Update()
@@ -149,6 +161,8 @@ namespace GXPEngine
                 _outerCircle.GraphicsSprite3.rotation += 0.075f;
                 _outerCircle.GraphicsSprite4.rotation -= 0.075f;
                 HudTimers();
+
+                spawnTimer--;
             }
             
         }
@@ -609,39 +623,132 @@ namespace GXPEngine
 
         void SpawnOrbs() //Debug
         {
-            _timer++;
-            if (_timer == 66)
-            {
-                if (_orbs._orbList.Count < 5)
-                {
-                    bool correctPosition = false;
-                    enumBallPositions newPosition = Spawn.RandomPosition();
-                    if (_orbs._orbList.Count > 3)
-                    {
-                        do
-                        {
-                            newPosition = Spawn.RandomPosition();
+            #region old spawning
+            //_timer++;
+            //if (_timer == 66)
+            //{
+            //    if (_orbs._orbList.Count < 5)
+            //    {
+            //        bool correctPosition = false;
+            //        enumBallPositions newPosition = Spawn.RandomPosition();
+            //        if (_orbs._orbList.Count > 3)
+            //        {
+            //            do
+            //            {
+            //                newPosition = Spawn.RandomPosition();
 
-                            for (int i = 0; i < _orbs._orbList.Count; i++)
+            //                for (int i = 0; i < _orbs._orbList.Count; i++)
+            //                {
+            //                    if (i >= _orbs._orbList.Count - 3)
+            //                    {
+            //                        if (_orbs._orbList[i].positionEnum == newPosition)
+            //                        {
+            //                            correctPosition = false;
+            //                        }
+            //                        else
+            //                        {
+            //                            correctPosition = true;
+            //                        }
+            //                    }
+            //                }
+            //            } while (correctPosition == false);
+            //        }
+            //        _orbs.CreateOrb(Spawn.RandomColor(), newPosition, 40);
+            //    }
+            //    _timer = 0;
+            //}
+            #endregion
+
+            #region new spawning
+            if (spawnTimer <= 0)
+            {
+                string[] wave = _wavesList[waveNR-1];
+                bool check = wave[0].StartsWith("<wave=" + (waveNR) + ">");
+
+                List<Orb> _orbSpawnList = new List<Orb>();
+                Color color = Color.Transparent;
+                enumBallPositions position = enumBallPositions.Top;
+
+                if (check)
+                {
+                    foreach (string wavepart in wave)
+                    {
+                        if (wavepart.StartsWith("<wave=" + (waveNR) + ">"))
+                        {
+                            continue;
+                        }
+
+                        if (wavepart.StartsWith("orb="))
+                        {
+                            string sColor = wavepart.Substring(4);
+
+                            switch (sColor)
                             {
-                                if (i >= _orbs._orbList.Count - 3)
-                                {
-                                    if (_orbs._orbList[i].positionEnum == newPosition)
-                                    {
-                                        correctPosition = false;
-                                    }
-                                    else
-                                    {
-                                        correctPosition = true;
-                                    }
-                                }
+                                case "fire":
+                                    color = Color.Red;
+                                    break;
+                                case "water":
+                                    color = Color.Blue;
+                                    break;
+                                case "earth":
+                                    color = Color.Brown;
+                                    break;
+                                case "wind":
+                                    color = Color.LightSlateGray;
+                                    break;
+                                case "lightning":
+                                    color = Color.Cyan;
+                                    break;
                             }
-                        } while (correctPosition == false);
+
+                            continue;
+                        }
+
+                        if (wavepart.StartsWith("position="))
+                        {
+                            string sPosition = wavepart.Substring(9);
+
+                            switch (sPosition)
+                            {
+                                case "top":
+                                    position = enumBallPositions.Top;
+                                    break;
+                                case "bottom":
+                                    position = enumBallPositions.Bottom;
+                                    break;
+                                case "left":
+                                    position = enumBallPositions.Left;
+                                    break;
+                                case "right":
+                                    position = enumBallPositions.Right;
+                                    break;
+                                case "topleft":
+                                    position = enumBallPositions.TopLeft;
+                                    break;
+                                case "topright":
+                                    position = enumBallPositions.TopRight;
+                                    break;
+                                case "bottomleft":
+                                    position = enumBallPositions.BottomLeft;
+                                    break;
+                                case "bottomright":
+                                    position = enumBallPositions.BottomRight;
+                                    break;
+                            }
+
+                            _orbs.CreateOrb(color, position, 40);
+                            continue;
+                        }
+
+                        if (wavepart.StartsWith("sleep="))
+                        {
+                            spawnTimer = Convert.ToInt16(wavepart.Substring(6)) * Utils.frameRate;
+                            waveNR++;
+                        }
                     }
-                    _orbs.CreateOrb(Spawn.RandomColor(), newPosition, 40);
                 }
-                _timer = 0;
             }
+            #endregion
         }
 
         void ChangeGravity()
