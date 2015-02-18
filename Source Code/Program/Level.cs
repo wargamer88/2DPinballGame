@@ -443,7 +443,7 @@ namespace GXPEngine
                 _ball.velocity = Vec2.zero;
                 _gravity = Vec2.zero;
 
-                if (_ball.Frame >= 15)
+                if (_ball.Frame >= 14)
                 {
                     
                     _destroyBall = false;
