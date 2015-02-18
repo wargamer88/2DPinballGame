@@ -13,6 +13,10 @@ namespace GXPEngine
 
         private int _height = 0;
         private int _width = 0;
+        private bool _allowFadeOut = false;
+        private bool _allowFadeIn = false;
+        public bool AllowFadeOut { get { return _allowFadeOut; } set { _allowFadeOut = value; } }
+        public bool AllowFadeIn { get { return _allowFadeIn; } set { _allowFadeIn = value; } }
 
         public Crystal(int height, int width, OuterCircle outerCircle)
             : base(20, Vec2.zero, Vec2.zero, Vec2.zero, Color.Black)
@@ -23,14 +27,14 @@ namespace GXPEngine
             _collisions = new Collisions();
             RespawnCrystal();
             GraphicsSprite.Destroy();
-            GraphicsSprite = new AnimSprite(@"Assets\Crystal.png", 13, 1);
-            GraphicsSprite.height = this.height + 80;
-            GraphicsSprite.width = this.width + 80;
-            GraphicsSprite.SetXY(radius - 80, - radius - 40);
+            GraphicsSprite = new AnimSprite(@"Assets\Crystal.png", 12, 1);
+            GraphicsSprite.height = this.height + 40;
+            GraphicsSprite.width = this.width + 40;
+            GraphicsSprite.SetXY(radius - 60, - radius - 20);
             AddChild(GraphicsSprite);
             Frame = 0;
             FirstFrame = 0;
-            LastFrame = 13;
+            LastFrame = 12;
             FrameSpeed = 0.2;
         }
 

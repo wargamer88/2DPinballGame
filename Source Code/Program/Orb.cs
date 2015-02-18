@@ -9,6 +9,9 @@ namespace GXPEngine
         private Vec2 _position;
         private Vec2 _velocity;
         private Vec2 _acceleration;
+        private bool _allowFadeOut = false;
+
+        public bool AllowFadeOut { get { return _allowFadeOut; } set { _allowFadeOut = value; } }
 
         //Animation------------------------------------------------------------//
         public AnimSprite GraphicsSprite;

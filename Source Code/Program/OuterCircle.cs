@@ -16,7 +16,10 @@ namespace GXPEngine
 
         //Animation------------------------------------------------------------//
         public AnimSprite GraphicsSprite;
-        public AnimSprite OuterCircleAnimation;
+        public AnimSprite GraphicsSprite2;
+        public AnimSprite GraphicsSprite3;
+        public AnimSprite GraphicsSprite4;
+
         private double _frame = 0;
         private int _firstFrame = 0;
         private int _lastFrame = 14;
@@ -37,11 +40,33 @@ namespace GXPEngine
 			_position = pPosition ?? Vec2.zero;
 			_ballColor = pColor ?? Color.Blue;
 
-            GraphicsSprite = new AnimSprite(@"Assets\Background.png", 1, 1);
+            //Back with Clouds
+            GraphicsSprite = new AnimSprite(@"Assets\Back with clouds.png", 1, 1);
             GraphicsSprite.height = this.height;
             GraphicsSprite.width = this.width;
             GraphicsSprite.SetOrigin(GraphicsSprite.width / 2, GraphicsSprite.height / 2);
             AddChild(GraphicsSprite);
+
+            //Stars1
+            GraphicsSprite2 = new AnimSprite(@"Assets\star.png", 1, 1);
+            GraphicsSprite2.height = this.height;
+            GraphicsSprite2.width = this.width;
+            GraphicsSprite2.SetOrigin(GraphicsSprite2.width / 2, GraphicsSprite2.height / 2);
+            AddChild(GraphicsSprite2);
+
+            //Stars2
+            GraphicsSprite3 = new AnimSprite(@"Assets\star 2.png", 1, 1);
+            GraphicsSprite3.height = this.height;
+            GraphicsSprite3.width = this.width;
+            GraphicsSprite3.SetOrigin(GraphicsSprite3.width / 2, GraphicsSprite3.height / 2);
+            AddChild(GraphicsSprite3);
+
+            //Stars3
+            GraphicsSprite4 = new AnimSprite(@"Assets\star 3.png", 1, 1);
+            GraphicsSprite4.height = this.height;
+            GraphicsSprite4.width = this.width;
+            GraphicsSprite4.SetOrigin(GraphicsSprite4.width / 2, GraphicsSprite4.height / 2);
+            AddChild(GraphicsSprite4);
             
 
             draw ();

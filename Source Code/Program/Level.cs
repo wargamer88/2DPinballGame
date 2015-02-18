@@ -20,11 +20,12 @@ namespace GXPEngine
         private int _deathTimer = 0;
         private int _secondTimer = 0;
         private TextField _txtLives;
-        private int _lives = 3;
+        private int _lives = 4;
         private bool _gameOver = false;
         private bool _pause = false;
         private Sprite _pauseScreen;
-        private Font _customFont;
+        private bool _orbFadeOut = false;
+        private bool _orbDestroying = false;
 
         private Orbs _orbs;
         private Crystal _crystal;
@@ -129,7 +130,7 @@ namespace GXPEngine
             CheckPause();
             if (!_gameOver && !_pause)
             {
-                
+                FadeOut();
                 ChangeGravity();
                 _orbs.StepOrbs();
                 SpawnOrbs();
@@ -144,6 +145,9 @@ namespace GXPEngine
                 _orbs.UpdateOrbAnimations();
                 _crystal.UpdateAnimation();
                 _outerCircle.GraphicsSprite.rotation += 0.05f;
+                _outerCircle.GraphicsSprite2.rotation -= 0.05f;
+                _outerCircle.GraphicsSprite3.rotation += 0.075f;
+                _outerCircle.GraphicsSprite4.rotation -= 0.075f;
                 HudTimers();
             }
             
@@ -205,15 +209,57 @@ namespace GXPEngine
             if (_secondTimer <= 0)
             {
                 _deathTimer--;
-                if (_deathTimer > 10)
+                if (_deathTimer > 15)
                 {
-                    _deathTimer = 10;
+                    _deathTimer = 15;
                 }
                 else if (_deathTimer <= 0)
                 {
                     _destroyBall = true;
                     _deathTimer = 10;
                 }
+
+                //ANIMATION
+                if (_deathTimer <= 3 && _deathTimer > 0)
+                {
+                    _ball.LightType = 0;
+                    _ball.GraphicsSprite.Destroy();
+                    _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death_light level 0.png", 16, 1);
+                    _ball.GraphicsSprite.height = _ball.height + 40;
+                    _ball.GraphicsSprite.width = _ball.width + 40;
+                    _ball.GraphicsSprite.SetXY(-_ball.radius - 20, -_ball.radius - 20);
+                    _ball.AddChild(_ball.GraphicsSprite);
+                    _ball.FirstFrame = 0;
+                    _ball.LastFrame = 16;
+                    _ball.FrameSpeed = 0.2;
+                }
+                if (_deathTimer <= 6 && _deathTimer > 3)
+                {
+                    _ball.LightType = 1;
+                    _ball.GraphicsSprite.Destroy();
+                    _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death_light level 1.png", 16, 1);
+                    _ball.GraphicsSprite.height = _ball.height + 40;
+                    _ball.GraphicsSprite.width = _ball.width + 40;
+                    _ball.GraphicsSprite.SetXY(-_ball.radius - 20, -_ball.radius - 20);
+                    _ball.AddChild(_ball.GraphicsSprite);
+                    _ball.FirstFrame = 0;
+                    _ball.LastFrame = 16;
+                    _ball.FrameSpeed = 0.2;
+                }
+                if (_deathTimer <= 9 && _deathTimer > 6)
+                {
+                    _ball.LightType = 1;
+                    _ball.GraphicsSprite.Destroy();
+                    _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death_light level 2.png", 16, 1);
+                    _ball.GraphicsSprite.height = _ball.height + 40;
+                    _ball.GraphicsSprite.width = _ball.width + 40;
+                    _ball.GraphicsSprite.SetXY(-_ball.radius - 20, -_ball.radius - 20);
+                    _ball.AddChild(_ball.GraphicsSprite);
+                    _ball.FirstFrame = 0;
+                    _ball.LastFrame = 16;
+                    _ball.FrameSpeed = 0.2;
+                }
+
                 _secondTimer = 1 * Utils.frameRate;
                 _txtTimer.text = "" + _deathTimer;
             }
@@ -307,7 +353,27 @@ namespace GXPEngine
             {
                 
                 _ball.GraphicsSprite.Destroy();
-                _ball.GraphicsSprite = new AnimSprite(@"Assets\Light ball death.png", 16, 1);
+                switch (_ball.LightType)
+                {
+                    case 0:
+                        _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death_light level 0.png", 16, 1);
+                        break;
+                    case 1:
+                        _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death_light level 1.png", 16, 1);
+                        break;
+                    case 2:
+                        _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death_light level 2.png", 16, 1);
+                        break;
+                    case 3:
+                        _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death_light level 3.png", 16, 1);
+                        break;
+                    case 4:
+                        _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death_light level 4.png", 16, 1);
+                        break;
+                    case 5:
+                        _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death_light level 5.png", 16, 1);
+                        break;
+                }
                 _ball.GraphicsSprite.height = _ball.height + 40;
                 _ball.GraphicsSprite.width = _ball.width + 40;
                 _ball.GraphicsSprite.SetXY(-_ball.radius - 20, -_ball.radius - 20);
@@ -416,7 +482,7 @@ namespace GXPEngine
                     if (_effectsCollisionTimer <= 0)
                     {
                         _multiplier += 0.5f;
-                        _deathTimer += 3;
+                        _deathTimer += 5;
                     }
                     string color = orb.ballColor.Name;
                     switch (color)
@@ -467,12 +533,8 @@ namespace GXPEngine
                             _waterEffect = true;
                             break;
                     }
-
+                    orb.AllowFadeOut = true;
                 }
-                else
-                {
-                }
-
             }
 
             #endregion
@@ -480,18 +542,64 @@ namespace GXPEngine
             #region CrystalCollision
             if (_collisions.BallCollisionTestCrystalBool(_ball, _crystal))
             {
-                _crystal.RespawnCrystal();
-                float scoreWithMultiplier = 1 * _multiplier;
-                _deathTimer += 1;
-                _score += scoreWithMultiplier;
-                _txtScore.text = "" + _score;
+                if (!_crystal.AllowFadeOut)
+                {
+                    float scoreWithMultiplier = 1 * _multiplier;
+                    _deathTimer += 2;
+                    _score += scoreWithMultiplier;
+                    _score = (float)(Math.Round((double)_score, 3));
+                    _txtScore.text = "" + _score;
+                    _crystal.AllowFadeOut = true;
+                }
             }
             #endregion
         }
 
+        void FadeOut()
+        {
+            foreach (Orb orb in _orbs._orbList)
+            {
+                if (orb.AllowFadeOut == true && orb.GraphicsSprite.alpha > 0)
+                {
+                    orb.GraphicsSprite.alpha -= 0.05f;
+                    orb.alpha = 0.0f;
+                }
+                else if (orb.GraphicsSprite.alpha <= 0.0f)
+                {
+                    orb.Destroy();
+                    _orbs._orbList.Remove(orb);
+                    break;
+                }
+            }
+
+            if (_crystal.AllowFadeOut)
+            {
+                _crystal.alpha = 0.0f;
+                _crystal.GraphicsSprite.alpha -= 0.05f;
+
+                if (_crystal.GraphicsSprite.alpha <= 0.0f)
+                {
+                    _crystal.AllowFadeOut = false;
+                    _crystal.AllowFadeIn = true;
+                    _crystal.RespawnCrystal();
+                }
+            }
+            if (_crystal.AllowFadeIn)
+            {
+                _crystal.alpha = 0.0f;
+                _crystal.GraphicsSprite.alpha += 0.05f;
+
+                if (_crystal.GraphicsSprite.alpha >= 1.0f)
+                {
+                    _crystal.AllowFadeIn = false;
+                    _crystal.GraphicsSprite.alpha = 1.0f;
+                }
+            }
+        }
+
         void CheckMaxSpeed()
         {
-            float maxSpeed = 3;
+            float maxSpeed = 2;
 
             if (_ball.velocity.x > maxSpeed) _ball.velocity.x = maxSpeed;
             if (_ball.velocity.y > maxSpeed) _ball.velocity.y = maxSpeed;
@@ -538,10 +646,32 @@ namespace GXPEngine
 
         void ChangeGravity()
         {
-            if (Input.GetKey(Key.LEFT)) { _gravity = new Vec2(-0.2f, 0); _outerCircleRing.rotation = 270; }
-            if (Input.GetKey(Key.RIGHT)) { _gravity = new Vec2(0.2f, 0); _outerCircleRing.rotation = 90; }
-            if (Input.GetKey(Key.UP)) { _gravity = new Vec2(0, -0.2f); _outerCircleRing.rotation = 0; }
-            if (Input.GetKey(Key.DOWN)) { _gravity = new Vec2(0, 0.2f); _outerCircleRing.rotation = 180; }
+            if (Input.GetKey(Key.LEFT)) { _gravity = new Vec2(-0.1f, 0); _outerCircleRing.rotation = 270; }
+            if (Input.GetKey(Key.RIGHT)) { _gravity = new Vec2(0.1f, 0); _outerCircleRing.rotation = 90; }
+            if (Input.GetKey(Key.UP)) { _gravity = new Vec2(0, -0.1f); _outerCircleRing.rotation = 0; }
+            if (Input.GetKey(Key.DOWN)) { _gravity = new Vec2(0, 0.1f); _outerCircleRing.rotation = 180; }
+
+            _ball.rotation = _outerCircleRing.rotation;
+            foreach (Orb orb in _orbs._orbList)
+            {
+                orb.rotation = _outerCircleRing.rotation;
+            }
+
+
+            //if (Input.GetKey(Key.LEFT))
+            //{
+            //    _outerCircleRing.rotation--;
+            //}
+            //if (Input.GetKey(Key.RIGHT))
+            //{
+            //    _outerCircleRing.rotation++;
+            //}
+
+            //_ball.rotation = _outerCircleRing.rotation;
+            //foreach (Orb orb in _orbs._orbList)
+            //{
+            //    orb.rotation = _outerCircleRing.rotation;
+            //}
         }
     }
 }

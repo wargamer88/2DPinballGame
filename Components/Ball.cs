@@ -10,6 +10,7 @@ namespace GXPEngine
         private Vec2 _acceleration;
 
         //Animation------------------------------------------------------------//
+        private int _lightType = 5;
         public AnimSprite GraphicsSprite;                       
         private double _frame = 0;                              
         private int _firstFrame = 0;                            
@@ -18,7 +19,8 @@ namespace GXPEngine
         public double FrameSpeed { set { _frameSpeed = value; } }
         public double Frame { get { return _frame; } set { _frame = value; } }          
         public int FirstFrame { set { _firstFrame = value; } }  
-        public int LastFrame { set { _lastFrame = value; } }    
+        public int LastFrame { set { _lastFrame = value; } }
+        public int LightType { get { return _lightType; } set { _lightType = value; } }
         //--------------------------------------------------------------------//
 
 		public readonly int radius;
