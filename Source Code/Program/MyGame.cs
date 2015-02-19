@@ -64,7 +64,7 @@ public class MyGame : Game
                 _gameOverMenu = new GameOverMenu(_lastScore);
                 AddChild(_gameOverMenu);
             }
-            if (_level.BackToMenu)
+            else if (_level.BackToMenu)
             {
                 _level.Destroy();
                 _level = null;
