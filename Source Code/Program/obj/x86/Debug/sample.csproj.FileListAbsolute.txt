@@ -21,4 +21,3 @@ D:\School\Saxion\Back-Up\OOPS\2DPinballGame\Source Code\Program\obj\x86\Debug\GX
 D:\School\Saxion\Back-Up\OOPS\2DPinballGame\Source Code\Program\obj\x86\Debug\sample.csprojResolveAssemblyReference.cache
 D:\School\Saxion\Back-Up\OOPS\2DPinballGame\Source Code\Program\bin\Debug\GXPEngine.exe
 D:\School\Saxion\Back-Up\OOPS\2DPinballGame\Source Code\Program\bin\Debug\GXPEngine.pdb
-E:\SAXION GTP\Q3\Github\2DPinballGame\Source Code\Program\obj\x86\Debug\sample.csprojResolveAssemblyReference.cache

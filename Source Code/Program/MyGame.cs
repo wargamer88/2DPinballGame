@@ -35,6 +35,7 @@ public class MyGame : Game
 
     void CheckState()
     {
+        #region Menu
         if (_menu != null)
         {
             if (_menu.StartLevel)
@@ -46,7 +47,8 @@ public class MyGame : Game
                 AddChild(_level);
                 SoundManager.StopMusic(true);
             }
-        }
+        } 
+        #endregion
         #region LevelState
         if (_level != null)
         {
@@ -64,6 +66,7 @@ public class MyGame : Game
             }
         } 
         #endregion
+        #region GameOverMenu
         if (_gameOverMenu != null)
         {
             if (_gameOverMenu.AllowDestruction)
@@ -73,8 +76,18 @@ public class MyGame : Game
 
                 _menu = new MainMenu();
                 AddChild(_menu);
-            } 
-        }
+            }
+            else if (_gameOverMenu.StartLevel)
+            {
+                _gameOverMenu.Destroy();
+                _gameOverMenu = null;
+
+                _level = new Level();
+                AddChild(_level);
+                SoundManager.StopMusic(true);
+            }
+        } 
+        #endregion
     }
 
     void checkstatus(string action)

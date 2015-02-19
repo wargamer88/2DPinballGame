@@ -33,8 +33,6 @@ namespace GXPEngine
         private bool _gameOver = false;
         private bool _pause = false;
         private Sprite _pauseScreen;
-        private bool _orbFadeOut = false;
-        private bool _orbDestroying = false;
 
         private Orbs _orbs;
         private Crystal _crystal;
@@ -105,7 +103,7 @@ namespace GXPEngine
             //_ball.velocity = new Vec2 (37.3f, 103.7f);
             _previousPosition = _ball.position.Clone();
 
-            _background = new Sprite("Assets/background screen 3.png");
+            _background = new Sprite("Assets/background screen.png");
             AddChild(_background);
 
             _txtScore = TextField.CreateTextField("000000000000");
@@ -247,6 +245,7 @@ namespace GXPEngine
                 }
                 else if (_deathTimer <= 0)
                 {
+                    SoundManager.PlaySound(SoundEffect.DEATH);
                     _destroyBall = true;
                     _deathTimer = 10;
                 }
@@ -697,7 +696,7 @@ namespace GXPEngine
             if (_ball.velocity.y < -maxSpeed) _ball.velocity.y = -maxSpeed;
         }
 
-        void SpawnOrbs() //Debug
+        void SpawnOrbs()
         {
             #region old spawning
             //_timer++;
@@ -845,11 +844,17 @@ namespace GXPEngine
                         
                         tfMessage.backgroundColor = Color.Wheat;
 
+                        
+
+
                         tfMessage.SetOrigin(tfMessage.width / 2, tfMessage.height / 2);
                         tfMessage.SetXY((this._width / 2) + 15, (this._height / 2) + 125);
                         messageTimer = 5 * Utils.frameRate;
 
                         AddChild(tfMessage);
+
+
+
                     }
 
 
