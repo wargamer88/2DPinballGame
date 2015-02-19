@@ -409,22 +409,22 @@ namespace GXPEngine
                 switch (_ball.LightType)
                 {
                     case 0:
-                        _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death_light level 0.png", 16, 1);
+                        _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death level 0.png", 16, 1);
                         break;
                     case 1:
-                        _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death_light level 1.png", 16, 1);
+                        _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death level 1.png", 16, 1);
                         break;
                     case 2:
-                        _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death_light level 2.png", 16, 1);
+                        _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death level 2.png", 16, 1);
                         break;
                     case 3:
-                        _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death_light level 3.png", 16, 1);
+                        _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death level 3.png", 16, 1);
                         break;
                     case 4:
-                        _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death_light level 4.png", 16, 1);
+                        _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death level 4.png", 16, 1);
                         break;
                     case 5:
-                        _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death_light level 5.png", 16, 1);
+                        _ball.GraphicsSprite = new AnimSprite(@"Assets\LightBall\Light ball death level 5.png", 16, 1);
                         break;
                 }
                 _ball.GraphicsSprite.height = _ball.height + 40;
@@ -610,19 +610,25 @@ namespace GXPEngine
 
         void FadeOut()
         {
-            foreach (Orb orb in _orbs._orbList)
+            if (_orbs._orbList.Count > 0)
             {
-                if (orb.AllowFadeOut == true && orb.GraphicsSprite.alpha > 0)
+                foreach (Orb orb in _orbs._orbList)
                 {
-                    orb.GraphicsSprite.alpha -= 0.05f;
-                    orb.alpha = 0.0f;
-                }
-                else if (orb.GraphicsSprite.alpha <= 0.0f)
-                {
-                    orb.Destroy();
-                    _orbs._orbList.Remove(orb);
-                    break;
-                }
+                    if (orb.GraphicsSprite != null)
+                    {
+                        if (orb.AllowFadeOut == true && orb.GraphicsSprite.alpha > 0)
+                        {
+                            orb.GraphicsSprite.alpha -= 0.05f;
+                            orb.alpha = 0.0f;
+                        }
+                        else if (orb.GraphicsSprite.alpha <= 0.0f)
+                        {
+                            orb.Destroy();
+                            _orbs._orbList.Remove(orb);
+                            break;
+                        } 
+                    }
+                } 
             }
 
             if (_crystal.AllowFadeOut)

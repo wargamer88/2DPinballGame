@@ -39,3 +39,26 @@ sleep=10
 	position=top
 sleep=10
 </wave>
+<wave=4>
+	Orb=Wind
+	position=left
+	Orb=wind
+	position=right
+	Orb=Wind
+	position=bottom
+sleep=10
+</wave>
+<wave=5>
+	Orb=Water
+	position=right
+	Orb=Water
+	position:top
+sleep=10
+</wave>
+<wave=6>
+	Orb=Earth
+	position=top
+	Orb=Earth
+	position=bottom
+sleep=10
+</wave>
