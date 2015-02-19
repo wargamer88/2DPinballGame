@@ -96,7 +96,9 @@ namespace GXPEngine
             {
                 _isplaying = true;
                 Sound music = _dictionaryMusic[musicKey];
-                _soundChannelMusic = music.Play(false, 0); 
+                
+                _soundChannelMusic = music.Play(false, 0);
+                _soundChannelMusic.Volume = 0.7f;
             }
         }
 
