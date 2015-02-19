@@ -17,6 +17,7 @@ namespace GXPEngine
         private List<string[]> _wavesList;
         private int spawnTimer = 0;
         private string message = "";
+        private int messageTimer = 0;
         private TextField tfMessage;
 
         private TextField _txtScore;
@@ -165,37 +166,25 @@ namespace GXPEngine
                 HudTimers();
 
                 spawnTimer--;
+                messageTimer--;
             }
             
         }
 
         void CheckPause()
         {
-            if (Input.GetKeyDown(Key.P) || message != "")
+            if (Input.GetKeyDown(Key.P))
             {
                 if (!_pause)
                 {
                     Console.WriteLine(message);
                     _pause = true;
                     _pauseScreen = new Sprite(@"Assets\Menu\pause menu.png");
-                    if (message != "")
-                    {
-
-                        tfMessage = TextField.CreateTextField(message);
-                        tfMessage.backgroundColor = Color.Wheat;
-
-                        tfMessage.SetOrigin(tfMessage.width / 2, tfMessage.height / 2);
-                        tfMessage.SetXY((_pauseScreen.width / 2) + 15, (_pauseScreen.height / 2) + 125);
-                        
-                        
-                        message = "";
-                    }
+                    
                     AddChild(_pauseScreen);
-                    _pauseScreen.AddChild(tfMessage);
                 }
                 else if (_pause)
                 {
-                    tfMessage = TextField.CreateTextField("");
                     _pauseScreen.Destroy();
                     _pause = false;
                     _pauseScreen = null;
@@ -615,6 +604,7 @@ namespace GXPEngine
             {
                 if (!_crystal.AllowFadeOut)
                 {
+                    SoundManager.PlaySound(SoundEffect.CRYSTAL);
                     float scoreWithMultiplier = 1 * _multiplier;
                     _deathTimer += 2;
                     _score += scoreWithMultiplier;
@@ -725,6 +715,11 @@ namespace GXPEngine
 
             #region new spawning
 
+            if (messageTimer == 0)
+            {
+                tfMessage = TextField.CreateTextField("");
+            }
+
             if (spawnTimer <= 0 && waveNR <= _wavesList.Count)
             {
                 string[] wave = _wavesList[waveNR-1];
@@ -819,9 +814,16 @@ namespace GXPEngine
                         }
                     }
 
-                    if (message != null || message != "")
+                    if (message != "")
                     {
+                        tfMessage = TextField.CreateTextField(message);
+                        tfMessage.backgroundColor = Color.Wheat;
 
+                        tfMessage.SetOrigin(tfMessage.width / 2, tfMessage.height / 2);
+                        tfMessage.SetXY((this._width / 2) + 15, (this._height / 2) + 125);
+                        messageTimer = 5 * Utils.frameRate;
+
+                        AddChild(tfMessage);
                     }
 
 
