@@ -16,6 +16,7 @@ namespace GXPEngine
         private int waveNR = 0;
         private List<string[]> _wavesList;
         private int spawnTimer = 0;
+        private string message;
 
         private TextField _txtScore;
         private float _score = 0;
@@ -169,12 +170,17 @@ namespace GXPEngine
 
         void CheckPause()
         {
-            if (Input.GetKeyDown(Key.P))
+            if (Input.GetKeyDown(Key.P) || message != "")
             {
                 if (!_pause)
                 {
                     _pause = true;
                     _pauseScreen = new Sprite(@"Assets\Menu\pause menu.png");
+                    if (message != "")
+                    {
+                        TextField tf = TextField.CreateTextField(message);
+                        message = "";
+                    }
                     AddChild(_pauseScreen);
                 }
                 else if (_pause)
@@ -721,6 +727,7 @@ namespace GXPEngine
                     {
                         if (wavepart.StartsWith("<wave=" + (waveNR) + ">"))
                         {
+                            message = "";
                             continue;
                         }
 
@@ -740,7 +747,7 @@ namespace GXPEngine
                                     color = Color.Brown;
                                     break;
                                 case "wind":
-                                    color = Color.LightSlateGray;
+                                    color = Color.White;
                                     break;
                                 case "lightning":
                                     color = Color.Cyan;
@@ -786,12 +793,25 @@ namespace GXPEngine
                             continue;
                         }
 
+                        if (wavepart.StartsWith("message="))
+                        {
+                            message = wavepart.Substring(8);
+                            continue;
+                        }
+
                         if (wavepart.StartsWith("sleep="))
                         {
                             spawnTimer = Convert.ToInt16(wavepart.Substring(6)) * Utils.frameRate;
                             waveNR++;
                         }
                     }
+
+                    if (message != null || message != "")
+                    {
+
+                    }
+
+
                 }
             }
 
