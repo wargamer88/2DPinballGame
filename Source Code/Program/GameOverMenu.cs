@@ -38,10 +38,12 @@ namespace GXPEngine
         {
             if (Input.GetKey(Key.M))
             {
+                Input.GetKeyDown(Key.P);
                 _allowDestruction = true;
             }
             if (Input.GetKeyDown(Key.R))
             {
+                Input.GetKeyDown(Key.P);
                 _startLevel = true;
             }
         }
