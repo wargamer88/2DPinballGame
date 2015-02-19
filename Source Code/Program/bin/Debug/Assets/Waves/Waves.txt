@@ -20,6 +20,7 @@ sleep	=	amount of seconds
 <wave=1>
 	Orb=fire
 	position=bottom
+	message=this is a fire orb
 sleep=10
 </wave>
 

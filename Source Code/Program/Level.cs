@@ -170,12 +170,17 @@ namespace GXPEngine
 
         void CheckPause()
         {
-            if (Input.GetKeyDown(Key.P))
+            if (Input.GetKeyDown(Key.P) || message != "")
             {
                 if (!_pause)
                 {
                     _pause = true;
                     _pauseScreen = new Sprite(@"Assets\Menu\pause menu.png");
+                    if (message != "")
+                    {
+                        TextField tf = TextField.CreateTextField(message);
+                        message = "";
+                    }
                     AddChild(_pauseScreen);
                 }
                 else if (_pause)
@@ -716,6 +721,7 @@ namespace GXPEngine
                     {
                         if (wavepart.StartsWith("<wave=" + (waveNR) + ">"))
                         {
+                            message = "";
                             continue;
                         }
 
@@ -735,7 +741,7 @@ namespace GXPEngine
                                     color = Color.Brown;
                                     break;
                                 case "wind":
-                                    color = Color.LightSlateGray;
+                                    color = Color.White;
                                     break;
                                 case "lightning":
                                     color = Color.Cyan;
@@ -793,6 +799,13 @@ namespace GXPEngine
                             waveNR++;
                         }
                     }
+
+                    if (message != null || message != "")
+                    {
+
+                    }
+
+
                 }
             }
 
