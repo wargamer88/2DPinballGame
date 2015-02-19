@@ -7,6 +7,8 @@ namespace GXPEngine
 {
     public enum SoundEffect
     {
+        CRYSTAL,
+
         EARTH,
         FIRE,
         LIGHTNING,
@@ -46,6 +48,8 @@ namespace GXPEngine
 
         private static Dictionary<SoundEffect, Sound> _dictionarySounds = new Dictionary<SoundEffect, Sound>()
         {
+            { SoundEffect.CRYSTAL,      new Sound(@"Assets\sounds\crystal pickup.wav")  },
+
             { SoundEffect.EARTH,        new Sound(@"Assets\sounds\effects\Earth.wav")  },
             { SoundEffect.FIRE,         new Sound(@"Assets\sounds\effects\Fire.wav")  },
             { SoundEffect.LIGHTNING,    new Sound(@"Assets\sounds\effects\Lightning.wav")  },
