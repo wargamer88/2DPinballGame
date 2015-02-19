@@ -16,7 +16,8 @@ namespace GXPEngine
         private int waveNR = 0;
         private List<string[]> _wavesList;
         private int spawnTimer = 0;
-        private string message;
+        private string message = "";
+        private TextField tfMessage;
 
         private TextField _txtScore;
         private float _score = 0;
@@ -174,17 +175,27 @@ namespace GXPEngine
             {
                 if (!_pause)
                 {
+                    Console.WriteLine(message);
                     _pause = true;
                     _pauseScreen = new Sprite(@"Assets\Menu\pause menu.png");
                     if (message != "")
                     {
-                        TextField tf = TextField.CreateTextField(message);
+
+                        tfMessage = TextField.CreateTextField(message);
+                        tfMessage.backgroundColor = Color.Wheat;
+
+                        tfMessage.SetOrigin(tfMessage.width / 2, tfMessage.height / 2);
+                        tfMessage.SetXY((_pauseScreen.width / 2) + 15, (_pauseScreen.height / 2) + 125);
+                        
+                        
                         message = "";
                     }
                     AddChild(_pauseScreen);
+                    _pauseScreen.AddChild(tfMessage);
                 }
                 else if (_pause)
                 {
+                    tfMessage = TextField.CreateTextField("");
                     _pauseScreen.Destroy();
                     _pause = false;
                     _pauseScreen = null;
