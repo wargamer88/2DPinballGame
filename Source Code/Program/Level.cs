@@ -192,6 +192,7 @@ namespace GXPEngine
             }
             if (_pause && Input.GetKey(Key.M))
             {
+                Input.GetKeyDown(Key.M);
                 _gameOver = true;
             }  
         }
@@ -656,8 +657,9 @@ namespace GXPEngine
 
                 if (_crystal.GraphicsSprite.alpha >= 1.0f)
                 {
-                    _crystal.AllowFadeIn = false;
                     _crystal.GraphicsSprite.alpha = 1.0f;
+
+                    _crystal.AllowFadeIn = false;
                 }
             }
         }
