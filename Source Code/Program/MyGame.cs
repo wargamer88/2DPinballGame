@@ -64,6 +64,15 @@ public class MyGame : Game
                 _gameOverMenu = new GameOverMenu(_lastScore);
                 AddChild(_gameOverMenu);
             }
+            if (_level.BackToMenu)
+            {
+                _level.Destroy();
+                _level = null;
+                SoundManager.StopMusic(true);
+
+                _menu = new MainMenu();
+                AddChild(_menu);
+            }
         } 
         #endregion
         #region GameOverMenu

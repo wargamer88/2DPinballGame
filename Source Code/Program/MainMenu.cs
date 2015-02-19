@@ -82,6 +82,7 @@ namespace GXPEngine
             {
                 if (Input.GetKeyDown(Key.UP))
                 {
+                    Input.GetKeyDown(Key.SPACE);
                     _arrows.SetXY(290, 300);
                     _arrows2.SetXY(920, 300);
                     _arrows2.Mirror(true, false);
@@ -93,6 +94,7 @@ namespace GXPEngine
 
                 if (Input.GetKeyDown(Key.DOWN))
                 {
+                    Input.GetKeyDown(Key.SPACE);
                     _arrows.SetXY(290, 500);
                     _arrows2.SetXY(920, 500);
                     _arrows2.Mirror(true, false);

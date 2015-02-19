@@ -33,6 +33,7 @@ namespace GXPEngine
         private int _lives = 4;
         private bool _gameOver = false;
         private bool _pause = false;
+        private bool _backToMenu = false;
         private Sprite _pauseScreen;
 
         private Orbs _orbs;
@@ -74,6 +75,7 @@ namespace GXPEngine
 
         public float Score { get { return _score; } }
         public bool GameOver { get { return _gameOver; } }
+        public bool BackToMenu { get { return _backToMenu; } }
 
         #endregion
 
@@ -201,8 +203,10 @@ namespace GXPEngine
             }
             if (_pause && Input.GetKey(Key.M))
             {
+                Input.GetKeyDown(Key.R);
                 Input.GetKeyDown(Key.M);
-                _gameOver = true;
+
+                _backToMenu = true;
             }  
         }
 
@@ -490,6 +494,7 @@ namespace GXPEngine
                     _lives = _lives - 1;
                     if (_lives <= 0)
                     {
+                        Input.GetKeyDown(Key.R);
                         _lives = 0;
                         _gameOver = true;
                     }
