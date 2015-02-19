@@ -647,15 +647,15 @@ namespace GXPEngine
                 Console.WriteLine("Fading Out: " + _crystal.GraphicsSprite.alpha);
                 if (_crystal.GraphicsSprite.alpha <= 0.0f)
                 {
+                    _crystal.RespawnCrystal();
                     _crystal.AllowFadeOut = false;
                     _crystal.AllowFadeIn = true;
-                    _crystal.RespawnCrystal();
                     Console.WriteLine("Faded Out!");
                 }
             }
-            if (_crystal.AllowFadeIn)
+            if (_crystal.AllowFadeIn && !_crystal.AllowFadeOut)
             {
-                _crystal.GraphicsSprite.alpha += 0.05f;
+                _crystal.GraphicsSprite.alpha += 0.10f;
                 Console.WriteLine("Fading In: " + _crystal.GraphicsSprite.alpha);
 
                 if (_crystal.GraphicsSprite.alpha >= 1.0f)
