@@ -20,23 +20,35 @@ sleep	=	amount of seconds
 <wave=1>
 	Orb=fire
 	position=bottom
-	message=this is a fire orb
+	message=The next orb is a fire orb
 sleep=10
 </wave>
 
 
 <wave=2>
 	Orb=water
-	position=top
-	Orb=earth
-	position=left
+	position=bottom
+	message=The next orb is a water orb
 sleep=10
 </wave>
 
 <wave=3>
-	Orb=fire
+	Orb=earth
 	position=right
-	Orb=water
-	position=top
+	message=The next orb is a earth orb
+sleep=10
+</wave>
+
+<wave=4>
+	Orb=wind
+	position=right
+	message=The next orb is a wind orb
+sleep=10
+</wave>
+
+<wave=5>
+	Orb=lightning
+	position=right
+	message=The next orb is a lightning orb
 sleep=10
 </wave>
