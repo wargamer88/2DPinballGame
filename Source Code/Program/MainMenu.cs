@@ -24,10 +24,10 @@ namespace GXPEngine
             Menu = new Sprite(@"Assets\Menu\Menu.png");
             AddChild(Menu);
 
-            _arrows = new Sprite(@"Assets\Menu\Menu Arrow.png");
+            _arrows = new Sprite(@"Assets\Menu\pointers.png");
             AddChild(_arrows);
             _arrows.visible = false;
-            _arrows2 = new Sprite(@"Assets\Menu\Menu Arrow.png");
+            _arrows2 = new Sprite(@"Assets\Menu\pointers.png");
             AddChild(_arrows2);
             _arrows2.visible = false;
         }
@@ -35,7 +35,6 @@ namespace GXPEngine
         void Update()
         {
             Arrows();
-            Select();
             if (_up)
             {
 
@@ -69,13 +68,13 @@ namespace GXPEngine
                 Menu.Destroy();
                 Menu = null;
                 Menu = new Sprite(@"Assets\Menu\Menu.png");
-                _arrows = new Sprite(@"Assets\Menu\Menu Arrow.png");
+                AddChild(Menu);
+                _arrows = new Sprite(@"Assets\Menu\pointers.png");
                 AddChild(_arrows);
                 _arrows.visible = false;
-                _arrows2 = new Sprite(@"Assets\Menu\Menu Arrow.png");
+                _arrows2 = new Sprite(@"Assets\Menu\pointers.png");
                 AddChild(_arrows2);
                 _arrows2.visible = false;
-                AddChild(Menu);
             }
         }
 
@@ -84,8 +83,8 @@ namespace GXPEngine
             if (Input.GetKeyDown(Key.UP))
             {
                 Console.WriteLine("UP Pressed");
-                _arrows.SetXY(300, 280);
-                _arrows2.SetXY(940, 280);
+                _arrows.SetXY(290, 300);
+                _arrows2.SetXY(920, 300);
                 _arrows2.Mirror(true, false);
                 _arrows.visible = true;
                 _arrows2.visible = true;
@@ -96,8 +95,8 @@ namespace GXPEngine
 
             if (Input.GetKeyDown(Key.DOWN))
             {
-                _arrows.SetXY(300, 480);
-                _arrows2.SetXY(940, 480);
+                _arrows.SetXY(290, 500);
+                _arrows2.SetXY(920, 500);
                 _arrows2.Mirror(true, false);
                 _arrows.visible = true;
                 _arrows2.visible = true;
@@ -107,29 +106,6 @@ namespace GXPEngine
 
             }
         }
-
-        void Select()
-        {
-            if (_move)
-            {
-                _arrows2.x -= 1.7f;
-                _arrows.x += 1.7f;
-
-                if (_arrows.x >= 300)
-                {
-
-                    _arrows.x = 230;
-
-                }
-                if (_arrows2.x <= 940)
-                {
-
-                    _arrows2.x = 1010;
-
-                }
-            }
-
-        } 
     }
 
 }
