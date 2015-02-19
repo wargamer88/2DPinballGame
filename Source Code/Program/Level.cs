@@ -30,7 +30,7 @@ namespace GXPEngine
         private int _deathTimer = 0;
         private int _secondTimer = 0;
         private TextField _txtLives;
-        private int _lives = 4;
+        private int _lives = 5;
         private bool _gameOver = false;
         private bool _pause = false;
         private bool _backToMenu = false;
