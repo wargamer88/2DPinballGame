@@ -509,6 +509,11 @@ namespace GXPEngine
             if (hitEdge == true)
             {
                 _destroyBall = true;
+                if (_effectsCollisionTimer <= 0)
+                {
+                    SoundManager.PlaySound(SoundEffect.DEATH);
+                    _effectsCollisionTimer = 66;
+                }
             }
             #endregion
 
