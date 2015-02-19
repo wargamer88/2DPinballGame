@@ -18,60 +18,52 @@ sleep	=	amount of seconds
 </wave>
 
 <wave=1>
-	Orb=fire
-	position=bottom
-	message=The next orb is a fire orb
+	message=Collect Crystals to add to your score. They also add to your lifespan.
 sleep=10
 </wave>
 
 
 <wave=2>
-	Orb=water
+	Orb=fire
 	position=bottom
-	message=The next orb is a water orb
+        Orb=fire
+	position=top
+	message=Beware of Fire’s frenzy! It will speed you up
 sleep=10
 </wave>
 
 <wave=3>
-	Orb=earth
-	position=right
-	message=The next orb is a earth orb
+	Orb=water
+	position=left
+	Orb=water
+	position=bottom
+	message=The tide of Water is going to slow you down
 sleep=10
 </wave>
 
 <wave=4>
-	Orb=wind
+	Orb=earth
 	position=right
-	message=The next orb is a wind orb
+	Orb=earth
+	position=left
+	message=The tenacity of Earth will bounce you back
 sleep=10
 </wave>
 
 <wave=5>
 	Orb=lightning
-	position=right
-	message=The next orb is a lightning orb
+	position=bottom
+	Orb=lightning
+	position=left
+	message=Lightning’s vanity is going to lock you in place
 sleep=10
 </wave>
-<wave=4>
-	Orb=Wind
-	position=left
+
+<wave=6>
 	Orb=wind
 	position=right
-	Orb=Wind
+	Orb=wind
 	position=bottom
-sleep=10
-</wave>
-<wave=5>
-	Orb=Water
-	position=right
-	Orb=Water
-	position:top
-sleep=10
-</wave>
-<wave=6>
-	Orb=Earth
-	position=top
-	Orb=Earth
-	position=bottom
+        message=Wind's ego will try to throw you around
 sleep=10
 </wave>

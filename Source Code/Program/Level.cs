@@ -138,6 +138,8 @@ namespace GXPEngine
             waveNR++;
             LevelReader _levelReader = new LevelReader();
             _wavesList = _levelReader.SplitWaves();
+
+            tfMessage = TextField.CreateTextField("");
         }
 
         public void Update()
@@ -604,7 +606,7 @@ namespace GXPEngine
             {
                 if (!_crystal.AllowFadeOut)
                 {
-                    SoundManager.PlaySound(SoundEffect.CRYSTAL);
+                    SoundManager.PlaySound(SoundEffect.CRYSTAL,1.4f);
                     float scoreWithMultiplier = 1 * _multiplier;
                     _deathTimer += 2;
                     _score += scoreWithMultiplier;
@@ -715,9 +717,11 @@ namespace GXPEngine
 
             #region new spawning
 
-            if (messageTimer == 0)
+            if (messageTimer == 1)
             {
-                tfMessage = TextField.CreateTextField("");
+                tfMessage.alpha = 0.0f;
+                tfMessage.Destroy();
+                RemoveChild(tfMessage);
             }
 
             if (spawnTimer <= 0 && waveNR <= _wavesList.Count)
@@ -817,6 +821,8 @@ namespace GXPEngine
                     if (message != "")
                     {
                         tfMessage = TextField.CreateTextField(message);
+                        tfMessage.alpha = 1.0f;
+                        
                         tfMessage.backgroundColor = Color.Wheat;
 
                         tfMessage.SetOrigin(tfMessage.width / 2, tfMessage.height / 2);
