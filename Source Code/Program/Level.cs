@@ -682,7 +682,7 @@ namespace GXPEngine
             if (_ball.velocity.y < -maxSpeed) _ball.velocity.y = -maxSpeed;
         }
 
-        void SpawnOrbs() //Debug
+        void SpawnOrbs()
         {
             #region old spawning
             //_timer++;
@@ -830,11 +830,17 @@ namespace GXPEngine
                         
                         tfMessage.backgroundColor = Color.Wheat;
 
+                        
+
+
                         tfMessage.SetOrigin(tfMessage.width / 2, tfMessage.height / 2);
                         tfMessage.SetXY((this._width / 2) + 15, (this._height / 2) + 125);
                         messageTimer = 5 * Utils.frameRate;
 
                         AddChild(tfMessage);
+
+
+
                     }
 
 
