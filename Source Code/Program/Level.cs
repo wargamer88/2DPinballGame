@@ -19,6 +19,7 @@ namespace GXPEngine
         private string message = "";
         private int messageTimer = 0;
         private TextField tfMessage;
+        private List<Sprite> _hintMessageSprites = new List<Sprite>();
 
         private TextField _txtScore;
         private float _score = 0;
@@ -186,7 +187,6 @@ namespace GXPEngine
             {
                 if (!_pause)
                 {
-                    Console.WriteLine(message);
                     _pause = true;
                     _pauseScreen = new Sprite(@"Assets\Menu\pause menu.png");
                     
@@ -210,7 +210,6 @@ namespace GXPEngine
         {
             #region Multiplier
             _multiplierTimer--;
-            //Console.WriteLine(_multiplier);
 
             if (_multiplier >= 1.0f)
             {
@@ -662,24 +661,20 @@ namespace GXPEngine
                 if (crystal.AllowFadeOut)
                 {
                     crystal.GraphicsSprite.alpha -= 0.05f;
-                    Console.WriteLine("Fading Out: " + crystal.GraphicsSprite.alpha);
                     if (crystal.GraphicsSprite.alpha <= 0.0f)
                     {
                         crystal.RespawnCrystal();
                         crystal.AllowFadeOut = false;
                         crystal.AllowFadeIn = true;
-                        Console.WriteLine("Faded Out!");
                     }
                 }
                 if (crystal.AllowFadeIn && !crystal.AllowFadeOut)
                 {
                     crystal.GraphicsSprite.alpha += 0.10f;
-                    Console.WriteLine("Fading In: " + crystal.GraphicsSprite.alpha);
 
                     if (crystal.GraphicsSprite.alpha >= 1.0f)
                     {
                         crystal.GraphicsSprite.alpha = 1.0f;
-                        Console.WriteLine("Faded in!");
                         crystal.AllowFadeIn = false;
                     }
                 } 
@@ -741,6 +736,12 @@ namespace GXPEngine
                 tfMessage.alpha = 0.0f;
                 tfMessage.Destroy();
                 RemoveChild(tfMessage);
+                foreach (Sprite s in _hintMessageSprites)
+                {
+                    s.Destroy();
+                }
+                _hintMessageSprites = new List<Sprite>();
+
             }
 
             if (spawnTimer <= 0 && waveNR <= _wavesList.Count)
@@ -839,16 +840,55 @@ namespace GXPEngine
 
                     if (message != "")
                     {
+                        float tranparency = 0.5f;
+
                         tfMessage = TextField.CreateTextField(message);
                         tfMessage.alpha = 1.0f;
                         
-                        tfMessage.backgroundColor = Color.Wheat;
-
-                        
-
+                        tfMessage.backgroundColor = Color.Transparent;
 
                         tfMessage.SetOrigin(tfMessage.width / 2, tfMessage.height / 2);
                         tfMessage.SetXY((this._width / 2) + 15, (this._height / 2) + 125);
+
+                        Sprite hintMessageLeft = new Sprite(@"Assets/Menu/Left.png");
+                        hintMessageLeft.SetOrigin(hintMessageLeft.width/2, hintMessageLeft.height/2);
+                        hintMessageLeft.x += tfMessage.x -(tfMessage.width/2) - 22;
+                        hintMessageLeft.y = tfMessage.y;
+                        hintMessageLeft.alpha = tranparency;
+
+                        Sprite hintMessageRight = new Sprite(@"Assets/Menu/Right.png");
+                        hintMessageRight.SetOrigin(hintMessageRight.width/2, hintMessageRight.height/2);
+                        hintMessageRight.x += tfMessage.x + (tfMessage.width / 2) + 24 + tfMessage.width % 2;
+                        hintMessageRight.y = tfMessage.y;
+                        hintMessageRight.alpha = tranparency;
+                        
+                        _hintMessageSprites.Add(hintMessageLeft);
+
+                        for (int i = 0; i < tfMessage.width; i++)
+                        {
+                            Sprite hintMessageMiddle = new Sprite(@"Assets/Menu/Middle.png");
+                            hintMessageMiddle.SetOrigin(hintMessageMiddle.width / 2, hintMessageMiddle.height / 2);
+                            hintMessageMiddle.x = i + hintMessageLeft.width;
+
+                            hintMessageMiddle.y = tfMessage.y;
+                            hintMessageMiddle.x += tfMessage.x;
+                            hintMessageMiddle.x -= (tfMessage.width / 2) + 45;
+                            hintMessageMiddle.alpha = tranparency;
+
+                            _hintMessageSprites.Add(hintMessageMiddle);
+                        }
+
+                        _hintMessageSprites.Add(hintMessageRight);
+
+                        
+
+                        foreach (Sprite s in _hintMessageSprites)
+                        {
+                            AddChild(s);
+                        }
+
+
+                        
                         messageTimer = 5 * Utils.frameRate;
 
                         AddChild(tfMessage);

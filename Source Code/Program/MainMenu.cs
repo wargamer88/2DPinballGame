@@ -82,7 +82,6 @@ namespace GXPEngine
             {
                 if (Input.GetKeyDown(Key.UP))
                 {
-                    Console.WriteLine("UP Pressed");
                     _arrows.SetXY(290, 300);
                     _arrows2.SetXY(920, 300);
                     _arrows2.Mirror(true, false);

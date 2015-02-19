@@ -56,7 +56,6 @@ namespace GXPEngine
 
             if (distance < (crystal.radius + ball.radius))
             {
-                Console.WriteLine(distance);
                 return true;
             }
             return false;
