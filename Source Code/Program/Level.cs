@@ -89,6 +89,12 @@ namespace GXPEngine
             _crystal = new Crystal(_height, _width, _outerCircle);
             AddChild(_crystal);
 
+            _crystalList.Add(_crystal);
+
+            _crystal = new Crystal(_height, _width, _outerCircle);
+            AddChild(_crystal);
+            _crystalList.Add(_crystal);
+
             _ball = new Ball(30, new Vec2(_width / 2, _height / 2), null, _gravity, Color.Green);
             AddChild(_ball);
 
@@ -160,7 +166,10 @@ namespace GXPEngine
                 _ball.Step();
                 _ball.UpdateAnimation();
                 _orbs.UpdateOrbAnimations();
-                _crystal.UpdateAnimation();
+                foreach (Crystal crystal in _crystalList)
+                {
+                    crystal.UpdateAnimation(); 
+                }
                 _outerCircle.GraphicsSprite.rotation += 0.05f;
                 _outerCircle.GraphicsSprite2.rotation -= 0.05f;
                 _outerCircle.GraphicsSprite3.rotation += 0.075f;
@@ -607,18 +616,21 @@ namespace GXPEngine
             #endregion
 
             #region CrystalCollision
-            if (_collisions.BallCollisionTestCrystalBool(_ball, _crystal))
+            foreach (Crystal crystal in _crystalList)
             {
-                if (!_crystal.AllowFadeOut)
+                if (_collisions.BallCollisionTestCrystalBool(_ball, crystal))
                 {
-                    SoundManager.PlaySound(SoundEffect.CRYSTAL,1.4f);
-                    float scoreWithMultiplier = 1 * _multiplier;
-                    _deathTimer += 2;
-                    _score += scoreWithMultiplier;
-                    _score = (float)(Math.Round((double)_score, 3));
-                    _txtScore.text = "" + _score;
-                    _crystal.AllowFadeOut = true;
-                }
+                    if (!crystal.AllowFadeOut)
+                    {
+                        SoundManager.PlaySound(SoundEffect.CRYSTAL, 1.4f);
+                        float scoreWithMultiplier = 1 * _multiplier;
+                        _deathTimer += 2;
+                        _score += scoreWithMultiplier;
+                        _score = (float)(Math.Round((double)_score, 3));
+                        _txtScore.text = "" + _score;
+                        crystal.AllowFadeOut = true;
+                    }
+                } 
             }
             #endregion
         }
@@ -646,29 +658,32 @@ namespace GXPEngine
                 } 
             }
 
-            if (_crystal.AllowFadeOut)
+            foreach (Crystal crystal in _crystalList)
             {
-                _crystal.GraphicsSprite.alpha -= 0.05f;
-                Console.WriteLine("Fading Out: " + _crystal.GraphicsSprite.alpha);
-                if (_crystal.GraphicsSprite.alpha <= 0.0f)
+                if (crystal.AllowFadeOut)
                 {
-                    _crystal.RespawnCrystal();
-                    _crystal.AllowFadeOut = false;
-                    _crystal.AllowFadeIn = true;
-                    Console.WriteLine("Faded Out!");
+                    crystal.GraphicsSprite.alpha -= 0.05f;
+                    Console.WriteLine("Fading Out: " + crystal.GraphicsSprite.alpha);
+                    if (crystal.GraphicsSprite.alpha <= 0.0f)
+                    {
+                        crystal.RespawnCrystal();
+                        crystal.AllowFadeOut = false;
+                        crystal.AllowFadeIn = true;
+                        Console.WriteLine("Faded Out!");
+                    }
                 }
-            }
-            if (_crystal.AllowFadeIn && !_crystal.AllowFadeOut)
-            {
-                _crystal.GraphicsSprite.alpha += 0.10f;
-                Console.WriteLine("Fading In: " + _crystal.GraphicsSprite.alpha);
+                if (crystal.AllowFadeIn && !crystal.AllowFadeOut)
+                {
+                    crystal.GraphicsSprite.alpha += 0.10f;
+                    Console.WriteLine("Fading In: " + crystal.GraphicsSprite.alpha);
 
-                if (_crystal.GraphicsSprite.alpha >= 1.0f)
-                {
-                    _crystal.GraphicsSprite.alpha = 1.0f;
-                    Console.WriteLine("Faded in!");
-                    _crystal.AllowFadeIn = false;
-                }
+                    if (crystal.GraphicsSprite.alpha >= 1.0f)
+                    {
+                        crystal.GraphicsSprite.alpha = 1.0f;
+                        Console.WriteLine("Faded in!");
+                        crystal.AllowFadeIn = false;
+                    }
+                } 
             }
         }
 
