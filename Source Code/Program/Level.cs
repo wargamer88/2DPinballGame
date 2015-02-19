@@ -855,7 +855,6 @@ namespace GXPEngine
                         hintMessageLeft.SetOrigin(hintMessageLeft.width/2, hintMessageLeft.height/2);
                         hintMessageLeft.x += tfMessage.x -(tfMessage.width/2) - 22;
                         hintMessageLeft.y = tfMessage.y;
-                       // hintMessageLeft.Mirror(false, true);
                         hintMessageLeft.alpha = tranparency;
 
                         Sprite hintMessageRight = new Sprite(@"Assets/Menu/Right.png");
