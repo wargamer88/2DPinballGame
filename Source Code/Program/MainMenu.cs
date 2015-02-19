@@ -10,7 +10,6 @@ namespace GXPEngine
         private bool _startLevel = false;
         private Sprite _arrows;
         private Sprite _arrows2;
-        private bool _move = false;
 		private bool _up = false;
         private bool _down = false;
 
@@ -54,7 +53,6 @@ namespace GXPEngine
                     _arrows = null;
                     _arrows2.Destroy();
                     _arrows2 = null;
-                    _move = false;
                     _up = false;
                     _down = false;
                     Menu.Destroy();
@@ -92,7 +90,6 @@ namespace GXPEngine
                     _arrows2.visible = true;
                     _up = true;
                     _down = false;
-                    _move = true;
                 }
 
                 if (Input.GetKeyDown(Key.DOWN))
@@ -104,7 +101,6 @@ namespace GXPEngine
                     _arrows2.visible = true;
                     _up = false;
                     _down = true;
-                    _move = true;
 
                 } 
             }

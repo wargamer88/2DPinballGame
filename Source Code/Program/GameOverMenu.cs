@@ -15,8 +15,6 @@ namespace GXPEngine
 
         private Sprite _menu;
         private float _score = 0;
-        private int _width = 1366;
-        private int _height = 768;
 
         public GameOverMenu(float Score)
         {
