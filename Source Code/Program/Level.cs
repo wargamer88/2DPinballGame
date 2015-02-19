@@ -16,6 +16,7 @@ namespace GXPEngine
         private int waveNR = 0;
         private List<string[]> _wavesList;
         private int spawnTimer = 0;
+        private string message;
 
         private TextField _txtScore;
         private float _score = 0;
@@ -777,6 +778,12 @@ namespace GXPEngine
                             }
 
                             _orbs.CreateOrb(color, position, 40);
+                            continue;
+                        }
+
+                        if (wavepart.StartsWith("message="))
+                        {
+                            message = wavepart.Substring(8);
                             continue;
                         }
 
