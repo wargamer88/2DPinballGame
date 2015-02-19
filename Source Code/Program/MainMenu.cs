@@ -80,30 +80,33 @@ namespace GXPEngine
 
         void Arrows()
         {
-            if (Input.GetKeyDown(Key.UP))
+            if (_arrows2 !=null && _arrows != null)
             {
-                Console.WriteLine("UP Pressed");
-                _arrows.SetXY(290, 300);
-                _arrows2.SetXY(920, 300);
-                _arrows2.Mirror(true, false);
-                _arrows.visible = true;
-                _arrows2.visible = true;
-                _up = true;
-                _down = false;
-                _move = true;
-            }
+                if (Input.GetKeyDown(Key.UP))
+                {
+                    Console.WriteLine("UP Pressed");
+                    _arrows.SetXY(290, 300);
+                    _arrows2.SetXY(920, 300);
+                    _arrows2.Mirror(true, false);
+                    _arrows.visible = true;
+                    _arrows2.visible = true;
+                    _up = true;
+                    _down = false;
+                    _move = true;
+                }
 
-            if (Input.GetKeyDown(Key.DOWN))
-            {
-                _arrows.SetXY(290, 500);
-                _arrows2.SetXY(920, 500);
-                _arrows2.Mirror(true, false);
-                _arrows.visible = true;
-                _arrows2.visible = true;
-                _up = false;
-                _down = true;
-                _move = true;
+                if (Input.GetKeyDown(Key.DOWN))
+                {
+                    _arrows.SetXY(290, 500);
+                    _arrows2.SetXY(920, 500);
+                    _arrows2.Mirror(true, false);
+                    _arrows.visible = true;
+                    _arrows2.visible = true;
+                    _up = false;
+                    _down = true;
+                    _move = true;
 
+                } 
             }
         }
     }
